@@ -44,6 +44,11 @@
                     <td id="time-clean">нет данных</td>
                     <td class="status-clean">ожидает начала</td>
                 </tr>
+                <tr>
+                    <td>Запись логов импорта</td>
+                    <td id="time-logs">нет данных</td>
+                    <td class="status-logs">ожидает начала</td>
+                </tr>
                 </tbody>
             </table>
         </div>

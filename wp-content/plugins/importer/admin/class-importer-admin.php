@@ -58,6 +58,7 @@ class Importer_Admin {
         add_action( 'wp_ajax_importer_migrate', array($this, "importer_ajax_migrate"));
         add_action( 'wp_ajax_importer_categories', array($this, "importer_ajax_categories"));
         add_action( 'wp_ajax_importer_clean', array($this, "importer_ajax_clean"));
+        add_action( 'wp_ajax_importer_logs', array($this, "importer_ajax_logs"));
 
 	}
 
@@ -285,6 +286,19 @@ class Importer_Admin {
     {
         $importer = new IM_FilesImport();
         $importer->cleanDataFolders();
+
+        $result = array(
+            'status' => 2
+        );
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_logs()
+    {
+        $counter = $_REQUEST['counter'];
+        $log = new LogImporter();
+        $log->write('Произведен ручной импорт. Обновлено и добавлено ' . $counter .' товаров');
 
         $result = array(
             'status' => 2

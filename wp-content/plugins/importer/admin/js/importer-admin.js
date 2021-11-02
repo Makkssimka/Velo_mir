@@ -162,6 +162,30 @@ $(document).ready(function () {
 				$('#time-clean').text(timer.getTimeResult());
 				$('.status-clean').text(getStatus(status));
 
+				logsWrite();
+			}
+		});
+	}
+
+	// Функция записи логов
+	function logsWrite() {
+		const timer = new Timer();
+		$('.status-logs').text(getStatus(1));
+		setStatusMessage('запись логов...');
+
+		let sendData = {
+			action: 'importer_logs',
+			counter: stepCount
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+
+			if (status === 2) {
+				$('#time-logs').text(timer.getTimeResult());
+				$('.status-logs').text(getStatus(status));
+
 				stepCount = 0;
 
 				startProductBtn.removeClass('disabled');
