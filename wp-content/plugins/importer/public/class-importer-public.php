@@ -109,13 +109,14 @@ class Importer_Public {
         if ($url != "/importer/loader") return;
 
         $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
-        //IM_FilesImport::cleanDir($archive_dir);
 
         $log = new LogImporter();
 
         $mode = $_REQUEST['mode'];
 
         if ($mode == 'checkauth') {
+            IM_FilesImport::cleanDir($archive_dir);
+
             $val = md5(time());
             setcookie('hash', $val);
             echo "success\n";
