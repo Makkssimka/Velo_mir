@@ -66,6 +66,8 @@ $(document).ready(function () {
 	});
 
 	// Функции импорта продуктов
+
+	// Функция разархивирования
 	function unzip() {
 		const timer = new Timer();
 		$('.status-unzip').text(getStatus(1));
@@ -83,12 +85,13 @@ $(document).ready(function () {
 				$('#time-unzip').text(timer.getTimeResult());
 				$('.status-unzip').text(getStatus(status));
 
-				productCount();
+				productData();
 			}
 		});
 	}
-	
-	function productCount() {
+
+	// Получение данных продукта
+	function productData() {
 		const timer = new Timer();
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
@@ -114,7 +117,7 @@ $(document).ready(function () {
 		});
 	}
 
-
+	// Импорт полученных товаров
 	function productImport() {
 		$('.status-migrate').text(getStatus(1));
 		setStatusMessage(`импортировано ${stepCount} из ${countProduct}`);
@@ -135,6 +138,29 @@ $(document).ready(function () {
 			} else {
 				$('#time-migrate').text(importTimer.getTimeResult());
 				$('.status-migrate').text(getStatus(status));
+
+				cleanDataFolders();
+			}
+		});
+	}
+
+	// Функция очистки папок после импорта
+	function cleanDataFolders() {
+		const timer = new Timer();
+		$('.status-clean').text(getStatus(1));
+		setStatusMessage('идет удаление...');
+
+		let sendData = {
+			action: 'importer_clean'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+
+			if (status === 2) {
+				$('#time-clean').text(timer.getTimeResult());
+				$('.status-clean').text(getStatus(status));
 
 				stepCount = 0;
 

@@ -132,6 +132,16 @@ class IM_FilesImport
 
     }
 
+    public function cleanDataFolders()
+    {
+        // Очищаем все папки
+        $this->cleanDir($this->images_path);
+        $this->cleanDir($this->xmls_path);
+    }
+
+
+    // Не ajax запросы
+
     public function run()
     {
         $archives_list = IM_FilesManager::getFilesToFolder($this->archives_path);
@@ -252,8 +262,8 @@ class IM_FilesImport
         }
 
         // Очищаем все папки
-        $this->clearDir($this->images_path);
-        $this->clearDir($this->xmls_path);
+        $this->cleanDir($this->images_path);
+        $this->cleanDir($this->xmls_path);
 
     }
 
@@ -304,7 +314,7 @@ class IM_FilesImport
         register_taxonomy('pa_'.IM_Helper::translit($attribute), 'product');
     }
 
-    private function clearDir($dir)
+    private function cleanDir($dir)
     {
         $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
         $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);

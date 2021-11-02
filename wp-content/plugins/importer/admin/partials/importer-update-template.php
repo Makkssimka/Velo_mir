@@ -39,6 +39,11 @@
                     <td id="time-migrate">нет данных</td>
                     <td class="status-migrate">ожидает начала</td>
                 </tr>
+                <tr>
+                    <td>Удаление временных файлов</td>
+                    <td id="time-clean">нет данных</td>
+                    <td class="status-clean">ожидает начала</td>
+                </tr>
                 </tbody>
             </table>
         </div>
