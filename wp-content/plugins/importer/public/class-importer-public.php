@@ -109,7 +109,7 @@ class Importer_Public {
         if ($url != "/importer/loader") return;
 
         $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
-        IM_FilesImport::cleanDir($archive_dir);
+        //IM_FilesImport::cleanDir($archive_dir);
 
         $log = new LogImporter();
 
@@ -128,7 +128,7 @@ class Importer_Public {
             $filename = $_GET['filename'];
             $data = file_get_contents("php://input");
             file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
-            $log->write("Загружен файл $archive_dir.$filename");
+            $log->write("Загружен файл ".$archive_dir.$filename);
             echo "success";
         } elseif ($mode == 'import') {
             echo "success";
