@@ -1,0 +1,4 @@
+Sitemap: http://velo.ro:8888/sitemap.xml
+User-agent: *
+
+

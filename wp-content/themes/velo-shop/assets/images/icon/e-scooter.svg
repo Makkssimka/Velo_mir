@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-2046,0)">
+        <g id="scooter" transform="matrix(1,0,0,1,2046,0)">
+            <rect x="0" y="0" width="512" height="512" style="fill:none;"/>
+            <g transform="matrix(1.26667,0,0,1.26667,-1845.33,-125.067)">
+                <circle cx="1760" cy="364" r="30" style="fill:none;stroke:rgb(33,37,41);stroke-width:15.79px;"/>
+            </g>
+            <g transform="matrix(1.26667,0,0,1.26667,-2099.33,-125.067)">
+                <circle cx="1760" cy="364" r="30" style="fill:none;stroke:rgb(33,37,41);stroke-width:15.79px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,-1365,-15)">
+                <path d="M1741,287L1723,147" style="fill:none;stroke:rgb(33,37,41);stroke-width:20px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,-1365,-8)">
+                <path d="M1735,244L1675,344L1559,344C1559.26,300.503 1530.35,275.233 1493,278" style="fill:none;stroke:rgb(33,37,41);stroke-width:20px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,-1367,-22)">
+                <path d="M1725,154L1687,154" style="fill:none;stroke:rgb(33,37,41);stroke-width:20px;"/>
+            </g>
+            <g transform="matrix(1,0,0,1,-2036,8)">
+                <path d="M2294,160L2268,208L2310,208L2286,256" style="fill:none;stroke:rgb(33,37,41);stroke-width:20px;"/>
+            </g>
+        </g>
+    </g>
+</svg>

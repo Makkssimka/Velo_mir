@@ -1,0 +1,15 @@
+.inactive-name{
+    font-weight: normal;
+}
+
+.status-not{
+    color: #e76f51;
+}
+
+.status-ok{
+    color: #2a9d8f;
+}
+
+.row-actions .id{
+    color: #999;
+}
