@@ -111,6 +111,8 @@ class Importer_Public {
         $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
         IM_FilesImport::cleanDir($archive_dir);
 
+        $log = new LogImporter();
+
         $mode = $_REQUEST['mode'];
 
         if ($mode == 'checkauth') {
@@ -126,6 +128,7 @@ class Importer_Public {
             $filename = $_GET['filename'];
             $data = file_get_contents("php://input");
             file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
+            $log->write("Загружен файл $filename");
             echo "success";
         } elseif ($mode == 'import') {
             echo "success";
