@@ -108,7 +108,7 @@ class Importer_Public {
 
         if ($url != "/importer/loader") return;
 
-        $archive_dir = IMPORTER_PLUGIN_PATH."/upload/archives/";
+        $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
         IM_FilesImport::cleanDir($archive_dir);
 
         $mode = $_REQUEST['mode'];
