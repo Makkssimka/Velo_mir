@@ -108,27 +108,24 @@ class Importer_Public {
 
         if ($url != "/importer/loader") return;
 
+        $archive_dir = IMPORTER_PLUGIN_PATH."/upload/archives/";
+        IM_FilesImport::cleanDir($archive_dir);
+
         $mode = $_REQUEST['mode'];
-        $logs = new LogImporter();
 
         if ($mode == 'checkauth') {
-            $logs->write("Начало импорта данных");
             $val = md5(time());
             setcookie('hash', $val);
             echo "success\n";
             echo "hash\n";
             echo "$val\n";
         } elseif ($mode == 'init') {
-            $logs->write("Передача параметров");
             echo "zip=yes\n";
             echo "file_limit=52428800\n";
         } elseif ($mode == 'file') {
-            $logs->write("Полечение файла");
             $filename = $_GET['filename'];
-            $logs->write("Загружен файл $filename");
-
             $data = file_get_contents("php://input");
-            file_put_contents(IMPORTER_PLUGIN_PATH."/upload/".$filename ,$data);
+            file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
             echo "success";
         } elseif ($mode == 'import') {
             echo "success";
