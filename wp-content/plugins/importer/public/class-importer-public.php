@@ -129,9 +129,9 @@ class Importer_Public {
             $filename = $_GET['filename'];
             $data = file_get_contents("php://input");
             file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
-            $log->write("Загружен файл ".$archive_dir.$filename);
             echo "success";
         } elseif ($mode == 'import') {
+            $log->write('Выгрузка архивов с сервера');
             echo "success";
         }
 
