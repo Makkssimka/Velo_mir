@@ -324,6 +324,14 @@ class IM_FilesImport
         return true;
     }
 
+    public static function countFileToDir($dir)
+    {
+        $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
+        $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
+
+        return count($ri);
+    }
+
     public static function getProductSite()
     {
         $products_array = array();

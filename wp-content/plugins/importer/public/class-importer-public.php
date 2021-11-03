@@ -113,13 +113,12 @@ class Importer_Public {
         $log = new LogImporter();
 
         $mode = $_REQUEST['mode'];
-        $hash = isset($_REQUEST['sessid']);
 
         $log->write('Выгрузка архивов с сервера '.json_encode($_REQUEST));
 
         if ($mode == 'checkauth') {
 
-            if (!$hash) {
+            if (IM_FilesImport::countFileToDir($archive_dir) == 2) {
                 IM_FilesImport::cleanDir($archive_dir);
             }
 
