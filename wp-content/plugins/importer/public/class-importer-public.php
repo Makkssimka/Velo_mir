@@ -124,9 +124,9 @@ class Importer_Public {
             }
 
             $val = md5(time());
-            setcookie('sessid', $val);
+            setcookie('hash', $val);
             echo "success\n";
-            echo "sessid\n";
+            echo "hash\n";
             echo "$val\n";
 
         } elseif ($mode == 'init') {
