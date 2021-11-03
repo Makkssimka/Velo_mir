@@ -115,6 +115,8 @@ class Importer_Public {
         $mode = $_REQUEST['mode'];
         $hash = $_REQUEST['hash'] ?? false;
 
+        $log->write('Выгрузка архивов с сервера '.json_encode($_REQUEST));
+
         if ($mode == 'checkauth') {
 
             if (!$hash) {
