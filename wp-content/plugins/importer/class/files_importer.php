@@ -326,10 +326,7 @@ class IM_FilesImport
 
     public static function countFileToDir($dir)
     {
-        $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-        $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
-
-        return count($ri);
+        return count(glob($dir . "*.zip"));
     }
 
     public static function getProductSite()
