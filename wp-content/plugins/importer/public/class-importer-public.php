@@ -113,7 +113,7 @@ class Importer_Public {
         $log = new LogImporter();
 
         $mode = $_REQUEST['mode'];
-        $hash = $_REQUEST['hash'] ?? false;
+        $hash = $_REQUEST['sessid'] ? true : false;
 
         $log->write('Выгрузка архивов с сервера '.json_encode($_REQUEST));
 
@@ -121,13 +121,12 @@ class Importer_Public {
 
             if (!$hash) {
                 IM_FilesImport::cleanDir($archive_dir);
-                $log->write('Выгрузка архивов с сервера');
             }
 
             $val = md5(time());
-            setcookie('hash', $val);
+            setcookie('sessid', $val);
             echo "success\n";
-            echo "hash\n";
+            echo "sessid\n";
             echo "$val\n";
 
         } elseif ($mode == 'init') {
