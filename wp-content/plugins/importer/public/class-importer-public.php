@@ -113,7 +113,7 @@ class Importer_Public {
         $log = new LogImporter();
 
         $mode = $_REQUEST['mode'];
-        $hash = $_REQUEST['sessid'] ? true : false;
+        $hash = isset($_REQUEST['sessid']);
 
         $log->write('Выгрузка архивов с сервера '.json_encode($_REQUEST));
 
