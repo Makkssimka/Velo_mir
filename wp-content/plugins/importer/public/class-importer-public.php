@@ -114,7 +114,7 @@ class Importer_Public {
 
         $mode = $_REQUEST['mode'];
 
-        $log->write('Выгрузка архивов с сервера '.json_encode($_REQUEST));
+        $log->write('Выгрузка архивов с сервера '.IM_FilesImport::countFileToDir($archive_dir));
 
         if ($mode == 'checkauth') {
 
