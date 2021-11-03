@@ -114,12 +114,11 @@ class Importer_Public {
 
         $mode = $_REQUEST['mode'];
 
-        $log->write('Выгрузка архивов с сервера '.IM_FilesImport::countFileToDir($archive_dir));
-
         if ($mode == 'checkauth') {
 
             if (IM_FilesImport::countFileToDir($archive_dir) == 2) {
                 IM_FilesImport::cleanDir($archive_dir);
+                $log->write('Выгрузка архивов с сервера');
             }
 
             $val = md5(time());
