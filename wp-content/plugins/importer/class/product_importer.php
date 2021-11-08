@@ -143,10 +143,10 @@ class IM_Product
 
         $product->set_attributes($attributes_array);
 
-//        if ($this->image_path) {
-//            $image_id = $this->createImageProduct($this->image_path);
-//            $product->set_image_id($image_id);
-//        }
+        if ($this->image_path) {
+            $image_id = $this->createImageProduct($this->image_path);
+            $product->set_image_id($image_id);
+        }
 
         $product->save();
     }

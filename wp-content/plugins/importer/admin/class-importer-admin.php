@@ -55,6 +55,7 @@ class Importer_Admin {
         add_action( 'wp_ajax_sku_generated', array($this, "sku_ajax_request"));
         add_action( 'wp_ajax_importer_unzip', array($this, "importer_ajax_unzip"));
         add_action( 'wp_ajax_importer_data', array($this, "importer_ajax_data"));
+        add_action( 'wp_ajax_importer_csv', array($this, "importer_ajax_csv"));
         add_action( 'wp_ajax_importer_migrate', array($this, "importer_ajax_migrate"));
         add_action( 'wp_ajax_importer_categories', array($this, "importer_ajax_categories"));
         add_action( 'wp_ajax_importer_clean', array($this, "importer_ajax_clean"));
@@ -192,7 +193,7 @@ class Importer_Admin {
 
         $sku_count = 0;
 
-        $skuGenerater = new SkuImporter();
+        $skuGenerater = new IM_Sku();
         foreach ($products as $product) {
             $sku_count++;
             $sku = $skuGenerater->getGeneratedSku();
@@ -278,6 +279,28 @@ class Importer_Admin {
             'test' => $testArray
         );
 
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_csv()
+    {
+        $products = $_REQUEST['products'];
+
+        $csv_generator = new IM_CSVImport();
+        $csv_generator->createHeader();
+
+        foreach ($products as $product) {
+            $csv_generator->addRowProduct($product);
+        }
+
+        $csv_generator->close();
+
+
+        $result = array(
+            'status' => 2,
+            'data' => count($products)
+        );
         echo json_encode($result);
         wp_die();
     }

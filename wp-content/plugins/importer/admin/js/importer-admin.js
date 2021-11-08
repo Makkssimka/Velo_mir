@@ -49,7 +49,7 @@ $(document).ready(function () {
 	let countProduct = 0;
 	let stepCount = 0;
 
-	// Обработка кнопок
+	// Обработка кнопки импорта
 	startProductBtn.click(function () {
 		stop = false;
 
@@ -58,7 +58,6 @@ $(document).ready(function () {
 		stopProductBtn.removeClass('disabled');
 
 		unzip();
-		//productCount();
 	});
 
 	stopProductBtn.click(function () {
