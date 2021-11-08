@@ -58,8 +58,6 @@ class IM_Product
         }
     }
 
-
-
     /**
      * @param mixed $image_path
      */
@@ -145,10 +143,10 @@ class IM_Product
 
         $product->set_attributes($attributes_array);
 
-        if ($this->image_path) {
-            $image_id = $this->createImageProduct($this->image_path);
-            $product->set_image_id($image_id);
-        }
+//        if ($this->image_path) {
+//            $image_id = $this->createImageProduct($this->image_path);
+//            $product->set_image_id($image_id);
+//        }
 
         $product->save();
     }
@@ -202,7 +200,7 @@ class IM_Product
         $start_path = IMPORTER_PLUGIN_PATH . 'upload/images/' . $this->image_path;
         $end_path = WP_CONTENT_DIR . '/uploads/images-product/' . $file_name;
 
-        copy($start_path, $end_path);
+        rename($start_path, $end_path);
         return $end_path;
     }
 
