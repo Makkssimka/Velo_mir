@@ -93,18 +93,21 @@ class IM_FilesImport
             $image = $item->Картинка ? (string) $item->Картинка : '';
 
             $properties_product = null;
+            $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
 
-            foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
-                $property_id = (string) $property->Ид;
-                $property_value_id = (string) $property->Значение;
-                $property_name = $prop_array[$property_id];
-                $property_value = $prop_value_array[$property_value_id];
+            if (count($properties)) {
+                foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
+                    $property_id = (string) $property->Ид;
+                    $property_value_id = (string) $property->Значение;
+                    $property_name = $prop_array[$property_id];
+                    $property_value = $prop_value_array[$property_value_id];
 
-                $properties_product[] = array(
-                    'name' => $property_name,
-                    'slug' => IM_Helper::translit($property_name),
-                    'value' => $property_value
-                );
+                    $properties_product[] = array(
+                        'name' => $property_name,
+                        'slug' => IM_Helper::translit($property_name),
+                        'value' => $property_value
+                    );
+                }
             }
 
             if ($brand) {

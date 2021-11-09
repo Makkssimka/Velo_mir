@@ -255,7 +255,11 @@ class Importer_Admin {
 
 
             $product = new IM_Product();
-            $product->createAndAddProperties($properties);
+
+            if ($properties) {
+                $product->createAndAddProperties($properties);
+            }
+
             $product->setId($id);
             $product->setName($name);
             $product->setPrice($price);
