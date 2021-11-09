@@ -95,7 +95,7 @@ class IM_FilesImport
             $properties_product = null;
             $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
 
-            if (count($properties)) {
+            if ($properties) {
                 foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
                     $property_id = (string) $property->Ид;
                     $property_value_id = (string) $property->Значение;
