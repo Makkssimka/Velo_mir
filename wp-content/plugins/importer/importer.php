@@ -78,7 +78,6 @@ include_once "class/log_importer.php";
 include_once "class/helper_importer.php";
 include_once "class/files_manager_importer.php";
 include_once "class/files_importer.php";
-include_once "class/csv_importer.php";
 include_once "class/product_importer.php";
 include_once "class/categories_importer.php";
 include_once "class/category_importer.php";
