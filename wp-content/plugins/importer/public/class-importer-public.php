@@ -110,33 +110,22 @@ class Importer_Public {
 
         $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
 
-        $log = new LogImporter();
-
         $mode = $_REQUEST['mode'];
 
         if ($mode == 'checkauth') {
-
-            if (IM_FilesImport::countFileToDir($archive_dir) == 2) {
-                IM_FilesImport::cleanDir($archive_dir);
-                $log->write('Выгрузка архивов с сервера');
-            }
-
             $val = md5(time());
             setcookie('hash', $val);
             echo "success\n";
             echo "hash\n";
             echo "$val\n";
-
         } elseif ($mode == 'init') {
             echo "zip=yes\n";
             echo "file_limit=52428800\n";
-
         } elseif ($mode == 'file') {
             $filename = $_GET['filename'];
             $data = file_get_contents("php://input");
             file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
             echo "success";
-
         } elseif ($mode == 'import') {
             echo "success";
         }
