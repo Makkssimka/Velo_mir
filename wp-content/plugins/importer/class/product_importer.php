@@ -116,6 +116,8 @@ class IM_Product
 
     public function save($id = null)
     {
+        set_time_limit(600);
+
         if ($id) {
             $product = wc_get_product($id);
         } else {

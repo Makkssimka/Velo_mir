@@ -134,3 +134,9 @@ function wp_maintenance_mode(){
 }
 
 add_action('get_header', 'wp_maintenance_mode');
+
+add_filter( 'pre_wp_unique_post_slug',
+    function( $override_slug, $slug, $post_id, $post_status, $post_type, $post_parent ) {
+        return IM_Helper::translit($slug);
+    }, 10, 6
+);
