@@ -114,12 +114,22 @@ class IM_Product
         $this->quantity = $quantity;
     }
 
-    public function save($id = null)
+    public function save()
     {
-        set_time_limit(600);
+        $product_query = new WP_Query([
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            'meta_query' => array (
+                array(
+                    'key' => '1c_id',
+                    'value' => $this->id,
+                    'compare' => '=',
+                ),
+            )
+        ]);
 
-        if ($id) {
-            $product = wc_get_product($id);
+        if (count($product_query->get_posts())) {
+            $product = wc_get_product($product_query->get_posts()[0]->ID);;
         } else {
             $product = new WC_Product();
             $product->set_sku(IM_Sku::getGeneratedItemSku());

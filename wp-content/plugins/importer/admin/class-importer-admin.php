@@ -238,11 +238,6 @@ class Importer_Admin {
         $products = $_REQUEST['products'];
         $counter = count($products);
 
-        // Создаем массив продуктов с сайта id_1c => id
-        $product_site_array = IM_FilesImport::getProductSite();
-
-        $testArray = [];
-
         foreach ($products as $item) {
             $id = $item['id'];
             $name = $item['name'];
@@ -268,19 +263,12 @@ class Importer_Admin {
             $product->setDescription($description);
             $product->setImagePath($image);
 
-            if (isset($product_site_array[$id])) {
-                $product->save($product_site_array[$id]);
-            } else {
-                $product->save();
-            }
-
-            $testArray[] = $properties;
+            $product->save();
         }
 
         $result = array(
             'status' => 2,
             'data' => $counter,
-            'test' => $testArray
         );
 
         echo json_encode($result);
