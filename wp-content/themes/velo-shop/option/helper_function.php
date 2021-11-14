@@ -98,22 +98,14 @@ function send_telegram($order_number){
 }
 
 function get_color_link($product_id){
-    $colors = wc_get_product_terms($product_id, "pa_color" );
+    $colors = wc_get_product_terms($product_id, "pa_cvet" );
 
     if (!$colors) return '';
 
-    if (count($colors) == 2) {
-        $color_name = mb_strtolower($colors[0]->name."-".$colors[1]->name);
-        return '<a class="title-show title-margin-30" data-title="'.$color_name.'" href="'.get_permalink($product_id).'">
-                   <span style="background-color:'.$colors[0]->description.';"></span>
-                   <span class="product-two-color" style="background-color:'.$colors[1]->description.';"></span>
-                </a>';
-    } else {
-        $color_name = mb_strtolower($colors[0]->name);
-        return '<a class="title-show title-margin-30" data-title="'.$color_name.'" href="'.get_permalink($product_id).'">
-                   <span style="background-color:'.$colors[0]->description.';"></span>
-                </a>';
-    }
+    $color_name = mb_strtolower($colors[0]->name);
+    return '<a class="title-show title-margin-30" data-title="'.$color_name.'" href="'.get_permalink($product_id).'">
+               <span style="background-color:'.getHexColor($color_name).';"></span>
+            </a>';
 }
 
 function get_image_link($product){
@@ -184,23 +176,44 @@ function getAttributesByProductCategory($category_slug)
 function getHexColor($color)
 {
     $colors_array = array(
+        'аметистовый' => '#9966cc',
+        'антрацитовый' => '#464451',
+        'баклажановый' => '#990066',
         'бежевый' => '#f5f5dc',
         'белый' => '#ffffff',
         'бирюзовый' => '#30d5c8',
         'голубой' => '#42aaff',
         'желтый' => '#ffff00',
         'зеленый' => '#008000',
+        'золотистый' => '#fafad2',
+        'золотой' => '#ffd700',
+        'изумрудный' => '#50c878',
+        'коралловый' => '#ff7f50',
+        'коричневый' => '#964b00',
         'красный' => '#ff0000',
+        'лазурный' => '#007fff',
         'лайм' => '#00ff00',
+        'лиловый' => '#db7093',
+        'лимонный' => '#fde910',
         'малиновый' => '#dc143c',
         'морская волна' => '#00ffff',
         'мятный' => '#3eb489',
+        'оливковый' => '#808000',
         'оранжевый' => '#ffa500',
+        'персиковый' => '#ffe5b4',
+        'пурпурный' => '#800080',
         'розовый' => '#ffc0cb',
-        'серибристый' => '#c0c0c0',
+        'салатовый' => '#99ff99',
+        'серебристый' => '#c0c0c0',
         'серый' => '#808080',
         'синий' => '#0000ff',
+        'сиреневый' => '#c8a2c8',
+        'сливовый' => '#660066',
+        'темно-оливковый' => '#556832',
+        'терракотовыйй' => '#904d30',
         'фиолетовый' => '#8b00ff',
+        'хакки' => '#806b2a',
+        'хром' => '#dbe2e9',
         'черный' => '#000000',
     );
 
