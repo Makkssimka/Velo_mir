@@ -21,7 +21,6 @@ foreach ($products_tag as $item) {
         $product_colors[] = $item;
     }
 }
-
 ?>
 
 <div class="product-color">

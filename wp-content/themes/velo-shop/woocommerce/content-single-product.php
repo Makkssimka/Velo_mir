@@ -49,6 +49,7 @@ $product_category = get_term($product->get_category_ids()[0], 'product_cat');
                     </div>
                 </div>
                 <?php require_once  "blocks/product_variation.php" ?>
+                <?php require_once  "blocks/product_attributes.php" ?>
                 <div class="product-button">
                     <?= add_cart_btn($product) ?>
                     <div>

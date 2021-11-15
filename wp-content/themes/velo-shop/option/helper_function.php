@@ -172,6 +172,17 @@ function getAttributesByProductCategory($category_slug)
     return $data;
 }
 
+function getAttributesListVisible()
+{
+    return array(
+        'pa_proizvoditel'                  => 'la-tags',
+        'pa_diametr-kolesaoboda'           => 'la-record-vinyl',
+        'pa_kolichestvo-skorostey'         => 'la-tachometer-alt',
+        'pa_razmer-ramy'                   => 'la-ruler-combined',
+        'pa_material-ramy'                 => 'la-fill',
+        'pa_tormoza'                       => 'la-tape',
+    );
+}
 
 function getHexColor($color)
 {
