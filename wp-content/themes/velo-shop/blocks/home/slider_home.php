@@ -11,7 +11,7 @@
                     <div class="home-slider-desc">
                         <h2>Большой выбор <span>самокатов</span></h2>
                         <p><span>более 60 моделей</span> для разных возрастов</p>
-                        <a href="#" class="btn btn-orange">выбрать</a>
+                        <a href="/product-category/samokaty" class="btn btn-orange">выбрать</a>
                     </div>
                 </div>
             </li>
