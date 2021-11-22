@@ -5,7 +5,7 @@
             <h2>Прогресс</h2>
             <p>Перед обновлением сделайте обмен с сайтом в 1С</p>
             <div class="progress-message display-none">
-                <div class="active"></div>
+                <div class="active-load"></div>
                 <p><strong>нет событий</strong></p>
             </div>
             <p>
