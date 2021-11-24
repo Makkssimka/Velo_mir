@@ -274,6 +274,10 @@ function getCategoriesList($parent_id = 0, $step = 0) {
         }
 
         foreach($get_categories_product as $categories_item) {
+
+            // Пропускаем каталог на удаление
+            if ($categories_item->term_id == 4403) continue;
+
             $link = esc_url(get_term_link($categories_item->term_id));
             $name = esc_html($categories_item->name);
 
@@ -322,6 +326,10 @@ function getCategoriesMobileList($parent_id = 0, $step = 0) {
         }
 
         foreach($get_categories_product as $categories_item) {
+
+            // Пропускаем каталог на удаление
+            if ($categories_item->term_id == 4403) continue;
+
             $link = esc_url(get_term_link($categories_item->term_id));
             $name = esc_html($categories_item->name);
 
