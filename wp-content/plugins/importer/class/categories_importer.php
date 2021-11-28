@@ -4,7 +4,8 @@
 class IM_CategoriesImport
 {
     private $import_path,
-            $categories = array();
+            $categories = array(),
+            $categoriesAjax = array();
 
     public function __construct()
     {
@@ -67,5 +68,39 @@ class IM_CategoriesImport
         return $this->categories;
     }
 
+    public function runAjax()
+    {
+        $import_data = simplexml_load_file($this->import_path);
+        $this->recursiveCreateAjax($import_data->Классификатор->Группы);
+    }
 
+    private function recursiveCreateAjax($categories, $parent_id = null)
+    {
+        foreach ($categories->Группа as $category_1c) {
+            $id = (string) $category_1c->Ид;
+            $name = (string) $category_1c->Наименование;
+
+            $category = [
+                'id' => $id,
+                'name' => $name,
+                'parent' => $parent_id
+            ];
+
+            $this->addAjax($category);
+
+            if ($category_1c->Группы) {
+                $this->recursiveCreateAjax($category_1c->Группы, $id);
+            }
+        }
+    }
+
+    private function addAjax($category)
+    {
+        $this->categoriesAjax[] = $category;
+    }
+
+    public function getCategoriesAjax()
+    {
+        return $this->categoriesAjax;
+    }
 }

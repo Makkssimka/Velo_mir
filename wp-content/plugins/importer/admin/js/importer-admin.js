@@ -44,10 +44,14 @@ $(document).ready(function () {
 	const progressMsg = $('.progress-message');
 	const step = 10;
 	let importTimer = 0;
+	let importCategoryTimer = 0;
 	let productArray = [];
+	let categoryArray = [];
 	let stop = false;
 	let countProduct = 0;
+	let countCategory = 0;
 	let stepCount = 0;
+	let stepCategoryCount = 0;
 
 	// Обработка кнопки импорта
 	startProductBtn.click(function () {
@@ -84,7 +88,61 @@ $(document).ready(function () {
 				$('#time-unzip').text(timer.getTimeResult());
 				$('.status-unzip').text(getStatus(status));
 
-				productData();
+				categoryData();
+			}
+		});
+	}
+
+	// Получение данных категории
+	function categoryData() {
+		const timer = new Timer();
+		$('.status-category-data').text(getStatus(1));
+		setStatusMessage('получение данных...');
+
+		let sendData = {
+			action: 'importer_category_data'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+			categoryArray = result.data;
+			countCategory = result.data.length;
+
+			if (status === 2) {
+				$('#time-category-data').text(timer.getTimeResult());
+				$('.status-category-data').text(getStatus(status));
+
+				importCategoryTimer = new Timer();
+				categoryImport();
+			}
+		});
+	}
+
+	// Импорт полученных категорий
+	function categoryImport()
+	{
+		$('.status-category').text(getStatus(1));
+		setStatusMessage(`импортировано ${stepCategoryCount} из ${countCategory}`);
+
+		let sendData = {
+			categories: categoryArray.splice(0, step),
+			action: 'importer_category_migrate'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+			const counter = Number(result.data);
+			stepCategoryCount += counter;
+
+			if (stepCategoryCount < countCategory && !stop) {
+				categoryImport();
+			} else {
+				$('#time-category').text(importCategoryTimer.getTimeResult());
+				$('.status-category').text(getStatus(status));
+
+				//productData();
 			}
 		});
 	}
@@ -112,7 +170,6 @@ $(document).ready(function () {
 				importTimer = new Timer();
 				productImport();
 			}
-
 		});
 	}
 

@@ -54,6 +54,8 @@ class Importer_Admin {
 
         add_action( 'wp_ajax_sku_generated', array($this, "sku_ajax_request"));
         add_action( 'wp_ajax_importer_unzip', array($this, "importer_ajax_unzip"));
+        add_action( 'wp_ajax_importer_category_data', array($this, "importer_ajax_category_data"));
+        add_action( 'wp_ajax_importer_category_migrate', array($this, "importer_ajax_category_migrate"));
         add_action( 'wp_ajax_importer_data', array($this, "importer_ajax_data"));
         add_action( 'wp_ajax_importer_csv', array($this, "importer_ajax_csv"));
         add_action( 'wp_ajax_importer_migrate', array($this, "importer_ajax_migrate"));
@@ -219,6 +221,47 @@ class Importer_Admin {
         $result = array(
             'status' => 2
         );
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_category_data()
+    {
+        $category = new IM_CategoriesImport();
+        $category->runAjax();
+
+        $result = array(
+            'status' => 2,
+            'data' => $category->getCategoriesAjax()
+        );
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_category_migrate()
+    {
+        $categories = $_REQUEST['categories'];
+        $counter = count($categories);
+
+        foreach ($categories as $item) {
+            $id = $item['id'];
+            $name = $item['name'];
+            $parent = $item['parent'];
+
+            $category = new IM_Category();
+
+            $category->setId($id);
+            $category->setName($name);
+            $category->setParent($parent);
+
+            $category->save();
+        }
+
+        $result = array(
+            'status' => 2,
+            'data' => $counter,
+        );
+
         echo json_encode($result);
         wp_die();
     }

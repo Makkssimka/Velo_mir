@@ -30,12 +30,22 @@
                     <td width="200px" class="status-unzip">ожидает начала</td>
                 </tr>
                 <tr>
-                    <td>Получение данных</td>
+                    <td>Получение данных категорий</td>
+                    <td id="time-category-data">нет данных</td>
+                    <td width="200px" class="status-category-data">ожидает начала</td>
+                </tr>
+                <tr>
+                    <td>Обновление категорий</td>
+                    <td id="time-category">нет данных</td>
+                    <td width="200px" class="status-category">ожидает начала</td>
+                </tr>
+                <tr>
+                    <td>Получение данных товаров</td>
                     <td id="time-data">нет данных</td>
                     <td class="status-data">ожидает начала</td>
                 </tr>
                 <tr>
-                    <td>Процесс миграции</td>
+                    <td>Процесс миграции продуктов</td>
                     <td id="time-migrate">нет данных</td>
                     <td class="status-migrate">ожидает начала</td>
                 </tr>
