@@ -1,14 +1,18 @@
 <?php
 
 require_once "../wp-config.php";
+require_once 'cron_write_log_function.php';
 
 $site_map_folder = __DIR__ . '/../wp-sitemap/';
 $products_map_folder = $site_map_folder. 'products/';
 
 $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 if ($mysqli->connect_error) {
+    write_log('Ошибка подключения к базе данных');
     die('Error : (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 }
+
+write_log('Выполнена генерация карты сайта');
 
 // Очищаем папки
 
