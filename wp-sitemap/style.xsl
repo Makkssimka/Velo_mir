@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:s="http://www.sitemaps.org/schemas/sitemap/0.9"
+                exclude-result-prefixes="s">
 
     <xsl:template match="/">
         <html>
@@ -77,7 +80,7 @@
                    </div>
                    <div id="sitemap__content">
                        <h3>XML-карта товаров</h3>
-                       <p class="text">Число URL в этой XML-карте: <xsl:value-of select="count(urlset/url)" />.</p>
+                       <p class="text">Число URL в этой XML-карте: <xsl:value-of select="count(s:urlset/s:url)" />.</p>
                        <table id="sitemap__table">
                            <thead>
                                <tr>
@@ -85,11 +88,11 @@
                                </tr>
                            </thead>
                            <tbody>
-                               <xsl:for-each select="urlset/url">
+                               <xsl:for-each select="s:urlset/s:url">
                                <tr>
                                    <td class="loc">
-                                       <a href="{loc}">
-                                           <xsl:value-of select="title"/>
+                                       <a href="{s:loc}">
+                                           <xsl:value-of select="s:title"/>
                                        </a>
                                    </td>
                                </tr>
