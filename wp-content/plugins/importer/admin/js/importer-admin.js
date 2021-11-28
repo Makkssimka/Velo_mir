@@ -323,14 +323,14 @@ $(document).ready(function () {
 			action: 'importer_categories'
 		};
 
-		if (dataStep) {
+		if (dataStep.length) {
 			$.post(ajaxurl, sendData, function () {
 				progressBarCat.attr('value', stepCat);
 				stepCatElem.text(stepCat);
 				sendStepCatalog();
 			});
 		} else {
-			location.reload();
+			document.location.reload();
 		}
 	}
 

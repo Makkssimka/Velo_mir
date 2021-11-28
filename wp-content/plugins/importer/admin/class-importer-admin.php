@@ -132,6 +132,9 @@ class Importer_Admin {
 
     public function import_categories() {
 
+        $importer = new IM_FilesImport();
+        $importer->unzip();
+
 	    $importer = new IM_CategoriesImport();
 	    $importer->run();
 
