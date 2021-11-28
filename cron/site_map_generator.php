@@ -75,6 +75,7 @@ function createFoldersXML ($parent_folder, $category) {
         $doc->appendChild($xslElement);
 
         $urlsetElement = $doc->createElement('urlset');
+        $urlsetElement->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
     }
 
     $doc->preserveWhiteSpace = false;
@@ -117,7 +118,7 @@ function createProductsXML ($folder, $category_id, $mysqli) {
     $doc->appendChild($xslElement);
 
     $urlsetElement = $doc->createElement('urlset');
-    //$urlsetElement->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+    $urlsetElement->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 
     while ( $product = $products->fetch_object()) {
         $urlElement = $doc->createElement('url');
