@@ -142,7 +142,7 @@ $(document).ready(function () {
 				$('#time-category').text(importCategoryTimer.getTimeResult());
 				$('.status-category').text(getStatus(status));
 
-				//productData();
+				productData();
 			}
 		});
 	}
