@@ -1,4 +1,4 @@
-Sitemap: http://velo.ro:8888/sitemap.xml
+Sitemap: https://velomir34.ru/wp-sitemap/products/sitemap.xml
 User-agent: *
 
 
