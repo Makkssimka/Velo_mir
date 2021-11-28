@@ -1,6 +1,6 @@
 <?php
 
-require_once "../wp-config.php";
+require_once 'settings/cron.php';
 require_once 'cron_write_log_function.php';
 
 $site_map_folder = __DIR__ . '/../wp-sitemap/';
@@ -64,7 +64,7 @@ function createChildrenFolder ($parent_id, $parent_folder, $mysqli) {
 /** Создаем xml списка категрий и подкатегорий **/
 
 function createFoldersXML ($parent_folder, $category) {
-    $xml_style = $_SERVER['HTTP_HOST'] . '/wp-sitemap/style.xsl';
+    $xml_style = SITE_URL . '/wp-sitemap/style.xsl';
     $parent_folder_xml = $parent_folder . 'sitemap.xml';
 
     if (file_exists($parent_folder_xml)) {
@@ -103,7 +103,7 @@ function createFoldersXML ($parent_folder, $category) {
 /** Запрос на выборку товаров по категории и создание файла **/
 
 function createProductsXML ($folder, $category_id, $mysqli) {
-    $xml_style = $_SERVER['HTTP_HOST'] . '/wp-sitemap/style.xsl';
+    $xml_style = SITE_URL . '/wp-sitemap/style.xsl';
     $products = $mysqli
         ->query("
         SELECT velo_posts.ID, velo_posts.post_title, velo_posts.guid, velo_posts.post_modified  FROM velo_posts

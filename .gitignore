@@ -40,4 +40,5 @@ wp-content/plugins/importer/upload/images/*
 wp-content/plugins/importer/upload/xmls/*
 
 cron/history_archives
-cron/logs
+cron/logs/cron_log.log
+cron/settings/cron.php
