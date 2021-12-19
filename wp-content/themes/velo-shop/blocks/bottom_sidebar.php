@@ -45,7 +45,7 @@ $inst_url = get_option('instagram');
                     </ul>
                 </div>
                 <div class="copy-bottom-sidebar">
-                    © 2004 - <?= date('Y') ?>, ВелоМир. <span>Все права защищены</span>
+                    © <?= date('Y') ?>, ВелоМир. <span>Все права защищены</span>
                 </div>
             </div>
         </div>
