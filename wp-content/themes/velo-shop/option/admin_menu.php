@@ -5,7 +5,6 @@ function add_theme_menu_item(){
      add_menu_page("Старница параметров", "Параметры", "manage_options", "contact-theme-params");
      add_submenu_page("contact-theme-params", "Контакты для сайта", "Контакты", "manage_options", "contact-theme-params", "contact_setting_page_template");
     add_submenu_page("contact-theme-params", "Социальные сети", "Соц. сети", "manage_options", "social-theme-params", "social_setting_page_template");
-    add_submenu_page("contact-theme-params", "Настройки статистики", "Статистика", "manage_options", "statistics-theme-params", "statistics_setting_page_template");
     add_submenu_page("contact-theme-params", "Настройки главной страницы", "Главная", "manage_options", "home-theme-params", "home_setting_page_template");
 
     add_settings_field(
@@ -51,9 +50,7 @@ function contact_setting_page_template(){ ?>
     <div class="wrap">
         <h1>Настройка контактов на сайте</h1>
         <form method="post" action="options.php">
-            <?php
-            settings_fields('contact_settings');
-            ?>
+            <?php settings_fields('contact_settings'); ?>
             <table class="form-table">
                 <tbody>
                     <tr>
@@ -142,9 +139,7 @@ function social_setting_page_template(){ ?>
         <h1>Социальные сети</h1>
         <h2 class="title">Настройка ссылок</h2>
         <form method="post" action="options.php">
-            <?php
-            settings_fields('social_settings');
-            ?>
+            <?php settings_fields('social_settings'); ?>
             <table class="form-table">
                 <tbody>
                     <tr scope="row">
@@ -172,20 +167,12 @@ function social_setting_page_template(){ ?>
     </div>
 <?php }
 
-function statistics_setting_page_template(){ ?>
-    <div class="wrap">
-        <h1>Настройки статистики</h1>
-    </div>
-<?php }
-
 function home_setting_page_template(){ ?>
     <?php $banner_ids = json_decode(get_option('banner_list')); ?>
     <div class="wrap">
         <h1>Настройки главной страницы</h1>
         <form method="post" action="options.php">
-            <?php
-            settings_fields('home_settings');
-            ?>
+            <?php settings_fields('home_settings'); ?>
             <table class="form-table">
                 <tr>
                     <th scope="row">

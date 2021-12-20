@@ -857,5 +857,15 @@ jQuery(document).ready(function ($) {
     popularBlock.hide();
     newBlock.hide();
     $(blockId).show();
+  }); // Кнопка поиска
+
+  var searchButton = $('.openSearch');
+  var searchBlock = $('.search-row');
+  searchButton.click(function (e) {
+    e.preventDefault();
+    $(this).children('i').toggleClass('la-search');
+    $(this).children('i').toggleClass('la-times');
+    searchBlock.toggleClass('search-show');
+    searchBlock.find('input').val('').focus();
   });
 });
