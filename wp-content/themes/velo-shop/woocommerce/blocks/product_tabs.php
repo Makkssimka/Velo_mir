@@ -20,12 +20,16 @@ foreach (explode(PHP_EOL, $description) as $item_description) {
             <li data-tab="1" class="active"><a href="#">
                     <i class="las la-list"></i> Характеристики
                 </a></li>
+            <?php if ($product->get_short_description()) : ?>
             <li data-tab="2"><a href="#">
                     <i class="las la-file-alt"></i> Описание
                 </a></li>
+            <?php endif ?>
+            <?php if ($product->get_meta('youtube_link', true)) : ?>
             <li data-tab="3"><a href="#">
                     <i class="las la-film"></i> Видеообзор
                 </a></li>
+            <?php endif ?>
         </ul>
     </div>
     <div class="product-tabs-body">
@@ -55,15 +59,11 @@ foreach (explode(PHP_EOL, $description) as $item_description) {
             <li data-tabcontent="2">
                 <?php if ($product->get_short_description()) : ?>
                     <?= $product->get_short_description(); ?>
-                <?php else : ?>
-                    <p class="product-tabs-empty">Описание пока не добавлено на сайт</p>
                 <?php endif ?>
             </li>
             <li data-tabcontent="3" class="product-tabs-video">
                 <?php if ($product->get_meta('youtube_link', true)) : ?>
-                <iframe src="<?= $product->get_meta('youtube_link', true); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <?php else : ?>
-                <p class="product-tabs-empty">Видео-обзор пока не добавлен на сайт</p>
+                    <iframe src="<?= $product->get_meta('youtube_link', true); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <?php endif ?>
             </li>
         </ul>
