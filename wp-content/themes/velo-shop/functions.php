@@ -140,3 +140,10 @@ add_filter( 'pre_wp_unique_post_slug',
         return IM_Helper::translit($slug);
     }, 10, 6
 );
+
+
+add_action( 'woocommerce_before_product_object_save', 'before_product_save', 10, 2 );
+function before_product_save( $that, $data_store ){
+    $sku = $that->get_sku();
+    $that->set_slug('ar-'.$sku);
+}
