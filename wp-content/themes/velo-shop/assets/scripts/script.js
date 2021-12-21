@@ -89,13 +89,23 @@ jQuery(document).ready(function ($) {
   } // Open desktop menu script
 
 
-  $('.menu-open-btn, .main-top-menu').hover(function () {
-    $('.main-top-menu').addClass('top-menu-visible');
-    $('.main-top-mobile-menu').addClass('main-top-mobile-menu-visible');
+  $('.menu-open-btn').click(function () {
+    $('.main_categories_list').toggleClass('top-menu-visible');
+    $('.main-top-mobile-menu').toggleClass('main-top-mobile-menu-visible');
   });
-  $('.menu-open-btn, .main-top-menu').mouseleave(function () {
-    $('.main-top-menu').removeClass('top-menu-visible');
-  }); // Open mobile menu script
+  $(document).click(function (e) {
+    var div = $('.main_categories_list');
+    var btn = $('.menu-open-btn');
+
+    if (!div.is(e.target) // если клик был не по нашему блоку
+    && !btn.is(e.target) && div.has(e.target).length === 0) {
+      // и не по его дочерним элементам
+      div.toggleClass('top-menu-visible'); // скрываем его
+    }
+  }); // $('.menu-open-btn, .main-top-menu').mouseleave(function () {
+  //     $('.main-top-menu').removeClass('top-menu-visible');
+  // });
+  // Open mobile menu script
 
   $('.mobile-menu-open-wrapper a').click(function (e) {});
   $('.main-top-mobile-menu a[href="#"]').click(function () {
