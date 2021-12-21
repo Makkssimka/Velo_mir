@@ -100,7 +100,7 @@ jQuery(document).ready(function ($) {
     if (!div.is(e.target) // если клик был не по нашему блоку
     && !btn.is(e.target) && div.has(e.target).length === 0) {
       // и не по его дочерним элементам
-      div.toggleClass('top-menu-visible'); // скрываем его
+      div.removeClass('top-menu-visible'); // скрываем его
     }
   }); // $('.menu-open-btn, .main-top-menu').mouseleave(function () {
   //     $('.main-top-menu').removeClass('top-menu-visible');
