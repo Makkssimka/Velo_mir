@@ -145,7 +145,10 @@ class IM_Product
 
         $product->set_stock_quantity($this->quantity);
         $product->set_category_ids([$this->category_id]);
-        $product->set_description($this->description);
+
+        $description = explode('@', $this->description);
+        $product->set_description($description[0] ?? '');
+        $product->set_short_description($description[1] ?? '');
 
         $attributes_array = array();
         foreach ($this->properties as $property) {
