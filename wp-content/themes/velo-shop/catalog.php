@@ -56,9 +56,9 @@ switch ($sort) {
 // Получаем значения фильтра из сессий  и фильтруем товары
 $filter_value = json_decode($_SESSION['filter'] ?? '');
 
-if ($filter_value) {
+if ($filter_value && $filter_value->category[0] == $category->slug) {
     foreach ($filter_value as $key => $value) {
-        if (in_array($key, array('price', 'have'))) continue;
+        if (in_array($key, array('price', 'have', 'category'))) continue;
         $query = array(
             'taxonomy' => $key,
             'field' => 'slug',

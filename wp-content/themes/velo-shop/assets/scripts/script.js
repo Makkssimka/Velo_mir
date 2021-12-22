@@ -102,10 +102,7 @@ jQuery(document).ready(function ($) {
       // и не по его дочерним элементам
       div.removeClass('top-menu-visible'); // скрываем его
     }
-  }); // $('.menu-open-btn, .main-top-menu').mouseleave(function () {
-  //     $('.main-top-menu').removeClass('top-menu-visible');
-  // });
-  // Open mobile menu script
+  }); // Open mobile menu script
 
   $('.mobile-menu-open-wrapper a').click(function (e) {});
   $('.main-top-mobile-menu a[href="#"]').click(function () {
@@ -426,6 +423,7 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     var list_checkbox = $('input[type="checkbox"]');
     var value_array = {};
+    var category = $(this).data('category');
     list_checkbox.each(function (index, item) {
       if ($(item).is(":checked")) {
         var key = $(item).attr('name');
@@ -446,6 +444,7 @@ jQuery(document).ready(function ($) {
     }
 
     link += '&price=' + price.join(',');
+    link += '&category=' + category;
     window.location.href = window.location.pathname + link;
   });
   $('#sort').on("change", function (e, result) {
