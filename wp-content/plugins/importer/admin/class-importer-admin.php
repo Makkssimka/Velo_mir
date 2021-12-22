@@ -62,6 +62,9 @@ class Importer_Admin {
         add_action( 'wp_ajax_importer_categories', array($this, "importer_ajax_categories"));
         add_action( 'wp_ajax_importer_clean', array($this, "importer_ajax_clean"));
         add_action( 'wp_ajax_importer_logs', array($this, "importer_ajax_logs"));
+        add_action( 'wp_ajax_importer_products_data', array($this, "importer_ajax_products_data"));
+        add_action( 'wp_ajax_importer_import_data', array($this, "importer_ajax_import_data"));
+        add_action( 'wp_ajax_importer_cleaner', array($this, "importer_ajax_cleaner"));
 
 	}
 
@@ -117,6 +120,7 @@ class Importer_Admin {
         //create submenu
         add_submenu_page("import-1c", "Ручное обновление", "Ручное обновление", "manage_options", "import-1c", array($this, "import_update"));
         add_submenu_page("import-1c", "Импорт категорий", "Импорт категорий", "manage_options", "import-categories", array($this, "import_categories"));
+        add_submenu_page("import-1c", "Очистка базы", "Очистка базы", "manage_options", "clean_base", array($this, "clean_base"));
         add_submenu_page("import-1c", "Логи импорта", "Логи импорта", "manage_options", "import-log", array($this, "import_log"));
         add_submenu_page("import-1c", "Генератор артикула", "Генератор артикула", "manage_options", "import_sku", array($this, "import_sku"));
     }
@@ -151,7 +155,17 @@ class Importer_Admin {
         echo $template;
     }
 
-    public function import_log() {
+    public function clean_base() {
+
+        ob_start();
+        include_once(IMPORTER_PLUGIN_PATH."admin/partials/importer-clean-base-template.php");
+        $template = ob_get_contents();
+        ob_end_clean();
+
+        echo $template;
+    }
+
+        public function import_log() {
 
         //run action
         if (isset($_GET['action'])) {
@@ -382,6 +396,50 @@ class Importer_Admin {
         }
 
         echo json_encode($data);
+        wp_die();
+    }
+
+    public function importer_ajax_products_data()
+    {
+        $cleaner = new IM_Clean();
+
+        $result = array(
+            'status' => 2,
+            'data' => $cleaner->getSiteProductsData()
+        );
+
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_import_data()
+    {
+        $cleaner = new IM_Clean();
+
+        $result = array(
+            'status' => 2,
+            'data' => $cleaner->getImportProductsData()
+        );
+
+        echo json_encode($result);
+        wp_die();
+    }
+
+    public function importer_ajax_cleaner()
+    {
+        $products = $_POST['products'];
+        $cleaner = new IM_Clean();
+
+        foreach ($products as $product) {
+            $cleaner->removeProduct($product);
+        }
+
+        $result = array(
+            'status' => 2,
+            'data' => count($products)
+        );
+
+        echo json_encode($result);
         wp_die();
     }
 

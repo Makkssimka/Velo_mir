@@ -120,8 +120,7 @@ $(document).ready(function () {
 	}
 
 	// Импорт полученных категорий
-	function categoryImport()
-	{
+	function categoryImport() {
 		$('.status-category').text(getStatus(1));
 		setStatusMessage(`импортировано ${stepCategoryCount} из ${countCategory}`);
 
@@ -272,6 +271,151 @@ $(document).ready(function () {
 		$('.progress-message strong').text(message);
 	}
 
+
+
+	// Очистка товаров
+	const startCleanBtn = $('#start-clean');
+	const stopCleanBtn = $('#stop-clean');
+	let cleanTimer = '';
+	let cleanStepCount = 0;
+	let cleanCountProduct = 0
+	let siteProductsData = [];
+	let importProductsData = [];
+	let cleanProductsData = [];
+
+	// Остальные переменные берутся из импорта см. выше
+
+	startCleanBtn.click(function () {
+		stop = false;
+
+		progressMsg.removeClass('display-none');
+		$(this).addClass('disabled');
+		stopCleanBtn.removeClass('disabled');
+
+		unzipClean();
+	});
+
+	stopCleanBtn.click(function () {
+		stop = true;
+	});
+
+	// Функции очистки
+
+	// Функция разархивирования
+	function unzipClean() {
+		const timer = new Timer();
+		$('.status-unzip').text(getStatus(1));
+		setStatusMessage('идет распаковка...');
+
+		let sendData = {
+			action: 'importer_unzip'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+
+			if (status === 2) {
+				$('#time-unzip').text(timer.getTimeResult());
+				$('.status-unzip').text(getStatus(status));
+
+				productsData();
+			}
+		});
+	}
+
+	// Получение массива товаров (ид товара => ид 1С) с сайта
+	function productsData() {
+		const timer = new Timer();
+		$('.status-products-data').text(getStatus(1));
+		setStatusMessage('Получение данных...');
+
+		let sendData = {
+			action: 'importer_products_data'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+			siteProductsData = result.data;
+
+			if (status === 2) {
+				$('#time-products-data').text(timer.getTimeResult());
+				$('.status-products-data').text('найдено товаров: ' + siteProductsData.length);
+				importData();
+			}
+		});
+	}
+
+	// Получение массива товаров (ид 1С) с импорта
+	function importData() {
+		const timer = new Timer();
+		$('.status-import-data').text(getStatus(1));
+		setStatusMessage('Получение данных...');
+
+		let sendData = {
+			action: 'importer_import_data'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+			importProductsData = result.data;
+
+			if (status === 2) {
+				$('#time-import-data').text(timer.getTimeResult());
+				$('.status-import-data').text('найдено товаров: ' + importProductsData.length);
+				removeData();
+			}
+		});
+	}
+
+	// Создаем массив с ид которые нужно удалить
+	function removeData() {
+		const timer = new Timer();
+		$('.status-remove-data').text(getStatus(1));
+		setStatusMessage('Получение данных...');
+
+		siteProductsData.forEach(value => {
+			if(!importProductsData.includes(value.meta_value)) {
+				cleanProductsData.push(value.ID);
+			}
+		})
+
+		$('#time-remove-data').text(timer.getTimeResult());
+		$('.status-remove-data').text('найдено товаров: ' + cleanProductsData.length);
+		cleanCountProduct = cleanProductsData.length;
+
+		cleanTimer = new Timer();
+		cleaner();
+	}
+
+	// Удаляем товары
+	function cleaner() {
+		$('.status-cleaner').text(getStatus(1));
+		setStatusMessage(`удалено ${cleanStepCount} из ${cleanCountProduct}`);
+
+		let sendData = {
+			products: cleanProductsData.splice(0, step),
+			action: 'importer_cleaner'
+		};
+
+		$.post(ajaxurl, sendData, function (response) {
+			const result = JSON.parse(response);
+			const status = Number(result.status);
+			const counter = Number(result.data);
+			cleanStepCount += counter;
+
+			if (cleanStepCount < cleanCountProduct && !stop) {
+				cleaner();
+			} else {
+				$('#time-cleaner').text(cleanTimer.getTimeResult());
+				$('.status-cleaner').text(getStatus(status));
+
+				cleanDataFolders();
+			}
+		});
+	}
 
 
 	// Импортирование категорий
