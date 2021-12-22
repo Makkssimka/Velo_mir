@@ -2,6 +2,7 @@
 
 require_once 'settings/cron.php';
 require_once 'cron_write_log_function.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/wp-load.php';
 
 $site_map_folder = __DIR__ . '/../wp-sitemap/';
 $products_map_folder = $site_map_folder. 'products/';
@@ -127,7 +128,7 @@ function createProductsXML ($folder, $category_id, $mysqli) {
     while ( $product = $products->fetch_object()) {
         $urlElement = $doc->createElement('url');
         $titleElement = $doc->createElement('title', str_replace('&', '/', $product->post_title));
-        $locElement = $doc->createElement('loc', $product->guid);
+        $locElement = $doc->createElement('loc', get_permalink($product->ID));
         $lastmodElement = $doc->createElement('lastmod', date('Y-m-d', strtotime($product->post_modified)));
 
         $urlElement->appendChild($titleElement);
