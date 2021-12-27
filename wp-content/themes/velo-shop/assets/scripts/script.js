@@ -93,18 +93,15 @@ jQuery(document).ready(function ($) {
     $('.main_categories_list').toggleClass('top-menu-visible');
     $('.main-top-mobile-menu').toggleClass('main-top-mobile-menu-visible');
   });
-  $(document).click(function (e) {
+  $(document).mouseout(function (e) {
     var div = $('.main_categories_list');
     var btn = $('.menu-open-btn');
 
-    if (!div.is(e.target) // если клик был не по нашему блоку
-    && !btn.is(e.target) && div.has(e.target).length === 0) {
-      // и не по его дочерним элементам
-      div.removeClass('top-menu-visible'); // скрываем его
+    if (!div.is(e.target) && !btn.is(e.target)) {
+      div.removeClass('top-menu-visible');
     }
   }); // Open mobile menu script
 
-  $('.mobile-menu-open-wrapper a').click(function (e) {});
   $('.main-top-mobile-menu a[href="#"]').click(function () {
     var submenu = $(this).next('ul');
 
