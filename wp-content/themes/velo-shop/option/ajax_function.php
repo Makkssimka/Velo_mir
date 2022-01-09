@@ -323,6 +323,51 @@ function send_order_callback(){
     wp_die();
 }
 
+// Поиск ajax
+add_action('wp_ajax_search_ajax', 'search_ajax_callback');
+add_action('wp_ajax_nopriv_search_ajax', 'search_ajax_callback');
+
+function search_ajax_callback() {
+    $search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_STRING);
+    $products_per_page = 6;
+
+    $args = array(
+        'limit' => $products_per_page,
+        'like_title' => $search,
+        'stock_status' => 'instock'
+    );
+
+    $products_obj = wc_get_products($args);
+
+    $search = preg_replace("/(?![.=$'€%-])\p{P}/u", "", $search);
+    $search = explode(' ', $search);
+    $search = array_diff($search, array(''));
+    $search = implode('|', $search);
+
+    $search_result = [];
+    foreach ($products_obj as $item) {
+        $title = preg_replace(
+            "/($search)/i",
+            "<strong>$0</strong>",
+            $item->get_title()
+        );
+
+        $search_result[] = [
+            'id' => $item->get_id(),
+            'title' => $title,
+            'price' => wc_price($item->get_price()),
+            'link' => get_permalink($item->get_id()),
+            'image' => get_image_link($item),
+        ];
+    }
+
+    echo json_encode(array(
+        'type' => 'success',
+        'search_result' => $search_result
+    ));
+    wp_die();
+}
+
 
 
 

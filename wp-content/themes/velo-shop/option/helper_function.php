@@ -350,6 +350,16 @@ function getCategoriesMobileList($parent_id = 0, $step = 0) {
         }
 
         if ($step == 1) {
+            $categories_list .= '<li>
+                <form action="/search" method="get">
+                    <div class="search-form">
+                        <input name="search" type="text" placeholder="поиск товара">
+                        <button type="submit" class="search-form-submit">
+                            <i class="las la-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </li>';
             $categories_list .= getMenuByPos('top_menu');
         }
         $categories_list .= '</ul>';

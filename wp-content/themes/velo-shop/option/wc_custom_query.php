@@ -21,12 +21,17 @@ function handle_custom_query_var( $query, $query_vars ) {
 }
 add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_custom_query_var', 10, 2 );
 
-function handle_custom_query_like( $query, $query_vars ) {
-    if ( isset( $query_vars['like_name'] ) && ! empty( $query_vars['like_name'] ) ) {
-        $query['s'] = esc_attr( $query_vars['like_name'] );
+function like_title_posts_where( $where, $wp_query )
+{
+    global $wpdb;
+    if ( $like_title = $wp_query->get( 'like_title' )) {
+        $like_title = preg_replace("/(?![.=$'€%-])\p{P}/u", "", $like_title);
+        $like_title = explode(' ', $like_title);
+
+        foreach ($like_title as $item) {
+            $where .= ' AND ' . $wpdb->posts . '.post_title LIKE \'%' . esc_sql( $wpdb->esc_like( $item ) ) . '%\'';
+        }
     }
-
-    return $query;
+    return $where;
 }
-
-add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_custom_query_like', 10, 2 );
+add_filter( 'posts_where', 'like_title_posts_where', 10, 2 );

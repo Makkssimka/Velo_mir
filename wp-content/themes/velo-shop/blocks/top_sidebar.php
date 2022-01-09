@@ -24,12 +24,10 @@ $compare_array = isset($_SESSION['compare'])?json_decode($_SESSION['compare']):a
                         <?php endforeach; ?>
                     </ul>
                 </div>
-                <div class="search-button">
-                    <a href="#" class="openSearch"><i class="las la-search"></i></a>
-                </div>
             </div>
         </div>
     </div>
+    <?php get_template_part('blocks/all/search') ?>
     <div class="menu-top-wrapper">
         <div class="container">
             <div class="menu-open-btn">
@@ -68,7 +66,6 @@ $compare_array = isset($_SESSION['compare'])?json_decode($_SESSION['compare']):a
             </div>
         </div>
     </div>
-    <?php get_template_part('blocks/all/search') ?>
     <div class="main-top-menu">
         <div class="container">
             <?= getCategoriesList() ?>

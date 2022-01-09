@@ -848,15 +848,74 @@ jQuery(document).ready(function ($) {
     popularBlock.hide();
     newBlock.hide();
     $(blockId).show();
-  }); // Кнопка поиска
+  }); // Ajax поиск
 
-  var searchButton = $('.openSearch');
-  var searchBlock = $('.search-row');
-  searchButton.click(function (e) {
-    e.preventDefault();
-    $(this).children('i').toggleClass('la-search');
-    $(this).children('i').toggleClass('la-times');
-    searchBlock.toggleClass('search-show');
-    searchBlock.find('input').val('').focus();
+  var searchInput = $('.search-input');
+  var searchEl = $('.search-result-ajax');
+  var searchUl = $('.search-result-ajax ul');
+  var searchAllLinks = $('.search-wrapper a, .search-all');
+  var searchTimer = null;
+  searchInput.on('input', function () {
+    var search = $(this).val();
+    searchAllLinks.attr('href', '/search?search=' + search);
+    searchUl.html('<li>Идет поиск...</li>');
+
+    if (search.length > 3) {
+      clearTimeout(searchTimer);
+      searchEl.show();
+      searchTimer = setTimeout(function () {
+        searchEvent(search);
+      }, 500);
+    } else {
+      searchUl.html('');
+      searchEl.hide();
+      clearTimeout(searchTimer);
+    }
   });
+
+  function searchEvent(search) {
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'search_ajax',
+        search: search
+      },
+      success: function success(response) {
+        var res = JSON.parse(response);
+        searchUl.html('');
+
+        if (res.search_result.length) {
+          renderSearchUl(res.search_result);
+        } else {
+          searchUl.html('<li>Ничего не найдено...</li>');
+        }
+      }
+    });
+  }
+
+  function renderSearchUl(items) {
+    items.forEach(function (item) {
+      var li = document.createElement('li');
+      var photoEl = document.createElement('div');
+      photoEl.classList.add('search-ajax-image');
+      var photoImg = document.createElement('img');
+      photoImg.src = item.image;
+      photoEl.appendChild(photoImg);
+      var titleEl = document.createElement('div');
+      titleEl.classList.add('search-ajax-link');
+      var titleLink = document.createElement('a');
+      titleLink.href = item.link;
+      titleLink.target = '_blank';
+      titleLink.innerHTML = item.title;
+      titleEl.appendChild(titleLink);
+      var priceEl = document.createElement('div');
+      priceEl.classList.add('search-ajax-price');
+      priceEl.innerHTML = item.price;
+      li.appendChild(photoEl);
+      li.appendChild(titleEl);
+      li.appendChild(priceEl);
+      searchUl.append(li);
+    });
+  }
 });
