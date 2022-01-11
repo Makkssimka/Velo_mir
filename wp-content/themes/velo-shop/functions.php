@@ -147,3 +147,17 @@ function before_product_save( $that, $data_store ){
     $sku = $that->get_sku();
     $that->set_slug('ar-'.$sku);
 }
+
+// Функция исключения из списка похожих товаров, товаров которых нет в наличие
+add_filter( 'woocommerce_related_products', 'mysite_filter_related_products', 10, 1 );
+function mysite_filter_related_products( $related_product_ids ) {
+
+    foreach( $related_product_ids as $key => $value ) {
+        $relatedProduct = wc_get_product( $value );
+        if( ! $relatedProduct->is_in_stock() ) {
+            unset( $related_product_ids["$key"] );
+        }
+    }
+
+    return $related_product_ids;
+}
