@@ -909,6 +909,9 @@ jQuery(document).ready(function ($) {
       titleLink.target = '_blank';
       titleLink.innerHTML = item.title;
       titleEl.appendChild(titleLink);
+      var skuElem = document.createElement('small');
+      skuElem.innerHTML = item.sku;
+      titleEl.appendChild(skuElem);
       var priceEl = document.createElement('div');
       priceEl.classList.add('search-ajax-price');
       priceEl.innerHTML = item.price;

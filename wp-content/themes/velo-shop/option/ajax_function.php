@@ -334,7 +334,6 @@ function search_ajax_callback() {
     $args = array(
         'limit' => $products_per_page,
         'like_title' => $search,
-        'stock_status' => 'instock'
     );
 
     $products_obj = wc_get_products($args);
@@ -352,9 +351,16 @@ function search_ajax_callback() {
             $item->get_title()
         );
 
+        $sku = preg_replace(
+            "/($search)/i",
+            "<strong>$0</strong>",
+            $item->get_sku()
+        );
+
         $search_result[] = [
             'id' => $item->get_id(),
             'title' => $title,
+            'sku' => $sku,
             'price' => wc_price($item->get_price()),
             'link' => get_permalink($item->get_id()),
             'image' => get_image_link($item),

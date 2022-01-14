@@ -11,7 +11,6 @@ $args = array(
     'limit' => $products_per_page,
     'offset' => ($offset_page - 1)*$products_per_page,
     'like_title' => $search_word,
-    'stock_status' => 'instock',
     'tax_query' => array(
         'relation' => 'AND'
     )
