@@ -51,3 +51,11 @@ function like_sku_posts_where($join) {
 }
 
 add_filter('posts_join', 'like_sku_posts_where');
+
+function my_posts_groupby($groupby) {
+    global $wpdb;
+    $groupby = "{$wpdb->posts}.ID";
+    return $groupby;
+}
+
+add_filter( 'posts_groupby', 'my_posts_groupby' );
