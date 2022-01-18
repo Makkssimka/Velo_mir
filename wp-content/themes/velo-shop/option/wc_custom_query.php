@@ -24,7 +24,7 @@ add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_cus
 function like_title_posts_where( $where, $wp_query )
 {
     global $wpdb;
-    if ( $like_title = $wp_query->get( 'like_title' )) {
+    if ($like_title = $wp_query->get( 'like_title' )) {
         $like_title = preg_replace("/(?![.=$'€%-])\p{P}/u", "", $like_title);
         $like_title = explode(' ', $like_title);
 

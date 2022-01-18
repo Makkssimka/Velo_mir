@@ -148,7 +148,7 @@ class IM_Product
 
         $description = explode('@', $this->description);
         $product->set_description($description[0] ?? '');
-        $product->set_short_description($description[1] ?? '');
+        $product->set_short_description(nl2br($description[1]) ?? '');
 
         $attributes_array = array();
         foreach ($this->properties as $property) {
