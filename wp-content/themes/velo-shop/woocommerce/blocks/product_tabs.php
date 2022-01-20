@@ -59,6 +59,7 @@ foreach (explode(PHP_EOL, $description) as $item_description) {
             <li data-tabcontent="2">
                 <?php if ($product->get_short_description()) : ?>
                     <?= $product->get_short_description(); ?>
+                    <small class="alert-desc"><span>Обращаем Ваше внимание</span>, что характеристики товаров на сайте носят информационный характер и не являются публичной офертой. Производитель вправе на свое усмотрение и без дополнительных уведомлений менять комплектацию, внешний вид и технические характеристики. Убедительно просим Вас при заказе товара проверять цену, наличие, желаемые функции и характеристики, выбранного вами, товара.</small>
                 <?php endif ?>
             </li>
             <li data-tabcontent="3" class="product-tabs-video">
