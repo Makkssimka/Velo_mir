@@ -84,6 +84,9 @@ $product_category = get_term($product->get_category_ids()[0], 'product_cat');
                 <?php expert_widget() ?>
             </div>
         </div>
+        <div class="offerta">
+            <small class="alert-desc"><span>Обращаем Ваше внимание</span>, что характеристики товаров на сайте носят информационный характер и не являются публичной офертой. Производитель вправе на свое усмотрение и без дополнительных уведомлений менять комплектацию, внешний вид и технические характеристики. Убедительно просим Вас при заказе товара проверять цену, наличие, желаемые функции и характеристики, выбранного вами, товара.</small>
+        </div>
         <div class="product-similar">
             <?php require_once "blocks/product_similar.php" ?>
         </div>
