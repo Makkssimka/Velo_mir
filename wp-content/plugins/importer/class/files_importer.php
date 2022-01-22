@@ -230,6 +230,7 @@ class IM_FilesImport
 
             $description = $item->Описание ? (string) $item->Описание : '';
             $image = $item->Картинка ? (string) $item->Картинка : '';
+            $sku = (string) $item->Штрихкод;
 
             $product = new IM_Product();
             $product->setId($id);
@@ -239,6 +240,7 @@ class IM_FilesImport
             $product->setCategoryId($category_site_id);
             $product->setDescription($description);
             $product->setImagePath($image);
+            $product->setSku($sku);
             $product->setBrand($brand);
 
             foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {

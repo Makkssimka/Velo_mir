@@ -10,6 +10,7 @@ class IM_Product
             $category_id,
             $description,
             $image_path,
+            $sku,
             $properties = array();
 
     /**
@@ -67,6 +68,13 @@ class IM_Product
     }
 
     /**
+     * @param $sku
+     */
+    public function setSku($sku) {
+        $this->sku = $sku;
+    }
+
+    /**
      * @param mixed $description
      */
     public function setDescription($description)
@@ -114,6 +122,9 @@ class IM_Product
         $this->quantity = $quantity;
     }
 
+    /**
+     * @throws WC_Data_Exception
+     */
     public function save()
     {
         $product_query = new WP_Query([
@@ -132,7 +143,7 @@ class IM_Product
             $product = wc_get_product($product_query->get_posts()[0]->ID);;
         } else {
             $product = new WC_Product();
-            $product->set_sku(IM_Sku::getGeneratedItemSku());
+            $product->set_sku($this->sku);
             $product->update_meta_data('1c_id',$this->id);
 
             $product->set_virtual(false);
