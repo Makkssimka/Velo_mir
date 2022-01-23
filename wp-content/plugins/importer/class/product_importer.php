@@ -143,13 +143,13 @@ class IM_Product
             $product = wc_get_product($product_query->get_posts()[0]->ID);;
         } else {
             $product = new WC_Product();
-            $product->set_sku($this->sku);
             $product->update_meta_data('1c_id',$this->id);
 
             $product->set_virtual(false);
             $product->set_manage_stock(true);
         }
 
+        $product->set_sku($this->sku);
         $product->set_name($this->name);
         $product->set_sale_price($this->price);
         $product->set_regular_price(round(($this->price*100/80)/10)*10);
