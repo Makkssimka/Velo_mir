@@ -301,6 +301,7 @@ class Importer_Admin {
         foreach ($products as $item) {
             $id = $item['id'];
             $name = $item['name'];
+            $sku = $item['sku'];
             $price = $item['price'];
             $quantity = $item['quantity'];
             $category = IM_Helper::getSiteCategoryId($item['category']);
@@ -317,6 +318,7 @@ class Importer_Admin {
 
             $product->setId($id);
             $product->setName($name);
+            $product->setSku($sku);
             $product->setPrice($price);
             $product->setQuantity($quantity);
             $product->setCategoryId($category);

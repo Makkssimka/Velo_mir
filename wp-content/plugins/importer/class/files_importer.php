@@ -83,6 +83,7 @@ class IM_FilesImport
 
             $name = (string) $item->Наименование;
             $brand = (string) $item->Изготовитель->Наименование;
+            $sku  = (string) $item->Штрихкод;
 
             $price =  $price_quantity_array[$id]['price'];
             $quantity = $price_quantity_array[$id]['quantity'];
@@ -121,13 +122,14 @@ class IM_FilesImport
             $products_array[] = array(
                 'id' => $id,
                 'name' => $name,
+                'sku' => $sku,
                 'price' => $price,
                 'quantity' => $quantity,
                 'category' => $category_id,
                 'description' => $description,
                 'image' => $image,
                 'brand' => $brand,
-                'properties' => $properties_product
+                'properties' => $properties_product,
             );
         }
 
@@ -213,7 +215,7 @@ class IM_FilesImport
 
         // Перебираем товары и содаем продукты со свойствами
         foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
-            $id = (string)$item->Ид;
+            $id = (string) $item->Ид;
 
             $name_preg = '/(электросамокат|скейт-пениборд|скейтборд|скейт-лонгборд)/iu';
             $name = (string) $item->Наименование;
