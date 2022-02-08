@@ -83,7 +83,6 @@ class IM_FilesImport
 
             $name = (string) $item->Наименование;
             $brand = (string) $item->Изготовитель->Наименование;
-            $sku  = (string) $item->Штрихкод;
 
             $price =  $price_quantity_array[$id]['price'];
             $quantity = $price_quantity_array[$id]['quantity'];
@@ -122,7 +121,6 @@ class IM_FilesImport
             $products_array[] = array(
                 'id' => $id,
                 'name' => $name,
-                'sku' => $sku,
                 'price' => $price,
                 'quantity' => $quantity,
                 'category' => $category_id,

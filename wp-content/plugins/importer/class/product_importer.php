@@ -10,7 +10,6 @@ class IM_Product
             $category_id,
             $description,
             $image_path,
-            $sku,
             $properties = array();
 
     /**
@@ -65,13 +64,6 @@ class IM_Product
     public function setImagePath($image_path)
     {
         $this->image_path = $image_path;
-    }
-
-    /**
-     * @param $sku
-     */
-    public function setSku($sku) {
-        $this->sku = $sku;
     }
 
     /**
@@ -144,12 +136,12 @@ class IM_Product
         } else {
             $product = new WC_Product();
             $product->update_meta_data('1c_id',$this->id);
+            $product->set_sku(IM_Sku::getGeneratedItemSku());
 
             $product->set_virtual(false);
             $product->set_manage_stock(true);
         }
 
-        $product->set_sku($this->sku);
         $product->set_name($this->name);
         $product->set_sale_price($this->price);
         $product->set_regular_price(round(($this->price*100/80)/10)*10);
