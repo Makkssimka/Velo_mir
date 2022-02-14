@@ -112,6 +112,8 @@ class Importer_Public {
 
         $mode = $_REQUEST['mode'];
 
+        $log = new LogImporter();
+
         if ($mode == 'checkauth') {
             $val = md5(time());
             setcookie('hash', $val);
@@ -120,9 +122,10 @@ class Importer_Public {
             echo "$val\n";
         } elseif ($mode == 'init') {
             echo "zip=yes\n";
-            echo "file_limit=52428800\n";
+            echo "file_limit=5242880000\n";
         } elseif ($mode == 'file') {
             $filename = $_GET['filename'];
+            $log->write($filename);
             $data = file_get_contents("php://input");
             file_put_contents($archive_dir.$filename ,$data, FILE_APPEND);
             echo "success";
