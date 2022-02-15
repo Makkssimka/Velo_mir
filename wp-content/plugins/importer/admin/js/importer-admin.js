@@ -61,7 +61,7 @@ $(document).ready(function () {
 		$(this).addClass('disabled');
 		stopProductBtn.removeClass('disabled');
 
-		unzip();
+		productData();
 	});
 
 	stopProductBtn.click(function () {
