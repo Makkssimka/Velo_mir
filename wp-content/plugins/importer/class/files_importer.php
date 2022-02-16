@@ -131,7 +131,7 @@ class IM_FilesImport
             );
         }
 
-        return json_encode($products_array);
+
     }
 
     public function cleanDataFolders()
