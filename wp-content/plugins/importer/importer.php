@@ -83,6 +83,7 @@ include_once "class/categories_importer.php";
 include_once "class/category_importer.php";
 include_once "class/sku_importer.php";
 include_once "class/clean_importer.php";
+include_once "class/StoreXMLReader.php";
 include_once(IMPORTER_PLUGIN_PATH."admin/importer_action.php");
 
 function run_importer() {

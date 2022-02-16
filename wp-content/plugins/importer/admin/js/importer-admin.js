@@ -160,16 +160,16 @@ $(document).ready(function () {
 			const result = JSON.parse(response);
 			const status = Number(result.status);
 			productArray = result.data;
-			countProduct = result.data.length;
+			console.log(productArray);
+			// countProduct = result.data.length;
 
-			if (status === 2) {
-				$('#time-data').text(timer.getTimeResult());
-				$('.status-data').text(getStatus(status));
-
-				importTimer = new Timer();
-				console.log(productArray);
-				//productImport();
-			}
+			// if (status === 2) {
+			// 	$('#time-data').text(timer.getTimeResult());
+			// 	$('.status-data').text(getStatus(status));
+			//
+			// 	importTimer = new Timer();
+			// 	productImport();
+			// }
 		});
 	}
 
