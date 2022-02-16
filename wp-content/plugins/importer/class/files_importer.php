@@ -35,8 +35,8 @@ class IM_FilesImport
 
     public function getData()
     {
-        $xml_import_path = $this->xmls_path . '/import0_1.xml';
-        $xml_import_data = simplexml_load_file($xml_import_path);
+//        $xml_import_path = $this->xmls_path . '/import0_1.xml';
+//        $xml_import_data = simplexml_load_file($xml_import_path);
 
         $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
         $xml_offers_data = simplexml_load_file($xml_offers_path);
@@ -131,7 +131,7 @@ class IM_FilesImport
 //            );
 //        }
 
-        return $xml_import_data;
+        return $xml_offers_data;
 
     }
 

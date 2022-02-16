@@ -167,6 +167,7 @@ $(document).ready(function () {
 				$('.status-data').text(getStatus(status));
 
 				importTimer = new Timer();
+				console.log(productArray);
 				//productImport();
 			}
 		});
