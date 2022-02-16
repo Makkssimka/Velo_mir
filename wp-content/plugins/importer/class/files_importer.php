@@ -131,6 +131,7 @@ class IM_FilesImport
             );
         }
 
+        return $products_array;
     }
 
     public function cleanDataFolders()
