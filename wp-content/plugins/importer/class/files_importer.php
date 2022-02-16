@@ -41,7 +41,7 @@ class IM_FilesImport
 //        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
 //        $xml_offers_data = simplexml_load_file($xml_offers_path);
 
-        $path_xml = $this->xmls_path . '/offers0_1.xml';
+        $path_xml = $this->xmls_path . '/import0_1.xml';
 
         $reader = new XMLReader();
         $reader->open($path_xml);
@@ -149,7 +149,7 @@ class IM_FilesImport
 //            );
 //        }
 
-        return $r;
+        return $arr;
 
     }
 
