@@ -38,8 +38,8 @@ class IM_FilesImport
 //        $xml_import_path = $this->xmls_path . '/import0_1.xml';
 //        $xml_import_data = simplexml_load_file($xml_import_path);
 
-        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
-        $xml_offers_data = simplexml_load_file($xml_offers_path);
+//        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
+//        $xml_offers_data = simplexml_load_file($xml_offers_path);
 
 //        // Создаем массив с ид товара в ключе и ценой и количеством в значении
 //        $price_quantity_array = array();
@@ -131,7 +131,7 @@ class IM_FilesImport
 //            );
 //        }
 
-        return $xml_offers_data;
+        return 'dffddf';
 
     }
 
