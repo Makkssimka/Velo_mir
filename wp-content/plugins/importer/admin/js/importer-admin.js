@@ -149,7 +149,7 @@ $(document).ready(function () {
 	}
 
 	// Получение данных продукта
-	const ctr = 3000;
+	const ctr = 1000;
 	function productData(counter = 0) {
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
