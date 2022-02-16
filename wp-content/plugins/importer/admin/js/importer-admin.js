@@ -142,43 +142,33 @@ $(document).ready(function () {
 				$('#time-category').text(importCategoryTimer.getTimeResult());
 				$('.status-category').text(getStatus(status));
 
-				dataTimer = new Timer();
 				productData();
 			}
 		});
 	}
 
 	// Получение данных продукта
-	const ctr = 1000;
 	function productData(counter = 0) {
+		const timer = new Timer();
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
 
-
 		let sendData = {
 			action: 'importer_data',
-			length: ctr,
-			counter: counter
 		};
-
-		counter = counter + ctr;
 
 		$.post(ajaxurl, sendData, function (response) {
 			const result = JSON.parse(response);
 			const status = Number(result.status);
 			const data = result.data;
 
-			if (data.length === ctr) {
-				productArray = [...productArray, ...data];
-				productData(counter);
-			} else {
-				productArray = [...productArray, ...data];
-				countProduct = productArray.length;
-
-				$('#time-data').text(dataTimer.getTimeResult());
+			if (status === 2) {
+				$('#time-data').text(timer.getTimeResult());
 				$('.status-data').text(getStatus(status));
 
-				console.log(productArray);
+				productArray = data;
+				countProduct = productArray.length;
+
 				importTimer = new Timer();
 				productImport();
 			}

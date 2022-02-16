@@ -282,15 +282,13 @@ class Importer_Admin {
 
     public function importer_ajax_data()
     {
-        $counter = $_REQUEST['counter'];
-        $length = $_REQUEST['length'];
         $importer = new IM_FilesImport();
         $data = $importer->getData();
 
 
         $result = array(
             'status' => 2,
-            'data' => array_slice($data, $counter, $length)
+            'data' => $data
         );
 
         echo json_encode($result);
