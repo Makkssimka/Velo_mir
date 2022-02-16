@@ -141,7 +141,7 @@ $(document).ready(function () {
 				$('#time-category').text(importCategoryTimer.getTimeResult());
 				$('.status-category').text(getStatus(status));
 
-				productData();
+				//productData();
 			}
 		});
 	}
@@ -167,7 +167,7 @@ $(document).ready(function () {
 				$('.status-data').text(getStatus(status));
 
 				importTimer = new Timer();
-				productImport();
+				//productImport();
 			}
 		});
 	}
