@@ -43,6 +43,7 @@ $(document).ready(function () {
 	const stopProductBtn = $('#stop-import');
 	const progressMsg = $('.progress-message');
 	const step = 10;
+	let dataTimer = 0;
 	let importTimer = 0;
 	let importCategoryTimer = 0;
 	let productArray = [];
@@ -61,7 +62,7 @@ $(document).ready(function () {
 		$(this).addClass('disabled');
 		stopProductBtn.removeClass('disabled');
 
-		productData();
+		unzip();
 	});
 
 	stopProductBtn.click(function () {
@@ -141,35 +142,46 @@ $(document).ready(function () {
 				$('#time-category').text(importCategoryTimer.getTimeResult());
 				$('.status-category').text(getStatus(status));
 
-				//productData();
+				dataTimer = new Timer();
+				productData();
 			}
 		});
 	}
 
 	// Получение данных продукта
-	function productData() {
-		const timer = new Timer();
+	const ctr = 3000;
+	function productData(counter = 0) {
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
 
+
 		let sendData = {
-			action: 'importer_data'
+			action: 'importer_data',
+			length: ctr,
+			counter: counter
 		};
+
+		counter = counter + ctr;
 
 		$.post(ajaxurl, sendData, function (response) {
 			const result = JSON.parse(response);
 			const status = Number(result.status);
-			productArray = result.data;
-			console.log(productArray);
-			// countProduct = result.data.length;
+			const data = result.data;
 
-			// if (status === 2) {
-			// 	$('#time-data').text(timer.getTimeResult());
-			// 	$('.status-data').text(getStatus(status));
-			//
-			// 	importTimer = new Timer();
-			// 	productImport();
-			// }
+			if (data.length === ctr) {
+				productArray = [...productArray, ...data];
+				productData(counter);
+			} else {
+				productArray = [...productArray, ...data];
+				countProduct = productArray.length;
+
+				$('#time-data').text(dataTimer.getTimeResult());
+				$('.status-data').text(getStatus(status));
+
+				console.log(productArray);
+				importTimer = new Timer();
+				productImport();
+			}
 		});
 	}
 
