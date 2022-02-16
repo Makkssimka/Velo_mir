@@ -35,110 +35,101 @@ class IM_FilesImport
 
     public function getData()
     {
-//        $xml_import_path = $this->xmls_path . '/import0_1.xml';
-//        $xml_import_data = simplexml_load_file($xml_import_path);
+        $xml_import_path = $this->xmls_path . '/import0_1.xml';
+        $xml_import_data = simplexml_load_file($xml_import_path);
 
-//        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
-//        $xml_offers_data = simplexml_load_file($xml_offers_path);
+        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
+        $xml_offers_data = simplexml_load_file($xml_offers_path);
 
-        $reader = simplexml_load_file($this->xmls_path . '/import0_1.xml');
+        // Создаем массив с ид товара в ключе и ценой и количеством в значении
+        $price_quantity_array = array();
+        foreach ($xml_offers_data->ПакетПредложений->Предложения->Предложение as $item) {
+            $id = (string) $item->Ид;
+            $price = (integer) $item->Цены->Цена->ЦенаЗаЕдиницу;
+            $quantity = (integer) $item->Количество;
+            $price_quantity_array[$id] = [
+                'price' => $price,
+                'quantity' => $quantity
+            ];
+        }
 
+        // Создаем массив по аналогии для категорий
         $category_array = array();
-        $this->getCategoryXml($reader->Классификатор->Группы, $category_array);
+        $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
 
-        print_r($category_array);
+        // Создаем массив по аналогии для свойств и их значений
+        $prop_array = array();
+        $prop_value_array = array();
+        foreach ($xml_import_data->Классификатор->Свойства->Свойство as $prop_parent) {
+            $id = (string) $prop_parent->Ид;
+            $attr = (string) $prop_parent->Наименование;
+            $prop_array[$id] = $attr;
 
-//        // Создаем массив с ид товара в ключе и ценой и количеством в значении
-//        $price_quantity_array = array();
-//        foreach ($xml_offers_data->ПакетПредложений->Предложения->Предложение as $item) {
-//            $id = (string) $item->Ид;
-//            $price = (integer) $item->Цены->Цена->ЦенаЗаЕдиницу;
-//            $quantity = (integer) $item->Количество;
-//            $price_quantity_array[$id] = [
-//                'price' => $price,
-//                'quantity' => $quantity
-//            ];
-//        }
-//
-//        // Создаем массив по аналогии для категорий
-//        $category_array = array();
-//        $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
-//
-//        // Создаем массив по аналогии для свойств и их значений
-//        $prop_array = array();
-//        $prop_value_array = array();
-//        foreach ($xml_import_data->Классификатор->Свойства->Свойство as $prop_parent) {
-//            $id = (string) $prop_parent->Ид;
-//            $attr = (string) $prop_parent->Наименование;
-//            $prop_array[$id] = $attr;
-//
-//
-//            if (!isset($prop_parent->ВариантыЗначений)) continue;
-//
-//            foreach ($prop_parent->ВариантыЗначений->Справочник as $item) {
-//                $id = (string) $item->ИдЗначения;
-//                $value = (string) $item->Значение;
-//                $prop_value_array[$id] = $value;
-//            }
-//        }
-//
-//        // Перебираем товары и содаем продукты со свойствами
-//        $products_array = [];
-//
-//        foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
-//            $id = (string)$item->Ид;
-//
-//            $name = (string) $item->Наименование;
-//            $brand = (string) $item->Изготовитель->Наименование;
-//
-//            $price =  $price_quantity_array[$id]['price'];
-//            $quantity = $price_quantity_array[$id]['quantity'];
-//
-//            $category_id = (string) $item->Группы->Ид;
-//
-//            $description = $item->Описание ? (string) $item->Описание : '';
-//            $image = $item->Картинка ? (string) $item->Картинка : '';
-//
-//            $properties_product = null;
-//            $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
-//
-//            if ($properties) {
-//                foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
-//                    $property_id = (string) $property->Ид;
-//                    $property_value_id = (string) $property->Значение;
-//                    $property_name = $prop_array[$property_id];
-//                    $property_value = $prop_value_array[$property_value_id];
-//
-//                    $properties_product[] = array(
-//                        'name' => $property_name,
-//                        'slug' => IM_Helper::translit($property_name),
-//                        'value' => $property_value
-//                    );
-//                }
-//            }
-//
-//            if ($brand) {
-//                $properties_product[] = array(
-//                    'name' => "Производитель",
-//                    'slug' => IM_Helper::translit("Производитель"),
-//                    'value' => $brand
-//                );
-//            }
-//
-//            $products_array[] = array(
-//                'id' => $id,
-//                'name' => $name,
-//                'price' => $price,
-//                'quantity' => $quantity,
-//                'category' => $category_id,
-//                'description' => $description,
-//                'image' => $image,
-//                'brand' => $brand,
-//                'properties' => $properties_product,
-//            );
-//        }
 
-        return $arr;
+            if (!isset($prop_parent->ВариантыЗначений)) continue;
+
+            foreach ($prop_parent->ВариантыЗначений->Справочник as $item) {
+                $id = (string) $item->ИдЗначения;
+                $value = (string) $item->Значение;
+                $prop_value_array[$id] = $value;
+            }
+        }
+
+        // Перебираем товары и содаем продукты со свойствами
+        $products_array = [];
+
+        foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
+            $id = (string)$item->Ид;
+
+            $name = (string) $item->Наименование;
+            $brand = (string) $item->Изготовитель->Наименование;
+
+            $price =  $price_quantity_array[$id]['price'];
+            $quantity = $price_quantity_array[$id]['quantity'];
+
+            $category_id = (string) $item->Группы->Ид;
+
+            $description = $item->Описание ? (string) $item->Описание : '';
+            $image = $item->Картинка ? (string) $item->Картинка : '';
+
+            $properties_product = null;
+            $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
+
+            if ($properties) {
+                foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
+                    $property_id = (string) $property->Ид;
+                    $property_value_id = (string) $property->Значение;
+                    $property_name = $prop_array[$property_id];
+                    $property_value = $prop_value_array[$property_value_id];
+
+                    $properties_product[] = array(
+                        'name' => $property_name,
+                        'slug' => IM_Helper::translit($property_name),
+                        'value' => $property_value
+                    );
+                }
+            }
+
+            if ($brand) {
+                $properties_product[] = array(
+                    'name' => "Производитель",
+                    'slug' => IM_Helper::translit("Производитель"),
+                    'value' => $brand
+                );
+            }
+
+            $products_array[] = array(
+                'id' => $id,
+                'name' => $name,
+                'price' => $price,
+                'quantity' => $quantity,
+                'category' => $category_id,
+                'description' => $description,
+                'image' => $image,
+                'brand' => $brand,
+                'properties' => $properties_product,
+            );
+        }
 
     }
 
