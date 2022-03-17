@@ -102,6 +102,8 @@ class IM_FilesImport
                     $property_name = $prop_array[$property_id];
                     $property_value = $prop_value_array[$property_value_id];
 
+                    if ($property_name === "Модель") continue;
+
                     $properties_product[] = array(
                         'name' => $property_name,
                         'slug' => IM_Helper::translit($property_name),
