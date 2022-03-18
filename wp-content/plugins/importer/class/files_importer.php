@@ -83,6 +83,7 @@ class IM_FilesImport
 
             $name = (string) $item->Наименование;
             $brand = (string) $item->Изготовитель->Наименование;
+            $tags = [];
 
             $price =  $price_quantity_array[$id]['price'];
             $quantity = $price_quantity_array[$id]['quantity'];
@@ -102,7 +103,10 @@ class IM_FilesImport
                     $property_name = $prop_array[$property_id];
                     $property_value = $prop_value_array[$property_value_id];
 
-                    if ($property_name === "Модель") continue;
+                    if ($property_name === "Модель") {
+                        $tags[] = $property_value;
+                        continue;
+                    };
 
                     $properties_product[] = array(
                         'name' => $property_name,
@@ -130,6 +134,7 @@ class IM_FilesImport
                 'image' => $image,
                 'brand' => $brand,
                 'properties' => $properties_product,
+                'tags' => $tags,
             );
         }
 

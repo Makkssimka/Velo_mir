@@ -10,6 +10,7 @@ class IM_Product
             $category_id,
             $description,
             $image_path,
+            $tags,
             $properties = array();
 
     /**
@@ -115,6 +116,14 @@ class IM_Product
     }
 
     /**
+     * @param $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
      * @throws WC_Data_Exception
      */
     public function save()
@@ -166,7 +175,8 @@ class IM_Product
             $product->set_image_id($image_id);
         }
 
-        $product->save();
+        $product_id = $product->save();
+        wp_set_object_terms($product_id, $this->tags, 'product_tag');
     }
 
     /**

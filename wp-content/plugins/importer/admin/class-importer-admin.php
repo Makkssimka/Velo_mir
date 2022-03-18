@@ -309,6 +309,7 @@ class Importer_Admin {
             $description = $item['description'];
             $image = $item['image'];
             $properties = $item['properties'];
+            $tags = $item['tags'];
 
 
             $product = new IM_Product();
@@ -324,6 +325,7 @@ class Importer_Admin {
             $product->setCategoryId($category);
             $product->setDescription($description);
             $product->setImagePath($image);
+            $product->setTags($tags);
 
             $product->save();
         }
