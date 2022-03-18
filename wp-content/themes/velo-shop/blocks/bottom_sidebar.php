@@ -1,5 +1,14 @@
 <?php
-$telephone_array = explode(', ', get_option('telephone_num'));
+$telephone_array = explode(',', get_option('telephone_num'));
+$telephone_with_address_array = [];
+foreach ($telephone_array as $telephone) {
+    $item = explode(':', $telephone);
+    $telephone_with_address_array[] = [
+        'telephone' => trim($item[0]),
+        'address' => trim($item[1])
+    ];
+}
+
 $time_job_array = time_to_array(get_option('time_job'));
 $vk_url = get_option('vk');
 $inst_url = get_option('instagram');
@@ -12,8 +21,13 @@ $inst_url = get_option('instagram');
                 <?= get_custom_logo(); ?>
             </div>
             <ul>
-                <?php foreach ($telephone_array as $telephone) : ?>
-                    <li><a href="tel:+7 <?= $telephone ?>" class="bottom-sidebar-tel">+7 <?= $telephone ?></a></li>
+                <?php foreach ($telephone_with_address_array as $item) : ?>
+                    <li class="align-center pb-1">
+                        <a href="tel:+7 <?= $item['telephone'] ?>" class="bottom-sidebar-tel block">
+                            +7 <?= $item['telephone'] ?>
+                        </a>
+                        <span class="f-small">(<?= $item['address'] ?>)</span>
+                    </li>
                 <?php endforeach; ?>
                 <li class="bottom-sidebar-time">
                     <?php foreach ($time_job_array as $time_job) : ?>
@@ -45,7 +59,7 @@ $inst_url = get_option('instagram');
                     </ul>
                 </div>
                 <div class="copy-bottom-sidebar">
-                    © <?= date('Y') ?>, ВелоМир. <span>Все права защищены</span>
+                    © <?= date('Y') ?>. ВелоМир. <span>Все права защищены</span>
                 </div>
             </div>
         </div>

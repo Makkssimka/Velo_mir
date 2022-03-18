@@ -8,7 +8,17 @@ $ur_address = get_option('ur_address');
 $map_script = get_option('map_script');
 $name_org = get_option('name_org');
 $time_job_array = time_to_array(get_option('time_job'));
-$telephone_array = explode(', ', get_option('telephone_num'));
+
+$telephone_array = explode(',', get_option('telephone_num'));
+$telephone_with_address_array = [];
+foreach ($telephone_array as $telephone) {
+    $item = explode(':', $telephone);
+    $telephone_with_address_array[] = [
+        'telephone' => trim($item[0]),
+        'address' => trim($item[1])
+    ];
+}
+
 $email_array = explode(', ', get_option('email'));
 
 get_header();
@@ -20,7 +30,7 @@ get_header();
         <div class="article-subheader"><?= $post->post_excerpt; ?></div>
         <div class="article-content">
             <div class="article-text">
-                <h2 class="margin-top-none">Магазин на Жукова</h2>
+                <h2 class="margin-top-none">Наши магазины</h2>
                 <div class="flex-wrapper">
                     <div class="semi-flex">
                         <strong>Адрес:</strong>
@@ -36,8 +46,13 @@ get_header();
                     </div>
                     <div class="semi-flex">
                         <strong>Телефон:</strong>
-                        <?php foreach ($telephone_array as $telephone) : ?>
-                            <div><a href="tel:+7 <?= $telephone ?>">+7 <?= $telephone ?></a></div>
+                        <?php foreach ($telephone_with_address_array as $item) : ?>
+                            <div>
+                                <a href="tel:+7 <?= $item['telephone'] ?>" class="pr-1">
+                                    +7 <?= $item['telephone'] ?>
+                                </a>
+                                (<?= $item['address'] ?>)
+                            </div>
                         <?php endforeach; ?>
                     </div>
                     <div class="semi-flex">

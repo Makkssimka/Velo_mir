@@ -3,7 +3,16 @@ $cart = WC()->cart;
 
 $cart_count = $cart->get_cart_contents_count();
 
-$telephone_array = explode(', ', get_option('telephone_num'));
+$telephone_array = explode(',', get_option('telephone_num'));
+$telephone_with_address_array = [];
+foreach ($telephone_array as $telephone) {
+    $item = explode(':', $telephone);
+    $telephone_with_address_array[] = [
+        'telephone' => trim($item[0]),
+        'address' => trim($item[1])
+    ];
+}
+
 $time_job_array = time_to_array(get_option('time_job'));
 
 $favorites_array = isset($_SESSION['favorites'])?json_decode($_SESSION['favorites']):array();
@@ -19,8 +28,13 @@ $compare_array = isset($_SESSION['compare'])?json_decode($_SESSION['compare']):a
             <div class="search-block">
                 <div class="contact-top">
                     <ul>
-                        <?php foreach ($telephone_array as $telephone) : ?>
-                            <li><a href="tel:+7 <?= $telephone ?>" class="top-sidebar-tel">+7 <?= $telephone ?></a></li>
+                        <?php foreach ($telephone_with_address_array as $item) : ?>
+                            <li class="align-center">
+                                <a href="tel:+7 <?= $item['telephone'] ?>" class="bottom-sidebar-tel block">
+                                    +7 <?= $item['telephone'] ?>
+                                </a>
+                                <span class="f-small f-white opacity-70 f-normal">(<?= $item['address'] ?>)</span>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

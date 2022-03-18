@@ -94,8 +94,8 @@ function contact_setting_page_template(){ ?>
                             <label for="telephone_num">Номера телефонов</label>
                         </th>
                         <td>
-                            <input name="telephone_num" type="text" id="telephone_num" class="regular-text" placeholder="(905) 455-22-33, (902) 567-45-43" value="<?= get_option('telephone_num') ?>">
-                            <p class="description" id="telefonenum">Номера телефонов через запятую без 8.</p>
+                            <textarea rows="6" name="telephone_num" type="text" id="telephone_num" class="regular-text"><?= get_option('telephone_num') ?></textarea>
+                            <p class="description" id="telefonenum">Номера телефонов через запятую без 8., разделитель для адреса :</p>
                         </td>
                     </tr>
                     <tr>
