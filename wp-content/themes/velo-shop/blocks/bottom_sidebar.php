@@ -50,6 +50,7 @@ $inst_url = get_option('instagram');
                 <p>Помощь</p>
                 <?php wp_nav_menu(['theme_location' => 'bottom_menu', 'container' => false ]);?>
             </div>
+            <?php if ($inst_url || $vk_url) : ?>
             <div class="icons-bottom-sidebar">
                 <div>
                     <p>Мы в соцсетях:</p>
@@ -74,6 +75,7 @@ $inst_url = get_option('instagram');
                     © <?= date('Y') ?>. ВелоМир. <span>Все права защищены</span>
                 </div>
             </div>
+            <?php endif ?>
         </div>
     </div>
 </div>
