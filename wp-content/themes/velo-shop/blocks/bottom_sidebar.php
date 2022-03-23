@@ -54,8 +54,20 @@ $inst_url = get_option('instagram');
                 <div>
                     <p>Мы в соцсетях:</p>
                     <ul>
-                        <li><a target="_blank" href="<?= $inst_url ?>"><i class="lab la-instagram"></i> Instagram</a></li>
-                        <li><a target="_blank" href="<?= $vk_url ?>"><i class="lab la-vk"></i> Vkontakte</a></li>
+                        <?php if ($inst_url) : ?>
+                        <li>
+                            <a target="_blank" href="<?= $inst_url ?>">
+                                <i class="lab la-instagram"></i> Instagram
+                            </a>
+                        </li>
+                        <?php endif ?>
+                        <?php if ($vk_url) : ?>
+                        <li>
+                            <a target="_blank" href="<?= $vk_url ?>">
+                                <i class="lab la-vk"></i> Vkontakte
+                            </a>
+                        </li>
+                        <?php endif ?>
                     </ul>
                 </div>
                 <div class="copy-bottom-sidebar">
