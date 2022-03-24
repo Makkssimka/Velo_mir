@@ -4,7 +4,12 @@ $tags = wp_get_object_terms( $product->get_id(), 'product_tag');
 $tag = array_shift($tags);
 
 $product_diametr = $product->get_attribute('diametr-kolesaoboda');
-$product_cvet = $product->get_attribute('cvet');
+
+// Объединение для двойных цветов
+$cvet = $product->get_attribute('cvet');
+$cvet_dop = $product->get_attribute('cvet_dop');
+$product_cvet = $cvet . $cvet_dop;
+
 
 ?>
 
@@ -22,20 +27,21 @@ $product_variations = [];
 foreach ($products_by_tag as $prod) {
     $d = $prod->get_attribute('diametr-kolesaoboda');
     $c = $prod->get_attribute('cvet');
+    $e = $prod->get_attribute('cvet_dop');
     if (!key_exists($d, $product_variations)) {
         $product_variations[$d] = [
             'id' => $prod->get_id(),
             'cvets' => [
                 [
                     'id' => $prod->get_id(),
-                    'cvet' => $c
+                    'full' => $c . $e
                 ]
             ]
         ];
     } else {
         $product_variations[$d]['cvets'][] = [
             'id' => $prod->get_id(),
-            'cvet' => $c
+            'full' => $c . $e
         ];
     }
 }
@@ -61,7 +67,7 @@ ksort($product_variations);
     <p>цвет:</p>
     <ul>
         <?php foreach ($product_variations[$product_diametr]['cvets'] as $item) : ?>
-            <li class="<?= $item['cvet'] == $product_cvet ? 'inactive-element' : '' ?>">
+            <li class="<?= $item['full'] == $product_cvet ? 'inactive-element' : '' ?>">
                 <?= get_color_link($item['id']) ?>
             </li>
         <?php endforeach; ?>

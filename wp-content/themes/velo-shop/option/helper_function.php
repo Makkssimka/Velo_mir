@@ -99,13 +99,33 @@ function send_telegram($order_number){
 
 function get_color_link($product_id){
     $colors = wc_get_product_terms($product_id, "pa_cvet" );
+    $dop_colors = wc_get_product_terms($product_id, 'pa_cvet_dop');
 
     if (!$colors) return '';
 
     $color_name = mb_strtolower($colors[0]->name);
-    return '<a class="title-show title-margin-30" data-title="'.$color_name.'" href="'.get_permalink($product_id).'">
-               <span style="background-color:'.getHexColor($color_name).';"></span>
-            </a>';
+    $color_dop_name = $dop_colors ? mb_strtolower($dop_colors[0]->name) : '';
+
+    $color_result_name = $color_name . ($color_dop_name ? '/' . $color_dop_name : '');
+
+    if ($color_dop_name) {
+        $link = '<a 
+                    class="title-show title-margin-30" 
+                    data-title="'.$color_result_name.'" 
+                    href="'.get_permalink($product_id).'">
+                        <span style="background-color:'.getHexColor($color_name).';"></span>
+                        <span class="product-two-color" style="background-color:'.getHexColor($color_dop_name).';"></span>
+                </a>';
+    } else {
+        $link = '<a 
+                    class="title-show title-margin-30" 
+                    data-title="'.$color_result_name.'" 
+                    href="'.get_permalink($product_id).'">
+                        <span style="background-color:'.getHexColor($color_name).';"></span>
+                </a>';
+    }
+
+    return $link;
 }
 
 function get_image_link($product){
