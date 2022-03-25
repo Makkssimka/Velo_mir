@@ -67,7 +67,7 @@ ksort($product_variations);
     <p>цвет:</p>
     <ul>
         <?php foreach ($product_variations[$product_diametr]['cvets'] as $item) : ?>
-            <li class="<?= $item['full'] == $product_cvet ? 'inactive-element' : '' ?>">
+            <li class="<?= $item['id'] == $product->get_id() ? 'inactive-element' : '' ?>">
                 <?= get_color_link($item['id']) ?>
             </li>
         <?php endforeach; ?>
