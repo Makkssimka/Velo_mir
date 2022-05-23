@@ -36,9 +36,9 @@ add_action('wp_head','js_variables');
 //Adding CSS & JS
 function velo_shop_custom(){
     wp_enqueue_style('fonts', "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Raleway:wght@500;600&display=swap", false, '1.0.0');
-    wp_enqueue_style('icon', "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css", false, '1.0.0');
+    wp_enqueue_style('icon', get_template_directory_uri()."/assets/styles/main.css", false, '1.0.0');
     wp_enqueue_style('slider', "https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css", false, '1.0.0');
-    wp_enqueue_style('velo', get_template_directory_uri()."/assets/styles/main.css", false, '1.0.0');
+    wp_enqueue_style('velo', get_template_directory_uri()."/assets/styles/line-awesome.min.css", false, '1.0.0');
 
 
     wp_enqueue_script('carousel', get_template_directory_uri()."/assets/scripts/owl.carousel.min.js", array(), 1.0, true);
