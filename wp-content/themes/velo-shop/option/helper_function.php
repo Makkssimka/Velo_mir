@@ -99,7 +99,9 @@ function send_telegram($order_number){
 
 function get_color_link($product_id){
     $colors = wc_get_product_terms($product_id, "pa_cvet" );
+
     $dop_colors = wc_get_product_terms($product_id, 'pa_cvet_dop');
+    $dop_colors = $dop_colors ? $dop_colors : wc_get_product_terms($product_id, 'pa_dop-cvet');
 
     if (!$colors) return '';
 

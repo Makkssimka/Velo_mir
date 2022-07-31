@@ -7,10 +7,11 @@ $product_diametr = $product->get_attribute('diametr-kolesaoboda');
 
 // Объединение для двойных цветов
 $cvet = $product->get_attribute('cvet');
-$cvet_dop = $product->get_attribute('cvet_dop') ?? $product->get_attribute('dop-cvet');
+
+$cvet_dop = $product->get_attribute('cvet_dop');
+$cvet_dop = $cvet_dop ? $cvet_dop : $product->get_attribute('dop-cvet');
+
 $product_cvet = $cvet . $cvet_dop;
-
-
 ?>
 
 <?php if ($tag) : ?>
