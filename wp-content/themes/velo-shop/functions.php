@@ -161,3 +161,32 @@ function mysite_filter_related_products( $related_product_ids ) {
 
     return $related_product_ids;
 }
+
+// Добавляем меню цветов
+add_action('admin_menu', 'register_colors_page');
+
+function register_colors_page() {
+    add_menu_page('Каталог цветов', 'Каталог цветов', 'manage_options', 'colors-catalog', 'colorRender', 'dashicons-color-picker');
+}
+
+function colorRender() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'colors';
+
+    if (isset($_POST['hex']) && isset($_POST['color'])) {
+        $wpdb->query('INSERT INTO ' . $table . ' (`color`, `hex`) VALUES("' . $_POST['color'] . '", "' . $_POST['hex'] . '")');
+    }
+
+    if (isset($_POST['method']) && $_POST['method'] === 'delete') {
+        $wpdb->query('DELETE FROM ' . $table . ' WHERE `id` = ' . $_POST['id']);
+    }
+
+    $colors = $wpdb->get_results('SELECT * FROM ' . $table . ' ORDER BY `color` ASC');
+
+    ob_start();
+    include_once(get_template_directory() . '/templates/admin/colors_catalog.php');
+    $template = ob_get_contents();
+    ob_end_clean();
+
+    echo $template;
+}

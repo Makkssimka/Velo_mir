@@ -211,7 +211,6 @@ function getHexColor($color)
     $colors_array = array(
         'алый' => '#ff2400',
         'аметистовый' => '#9966cc',
-        'антрацитовый' => '#464451',
         'баклажановый' => '#990066',
         'бежевый' => '#f5f5dc',
         'белый' => '#ffffff',
@@ -260,7 +259,14 @@ function getHexColor($color)
     );
 
     $color = mb_strtolower($color);
-    return $colors_array[$color];
+
+    if (array_key_exists($color, $colors_array)) {
+        return $colors_array[$color];
+    } else {
+        global $wpdb;
+        $color = $wpdb->get_var('SELECT `hex` FROM ' . $wpdb->prefix . 'colors WHERE `color` = "' . $color . '"');
+        return $color;
+    }
 }
 
 function getMainCategoriesList() {
