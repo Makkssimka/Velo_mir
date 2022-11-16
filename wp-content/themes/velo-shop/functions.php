@@ -162,6 +162,18 @@ function mysite_filter_related_products( $related_product_ids ) {
     return $related_product_ids;
 }
 
+add_action('template_redirect', 'redirect_to_404_page');
+
+function redirect_to_404_page() {
+    if(is_product()) {
+        $product = wc_get_product();
+        if(!$product->get_stock_quantity()) {
+            wp_safe_redirect('/404');
+            exit();
+        };
+    }
+}
+
 // Добавляем меню цветов
 add_action('admin_menu', 'register_colors_page');
 
