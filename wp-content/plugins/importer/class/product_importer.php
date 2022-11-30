@@ -5,6 +5,7 @@ class IM_Product
 {
     private $id,
             $name,
+            $sku,
             $price,
             $quantity,
             $category_id,
@@ -100,6 +101,14 @@ class IM_Product
     }
 
     /**
+     * @param mixed $sku
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
+
+    /**
      * @param mixed $price
      */
     public function setPrice($price)
@@ -152,6 +161,11 @@ class IM_Product
         }
 
         $product->set_name($this->name);
+
+        if ($this->sku) {
+            $product->set_sku($this->sku);
+        }
+
         $product->set_sale_price($this->price);
         $product->set_regular_price(round(($this->price*100/80)/10)*10);
 
