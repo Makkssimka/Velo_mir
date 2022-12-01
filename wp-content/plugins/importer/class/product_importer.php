@@ -150,21 +150,26 @@ class IM_Product
         ]);
 
         if (count($product_query->get_posts())) {
-            $product = wc_get_product($product_query->get_posts()[0]->ID);;
+            $product = wc_get_product($product_query->get_posts()[0]->ID);
+
+            if ($this->sku) {
+                $product->set_sku($this->sku);
+            }
         } else {
             $product = new WC_Product();
             $product->update_meta_data('1c_id',$this->id);
-            $product->set_sku(IM_Sku::getGeneratedItemSku());
+
+            if ($this->sku) {
+                $product->set_sku($this->sku);
+            } else {
+                $product->set_sku(IM_Sku::getGeneratedItemSku());
+            }
 
             $product->set_virtual(false);
             $product->set_manage_stock(true);
         }
 
         $product->set_name($this->name);
-
-        if ($this->sku) {
-            $product->set_sku($this->sku);
-        }
 
         $product->set_sale_price($this->price);
         $product->set_regular_price(round(($this->price*100/80)/10)*10);
