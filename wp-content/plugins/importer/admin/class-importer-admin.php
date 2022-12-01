@@ -308,7 +308,7 @@ class Importer_Admin {
             $quantity = $item['quantity'];
             $category = IM_Helper::getSiteCategoryId($item['category']);
             $description = $item['description'];
-            $image = $item['image'];
+            $images = $item['images'];
             $properties = $item['properties'];
             $tags = $item['tags'];
 
@@ -326,7 +326,7 @@ class Importer_Admin {
             $product->setQuantity($quantity);
             $product->setCategoryId($category);
             $product->setDescription($description);
-            $product->setImagePath($image);
+            $product->setImages($images);
             $product->setTags($tags);
 
             $product->save();

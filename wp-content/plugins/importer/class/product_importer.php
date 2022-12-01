@@ -10,7 +10,7 @@ class IM_Product
             $quantity,
             $category_id,
             $description,
-            $image_path,
+            $images,
             $tags,
             $properties = array();
 
@@ -63,9 +63,9 @@ class IM_Product
     /**
      * @param mixed $image_path
      */
-    public function setImagePath($image_path)
+    public function setImages($images)
     {
-        $this->image_path = $image_path;
+        $this->images = $images;
     }
 
     /**
@@ -184,9 +184,21 @@ class IM_Product
 
         $product->set_attributes($attributes_array);
 
-        if ($this->image_path) {
-            $image_id = $this->createImageProduct($this->image_path);
-            $product->set_image_id($image_id);
+        // Перебираем картинки, первой делаем картинку обложкой, остальные в галлерею
+        if (count($this->images)) {
+            $product_image_id = null;
+            $product_gallery_ids = [];
+            foreach ($this->images as $key => $image) {
+                if ($key === 0) {
+                    $product_image_id = $this->createImageProduct($image);
+                } else {
+                    $product_gallery_ids[] = $this->createImageProduct($image);
+                }
+
+            }
+
+            $product->set_image_id($product_image_id);
+            $product->set_gallery_image_ids($product_gallery_ids);
         }
 
         $product_id = $product->save();
@@ -212,13 +224,12 @@ class IM_Product
         return $attribute;
     }
 
-    private function createImageProduct()
+    private function createImageProduct($image)
     {
-        $file = $this->moveImageProduct();
+        $file = $this->moveImageProduct($image);
         $mime_file = mime_content_type($file);
 
         $image = get_page_by_title(basename($file), OBJECT, 'attachment');
-        $image_id = null;
 
         if ($image) {
             $image_id = $image->ID;
@@ -236,10 +247,10 @@ class IM_Product
         return $image_id;
     }
 
-    private function moveImageProduct()
+    private function moveImageProduct($image)
     {
-        $file_name = basename($this->image_path);
-        $start_path = IMPORTER_PLUGIN_PATH . 'upload/images/' . $this->image_path;
+        $file_name = basename($image);
+        $start_path = IMPORTER_PLUGIN_PATH . 'upload/images/' . $image;
         $end_path = WP_CONTENT_DIR . '/uploads/images-product/' . $file_name;
 
         rename($start_path, $end_path);

@@ -92,7 +92,7 @@ class IM_FilesImport
             $category_id = (string) $item->Группы->Ид;
 
             $description = $item->Описание ? (string) $item->Описание : '';
-            $image = $item->Картинка ? (string) $item->Картинка : '';
+            $images = (array) $item->Картинка;
 
             $properties_product = null;
             $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
@@ -133,7 +133,7 @@ class IM_FilesImport
                 'quantity' => $quantity,
                 'category' => $category_id,
                 'description' => $description,
-                'image' => $image,
+                'images' => $images,
                 'brand' => $brand,
                 'properties' => $properties_product,
                 'tags' => $tags,
