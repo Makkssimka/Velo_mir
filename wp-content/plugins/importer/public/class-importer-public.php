@@ -51,7 +51,7 @@ class Importer_Public {
 		$this->importer = $importer;
 		$this->version = $version;
 
-        add_action( 'init', array($this, "load_price") );
+        add_action( 'init', array($this, "router") );
 
 	}
 
@@ -101,16 +101,38 @@ class Importer_Public {
 
 	}
 
-    public function load_price(){
-        $url = $_SERVER['REQUEST_URI'];
-        $url = explode('?', $url);
-        $url = $url[0];
+    public function router()
+    {
+        $url = parse_url($_SERVER['REQUEST_URI']);
+        $path = $url['path'];
 
-        if ($url != "/importer/loader") return;
+        $get = [];
+        if (isset($url['query'])) {
+            parse_str($url['query'], $get);
+        }
+
+        $post = $_POST;
+
+        $request = array_merge($get, $post);
+
+        switch ($path) {
+            case "/importer/loader":
+                $this->load_price($request);
+                break;
+            case "/importer/auto-update":
+                $this->auto_update();
+                break;
+            case "/importer/update-step":
+                $this->update_step($request);
+                break;
+        }
+    }
+
+    public function load_price($request){
 
         $archive_dir = IMPORTER_PLUGIN_PATH."upload/archives/";
 
-        $mode = $_REQUEST['mode'];
+        $mode = $request['mode'];
 
         $log = new LogImporter();
 
@@ -122,7 +144,7 @@ class Importer_Public {
             echo "$val\n";
         } elseif ($mode == 'init') {
             echo "zip=yes\n";
-            echo "file_limit=10000000\n";
+            echo "file_limit=100000\n";
         } elseif ($mode == 'file') {
             $filename = $_GET['filename'];
             $log->write($filename);
