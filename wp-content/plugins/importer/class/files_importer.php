@@ -35,6 +35,7 @@ class IM_FilesImport
 
     public function getData()
     {
+        $log = new LogImporter();
 
         $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
         $xml_offers_data = simplexml_load_file($xml_offers_path);
@@ -52,6 +53,8 @@ class IM_FilesImport
         }
 
         unset($xml_offers_data);
+
+        $log->write('import price');
 
         $xml_import_path = $this->xmls_path . '/import0_1.xml';
         $xml_import_data = simplexml_load_file($xml_import_path);
@@ -77,6 +80,8 @@ class IM_FilesImport
                 $prop_value_array[$id] = $value;
             }
         }
+
+        $log->write('import category');
 
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
@@ -144,6 +149,8 @@ class IM_FilesImport
         }
 
         unset($xml_import_data);
+
+        $log->write('import product');
 
         return $products_array;
     }
