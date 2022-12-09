@@ -81,14 +81,12 @@ class IM_FilesImport
             }
         }
 
-        $counter = 0;
-        $counter_end = 0;
-
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
 
-        foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
-            $log->write(++$counter);
+        foreach ($xml_import_data->Каталог->Товары->Товар as $key => $item) {
+            if ($key == 1000) break;
+
             $id = (string)$item->Ид;
 
             $name = (string) $item->Наименование;
@@ -148,8 +146,6 @@ class IM_FilesImport
                 'properties' => $properties_product,
                 'tags' => $tags,
             );
-
-            $log->write(++$counter_end);
         }
 
         unset($xml_import_data);
