@@ -53,6 +53,8 @@ class IM_FilesImport
             ];
         }
 
+        $xml_offers_data = null;
+
         // Создаем массив по аналогии для категорий
         $category_array = array();
         $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
@@ -139,6 +141,8 @@ class IM_FilesImport
                 'tags' => $tags,
             );
         }
+
+        $xml_import_data = null;
 
         return $products_array;
     }
