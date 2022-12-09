@@ -23,6 +23,8 @@ class IM_FilesImport
 
     public function unzip()
     {
+        $this->cleanDataFolders();
+
         $archives_list = IM_FilesManager::getFilesToFolder($this->archives_path);
 
         if (count($archives_list)) {
@@ -65,6 +67,8 @@ class IM_FilesImport
         $category_array = array();
         $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
 
+        $log->write('import category');
+
         // Создаем массив по аналогии для свойств и их значений
         $prop_array = array();
         $prop_value_array = array();
@@ -83,7 +87,7 @@ class IM_FilesImport
             }
         }
 
-        $log->write('import category');
+        $log->write('import attributes');
 
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
