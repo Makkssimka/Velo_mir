@@ -43,9 +43,6 @@ $(document).ready(function () {
 	const stopProductBtn = $('#stop-import');
 	const progressMsg = $('.progress-message');
 	const step = 10;
-	let globalStep = 0
-	const globalCounterStep = 100;
-	let globalCountProduct = 0;
 	let importTimer = 0;
 	let importCategoryTimer = 0;
 	let productArray = [];
@@ -151,16 +148,12 @@ $(document).ready(function () {
 
 	// Получение данных продукта
 	function productData(counter = 0) {
-		console.log(globalStep);
-
 		const timer = new Timer();
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
 
 		let sendData = {
-			action: 'importer_data',
-			step: globalStep,
-			counter: globalCounterStep
+			action: 'importer_data'
 		};
 
 		$.post(ajaxurl, sendData, function (response) {
@@ -184,7 +177,7 @@ $(document).ready(function () {
 	// Импорт полученных товаров
 	function productImport() {
 		$('.status-migrate').text(getStatus(1));
-		setStatusMessage(`импортировано ${stepCount} из ${countProduct}, всего импортировано ${globalCountProduct}`);
+		setStatusMessage(`импортировано ${stepCount} из ${countProduct}`);
 
 		let sendData = {
 			products: productArray.splice(0, step),
@@ -200,17 +193,10 @@ $(document).ready(function () {
 			if (stepCount < countProduct && !stop) {
 				productImport();
 			} else {
-				if (countProduct < globalCounterStep) {
 					$('#time-migrate').text(importTimer.getTimeResult());
 					$('.status-migrate').text(getStatus(status));
 
 					cleanDataFolders();
-				} else {
-					globalCountProduct = globalCountProduct + countProduct;
-					globalStep = globalStep + 1;
-					stepCount = 0;
-					productData();
-				}
 			}
 		});
 	}

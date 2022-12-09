@@ -282,11 +282,8 @@ class Importer_Admin {
 
     public function importer_ajax_data()
     {
-        $global_step = $_REQUEST['step'];
-        $global_step_counter = $_REQUEST['counter'];
-
         $importer = new IM_FilesImport();
-        $data = $importer->getData($global_step, $global_step_counter);
+        $data = $importer->getData();
 
 
         $result = array(

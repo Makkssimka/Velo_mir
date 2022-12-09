@@ -35,7 +35,7 @@ class IM_FilesImport
         }
     }
 
-    public function getData($global_step, $global_step_counter)
+    public function getData()
     {
         $log = new LogImporter();
 
@@ -83,15 +83,8 @@ class IM_FilesImport
 
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
-        $counter = 0;
-
 
         foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
-            $counter = $counter + 1;
-            if ($counter < $global_step * $global_step_counter) continue;
-            if ($counter > ($global_step * $global_step_counter + $global_step_counter)) break;
-
-            $log->write($counter);
 
             $id = (string)$item->Ид;
 
@@ -155,8 +148,6 @@ class IM_FilesImport
         }
 
         unset($xml_import_data);
-
-        $log->write('import ' . count($products_array));
 
         return $products_array;
     }
