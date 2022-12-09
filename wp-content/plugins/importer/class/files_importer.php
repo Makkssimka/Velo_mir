@@ -85,7 +85,7 @@ class IM_FilesImport
         $products_array = [];
         $counter = 0;
 
-        foreach ($xml_import_data->Каталог->Товары->Товар as $key => $item) {
+        foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
             $log->write($counter);
             if ($counter === 1000) break;
 
@@ -149,7 +149,7 @@ class IM_FilesImport
                 'tags' => $tags,
             );
 
-            $counter++;
+            $counter = $counter + 1;
         }
 
         unset($xml_import_data);
