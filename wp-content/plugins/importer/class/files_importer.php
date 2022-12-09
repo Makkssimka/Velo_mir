@@ -35,7 +35,7 @@ class IM_FilesImport
         }
     }
 
-    public function getData()
+    public function getData($global_step, $global_step_counter)
     {
         $log = new LogImporter();
 
@@ -85,32 +85,34 @@ class IM_FilesImport
         $products_array = [];
         $counter = 0;
 
+
         foreach ($xml_import_data->Каталог->Товары->Товар as $item) {
-            $log->write($counter);
-            if ($counter === 1000) break;
+            $counter = $counter + 1;
+            if ($counter < $global_step * $global_step_counter) continue;
+            if ($counter > ($global_step * $global_step_counter + $global_step_counter)) break;
 
             $id = (string)$item->Ид;
 
-            $name = (string) $item->Наименование;
-            $sku = (string) $item->Артикул;
-            $brand = (string) $item->Изготовитель->Наименование;
+            $name = (string)$item->Наименование;
+            $sku = (string)$item->Артикул;
+            $brand = (string)$item->Изготовитель->Наименование;
             $tags = [];
 
-            $price =  $price_quantity_array[$id]['price'];
+            $price = $price_quantity_array[$id]['price'];
             $quantity = $price_quantity_array[$id]['quantity'];
 
-            $category_id = (string) $item->Группы->Ид;
+            $category_id = (string)$item->Группы->Ид;
 
-            $description = $item->Описание ? (string) $item->Описание : '';
-            $images = (array) $item->Картинка;
+            $description = $item->Описание ? (string)$item->Описание : '';
+            $images = (array)$item->Картинка;
 
             $properties_product = null;
             $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
 
             if ($properties) {
                 foreach ($item->ЗначенияСвойств->ЗначенияСвойства as $property) {
-                    $property_id = (string) $property->Ид;
-                    $property_value_id = (string) $property->Значение;
+                    $property_id = (string)$property->Ид;
+                    $property_value_id = (string)$property->Значение;
                     $property_name = $prop_array[$property_id];
                     $property_value = $prop_value_array[$property_value_id];
 
@@ -148,13 +150,11 @@ class IM_FilesImport
                 'properties' => $properties_product,
                 'tags' => $tags,
             );
-
-            $counter = $counter + 1;
         }
 
         unset($xml_import_data);
 
-        $log->write('import product');
+        $log->write('import ' . count($products_array));
 
         return $products_array;
     }
