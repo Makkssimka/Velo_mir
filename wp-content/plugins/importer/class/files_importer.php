@@ -35,8 +35,6 @@ class IM_FilesImport
 
     public function getData()
     {
-        $xml_import_path = $this->xmls_path . '/import0_1.xml';
-        $xml_import_data = simplexml_load_file($xml_import_path);
 
         $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
         $xml_offers_data = simplexml_load_file($xml_offers_path);
@@ -53,7 +51,10 @@ class IM_FilesImport
             ];
         }
 
-        $xml_offers_data = null;
+        unset($xml_offers_data);
+
+        $xml_import_path = $this->xmls_path . '/import0_1.xml';
+        $xml_import_data = simplexml_load_file($xml_import_path);
 
         // Создаем массив по аналогии для категорий
         $category_array = array();
@@ -142,7 +143,7 @@ class IM_FilesImport
             );
         }
 
-        $xml_import_data = null;
+        unset($xml_import_data);
 
         return $products_array;
     }
