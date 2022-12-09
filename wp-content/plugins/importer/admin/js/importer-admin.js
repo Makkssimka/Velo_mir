@@ -44,7 +44,7 @@ $(document).ready(function () {
 	const progressMsg = $('.progress-message');
 	const step = 10;
 	let globalStep = 0
-	const globalCounterStep = 10;
+	const globalCounterStep = 500;
 	let globalCountProduct = 0;
 	let importTimer = 0;
 	let importCategoryTimer = 0;
