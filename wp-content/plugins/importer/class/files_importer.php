@@ -91,6 +91,8 @@ class IM_FilesImport
             if ($counter < $global_step * $global_step_counter) continue;
             if ($counter > ($global_step * $global_step_counter + $global_step_counter)) break;
 
+            $log->write($counter);
+
             $id = (string)$item->Ид;
 
             $name = (string)$item->Наименование;
