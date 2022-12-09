@@ -83,10 +83,11 @@ class IM_FilesImport
 
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
+        $counter = 0;
 
         foreach ($xml_import_data->Каталог->Товары->Товар as $key => $item) {
-            $log->write($key);
-            if ($key == 1000) break;
+            $log->write($counter);
+            if ($counter === 1000) break;
 
             $id = (string)$item->Ид;
 
@@ -147,6 +148,8 @@ class IM_FilesImport
                 'properties' => $properties_product,
                 'tags' => $tags,
             );
+
+            $counter++;
         }
 
         unset($xml_import_data);
