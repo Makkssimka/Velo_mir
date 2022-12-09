@@ -85,6 +85,7 @@ class IM_FilesImport
         $products_array = [];
 
         foreach ($xml_import_data->Каталог->Товары->Товар as $key => $item) {
+            $log->write($key);
             if ($key == 1000) break;
 
             $id = (string)$item->Ид;
