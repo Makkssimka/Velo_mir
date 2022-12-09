@@ -144,7 +144,7 @@ class Importer_Public {
             echo "$val\n";
         } elseif ($mode == 'init') {
             echo "zip=yes\n";
-            echo "file_limit=100000\n";
+            echo "file_limit=204800\n";
         } elseif ($mode == 'file') {
             $filename = $_GET['filename'];
             $log->write($filename);
