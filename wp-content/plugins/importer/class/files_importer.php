@@ -59,6 +59,8 @@ class IM_FilesImport
         $xml_import_path = $this->xmls_path . '/import0_1.xml';
         $xml_import_data = simplexml_load_file($xml_import_path);
 
+        $log->write('load import0_1.xml');
+
         // Создаем массив по аналогии для категорий
         $category_array = array();
         $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
