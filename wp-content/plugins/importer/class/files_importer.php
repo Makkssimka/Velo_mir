@@ -56,18 +56,12 @@ class IM_FilesImport
 
         unset($xml_offers_data);
 
-        $log->write('import price');
-
         $xml_import_path = $this->xmls_path . '/import0_1.xml';
         $xml_import_data = simplexml_load_file($xml_import_path);
-
-        $log->write('load import0_1.xml');
 
         // Создаем массив по аналогии для категорий
         $category_array = array();
         $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
-
-        $log->write('import category');
 
         // Создаем массив по аналогии для свойств и их значений
         $prop_array = array();
@@ -87,7 +81,7 @@ class IM_FilesImport
             }
         }
 
-        $log->write('import attributes');
+        $counter = 0;
 
         // Перебираем товары и содаем продукты со свойствами
         $products_array = [];
@@ -152,6 +146,8 @@ class IM_FilesImport
                 'properties' => $properties_product,
                 'tags' => $tags,
             );
+
+            $log->write(++$counter);
         }
 
         unset($xml_import_data);
