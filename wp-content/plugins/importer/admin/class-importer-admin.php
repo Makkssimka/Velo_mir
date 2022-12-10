@@ -231,10 +231,11 @@ class Importer_Admin {
     {
         $counter = $_REQUEST['counter'];
         $importer = new IM_FilesImport($counter);
-        $importer->unzip();
+        $steps = $importer->unzip();
 
         $result = array(
-            'status' => 2
+            'status' => 2,
+            'data' => $steps,
         );
         echo json_encode($result);
         wp_die();

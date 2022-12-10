@@ -38,6 +38,8 @@ class IM_FilesImport
                 IM_FilesManager::unzip($archive_path, $this->images_path, $this->xmls_path);
             }
         }
+
+        return count($archives_list) / 2;
     }
 
     public function getData()
