@@ -10,6 +10,7 @@ class IM_FilesImport
             $new_product = 0,
             $update_product = 0,
             $xml_offers_path = '',
+            $xml_import_start_path = '',
             $xml_import_path = '';
 
 
@@ -21,6 +22,7 @@ class IM_FilesImport
         $this->xmls_path = $upload_path . 'xmls/';
         $this->xml_offers_path = $this->xmls_path . '/offers0_'.$counter.'.xml';
         $this->xml_import_path = $this->xmls_path . '/import0_'.$counter.'.xml';
+        $this->xml_import_start_path = $this->xmls_path . '/import0_1.xml';
     }
 
 
@@ -63,15 +65,16 @@ class IM_FilesImport
         unset($xml_offers_data);
 
         $xml_import_data = simplexml_load_file($this->xml_import_path);
+        $xml_import_start_data = simplexml_load_file($this->xml_import_start_path);
 
         // Создаем массив по аналогии для категорий
         $category_array = array();
-        $this->getCategoryXml($xml_import_data->Классификатор->Группы, $category_array);
+        $this->getCategoryXml($xml_import_start_data->Классификатор->Группы, $category_array);
 
         // Создаем массив по аналогии для свойств и их значений
         $prop_array = array();
         $prop_value_array = array();
-        foreach ($xml_import_data->Классификатор->Свойства->Свойство as $prop_parent) {
+        foreach ($xml_import_start_data->Классификатор->Свойства->Свойство as $prop_parent) {
             $id = (string) $prop_parent->Ид;
             $attr = (string) $prop_parent->Наименование;
             $prop_array[$id] = $attr;

@@ -152,7 +152,7 @@ $(document).ready(function () {
 	}
 
 	// Получение данных продукта
-	function productData(counter = 0) {
+	function productData() {
 		const timer = new Timer();
 		$('.status-data').text(getStatus(1));
 		setStatusMessage('получение данных...');
@@ -209,7 +209,7 @@ $(document).ready(function () {
 					if (globalCounter > globalSteps) {
 						cleanDataFolders();
 					} else {
-						categoryData();
+						productData();
 					}
 			}
 		});
