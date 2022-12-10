@@ -229,7 +229,8 @@ class Importer_Admin {
     // ajax import product
     public function importer_ajax_unzip()
     {
-        $importer = new IM_FilesImport();
+        $counter = $_REQUEST['counter'];
+        $importer = new IM_FilesImport($counter);
         $importer->unzip();
 
         $result = array(
@@ -241,7 +242,8 @@ class Importer_Admin {
 
     public function importer_ajax_category_data()
     {
-        $category = new IM_CategoriesImport();
+        $counter = $_REQUEST['counter'];
+        $category = new IM_CategoriesImport($counter);
         $category->runAjax();
 
         $result = array(
@@ -282,7 +284,8 @@ class Importer_Admin {
 
     public function importer_ajax_data()
     {
-        $importer = new IM_FilesImport();
+        $counter = $_REQUEST['counter'];
+        $importer = new IM_FilesImport($counter);
         $data = $importer->getData();
 
 

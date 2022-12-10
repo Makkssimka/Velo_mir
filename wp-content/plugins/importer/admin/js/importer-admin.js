@@ -42,6 +42,8 @@ $(document).ready(function () {
 	const startProductBtn = $('#start-import');
 	const stopProductBtn = $('#stop-import');
 	const progressMsg = $('.progress-message');
+	let globalCounter = 1;
+	let globalSteps = 1;
 	const step = 10;
 	let importTimer = 0;
 	let importCategoryTimer = 0;
@@ -78,6 +80,7 @@ $(document).ready(function () {
 
 		let sendData = {
 			action: 'importer_unzip',
+			counter: globalCounter
 		};
 
 		$.post(ajaxurl, sendData, function (response) {
@@ -101,6 +104,7 @@ $(document).ready(function () {
 
 		let sendData = {
 			action: 'importer_category_data',
+			counter: globalCounter
 		};
 
 		$.post(ajaxurl, sendData, function (response) {
@@ -153,7 +157,8 @@ $(document).ready(function () {
 		setStatusMessage('получение данных...');
 
 		let sendData = {
-			action: 'importer_data'
+			action: 'importer_data',
+			counter: globalCounter
 		};
 
 		$.post(ajaxurl, sendData, function (response) {
@@ -190,13 +195,19 @@ $(document).ready(function () {
 			const counter = Number(result.data);
 			stepCount += counter;
 
+			globalCounter++;
 			if (stepCount < countProduct && !stop) {
 				productImport();
 			} else {
 					$('#time-migrate').text(importTimer.getTimeResult());
 					$('.status-migrate').text(getStatus(status));
 
-					cleanDataFolders();
+
+					stepCount = 0;
+					console.log(globalCounter);
+					productData()
+
+					//cleanDataFolders();
 			}
 		});
 	}

@@ -8,14 +8,19 @@ class IM_FilesImport
             $xmls_path,
             $all_product = 0,
             $new_product = 0,
-            $update_product = 0;
+            $update_product = 0,
+            $xml_offers_path = '',
+            $xml_import_path = '';
 
-    public function __construct()
+
+    public function __construct($counter)
     {
         $upload_path = IMPORTER_PLUGIN_PATH . 'upload/';
         $this->archives_path = $upload_path . 'archives/';
         $this->images_path = $upload_path . 'images/';
         $this->xmls_path = $upload_path . 'xmls/';
+        $this->xml_offers_path = $this->xmls_path . '/offers0_'.$counter.'.xml';
+        $this->xml_import_path = $this->xmls_path . '/import0_'.$counter.'.xml';
     }
 
 
@@ -39,8 +44,7 @@ class IM_FilesImport
     {
         $log = new LogImporter();
 
-        $xml_offers_path = $this->xmls_path . '/offers0_1.xml';
-        $xml_offers_data = simplexml_load_file($xml_offers_path);
+        $xml_offers_data = simplexml_load_file($this->xml_offers_path);
 
         // Создаем массив с ид товара в ключе и ценой и количеством в значении
         $price_quantity_array = array();
@@ -56,8 +60,7 @@ class IM_FilesImport
 
         unset($xml_offers_data);
 
-        $xml_import_path = $this->xmls_path . '/import0_1.xml';
-        $xml_import_data = simplexml_load_file($xml_import_path);
+        $xml_import_data = simplexml_load_file($this->xml_import_path);
 
         // Создаем массив по аналогии для категорий
         $category_array = array();

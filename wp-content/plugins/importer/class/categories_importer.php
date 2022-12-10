@@ -7,10 +7,10 @@ class IM_CategoriesImport
             $categories = array(),
             $categoriesAjax = array();
 
-    public function __construct()
+    public function __construct($counter)
     {
         $upload_path = IMPORTER_PLUGIN_PATH . 'upload/';
-        $this->import_path = $upload_path . 'xmls/import0_1.xml';
+        $this->import_path = $upload_path . 'xmls/import0_'.$counter.'.xml';
     }
 
     public function run()
