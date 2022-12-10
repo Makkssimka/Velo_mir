@@ -204,13 +204,12 @@ $(document).ready(function () {
 
 					globalCounter++;
 					stepCount = 0;
-
-					console.log(globalCounter);
+					stepCategoryCount = 0;
 
 					if (globalCounter > globalSteps) {
 						cleanDataFolders();
 					} else {
-						productData();
+						categoryData();
 					}
 			}
 		});
