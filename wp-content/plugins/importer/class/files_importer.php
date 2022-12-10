@@ -13,7 +13,7 @@ class IM_FilesImport
             $xml_import_path = '';
 
 
-    public function __construct($counter)
+    public function __construct($counter = 1)
     {
         $upload_path = IMPORTER_PLUGIN_PATH . 'upload/';
         $this->archives_path = $upload_path . 'archives/';

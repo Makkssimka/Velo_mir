@@ -229,8 +229,7 @@ class Importer_Admin {
     // ajax import product
     public function importer_ajax_unzip()
     {
-        $counter = $_REQUEST['counter'];
-        $importer = new IM_FilesImport($counter);
+        $importer = new IM_FilesImport();
         $steps = $importer->unzip();
 
         $result = array(
