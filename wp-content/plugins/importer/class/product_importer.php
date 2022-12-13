@@ -166,7 +166,7 @@ class IM_Product
                 try {
                     $product->set_sku($this->sku);
                 } catch (WC_Data_Exception $e) {
-                    $product->set_sku($this->sku . 'd');
+                    $product->set_sku($this->sku . '_' . $this->generateRandomString(5));
                 }
             }
         } else {
@@ -177,7 +177,7 @@ class IM_Product
                 try {
                     $product->set_sku($this->sku);
                 } catch (WC_Data_Exception $e) {
-                    $product->set_sku($this->sku . 'd');
+                    $product->set_sku($this->sku . '_' . $this->generateRandomString(5));
                 }
             } else {
                 $product->set_sku(IM_Sku::getGeneratedItemSku());
@@ -280,6 +280,10 @@ class IM_Product
 
         rename($start_path, $end_path);
         return $end_path;
+    }
+
+    private function generateRandomString($length = 10) {
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
     }
 
 }
