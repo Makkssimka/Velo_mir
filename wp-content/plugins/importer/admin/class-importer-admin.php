@@ -311,9 +311,10 @@ class Importer_Admin {
             $quantity = $item['quantity'];
             $category = IM_Helper::getSiteCategoryId($item['category']);
             $description = $item['description'];
-            $images = $item['images'];
+            $images = key_exists('images', $item) ? $item['images'] : [];
             $properties = $item['properties'];
-            $tags = $item['tags'];
+            $tags = key_exists('tags', $item) ? $item['tags']: [];
+            $storages = $item['storages'];
 
 
             $product = new IM_Product();
@@ -331,6 +332,7 @@ class Importer_Admin {
             $product->setDescription($description);
             $product->setImages($images);
             $product->setTags($tags);
+            $product->setStorages($storages);
 
             $product->save();
         }

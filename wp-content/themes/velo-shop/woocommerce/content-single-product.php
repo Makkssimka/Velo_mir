@@ -33,6 +33,9 @@ $is_compare = in_array($product->get_id(), $compare_array)?'Добавлен к 
 
 $product_category = get_term($product->get_category_ids()[0], 'product_cat');
 
+$storages = $product->get_meta('storages');
+$storages = $storages ? explode(',', $storages) : [];
+$isOnePrice = count($storages) < 2 && in_array('СкладСАЙТА', $storages);
 ?>
 
 <div id="product-<?php the_ID(); ?>" class="content-main product">
@@ -44,7 +47,9 @@ $product_category = get_term($product->get_category_ids()[0], 'product_cat');
             <div class="product-price">
                 <div class="product-item-price-wrapper">
                     <div class="product-price-item">
+                      <?php if(!$isOnePrice) : ?>
                         <div class="product-old-price"><?= wc_price($product->get_regular_price()) ?></div>
+                      <?php endif ?>
                         <div class="product-new-price"><?= wc_price($product->get_price()) ?></div>
                     </div>
                 </div>

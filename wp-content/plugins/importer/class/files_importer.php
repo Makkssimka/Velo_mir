@@ -50,15 +50,32 @@ class IM_FilesImport
 
         $xml_offers_data = simplexml_load_file($this->xml_offers_path);
 
+        // Создаем массив складов
+        $storages = [];
+        foreach($xml_offers_data->ПакетПредложений->Склады->Склад as $storage) {
+            $storages[(string) $storage->Ид] = (string) $storage->Наименование;
+        }
+
         // Создаем массив с ид товара в ключе и ценой и количеством в значении
         $price_quantity_array = array();
         foreach ($xml_offers_data->ПакетПредложений->Предложения->Предложение as $item) {
             $id = (string) $item->Ид;
             $price = (integer) $item->Цены->Цена->ЦенаЗаЕдиницу;
             $quantity = (integer) $item->Количество;
+
+            $current_storages = [];
+            foreach($item->Склад as $st) {
+                $count = (int) $st->attributes()['КоличествоНаСкладе'];
+                $id_st = (string) $st->attributes()['ИдСклада'];
+                if ($count) {
+                    $current_storages[] = $storages[$id_st];
+                }
+            }
+
             $price_quantity_array[$id] = [
                 'price' => $price,
-                'quantity' => $quantity
+                'quantity' => $quantity,
+                'storages' => implode(',', $current_storages),
             ];
         }
 
@@ -103,11 +120,12 @@ class IM_FilesImport
 
             $price = $price_quantity_array[$id]['price'];
             $quantity = $price_quantity_array[$id]['quantity'];
+            $storage = $price_quantity_array[$id]['storages'];
 
             $category_id = (string)$item->Группы->Ид;
 
             $description = $item->Описание ? (string)$item->Описание : '';
-            $images = (array)$item->Картинка;
+            $images = (array)$item->Картинка ?? [];
 
             $properties_product = null;
             $properties = $item->ЗначенияСвойств->ЗначенияСвойства;
@@ -152,6 +170,7 @@ class IM_FilesImport
                 'brand' => $brand,
                 'properties' => $properties_product,
                 'tags' => $tags,
+                'storages' => $storage,
             );
         }
 

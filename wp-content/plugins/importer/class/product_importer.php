@@ -12,7 +12,8 @@ class IM_Product
             $description,
             $images,
             $tags,
-            $properties = array();
+            $properties = array(),
+            $storages;
 
     /**
      * @param mixed $brand
@@ -133,6 +134,15 @@ class IM_Product
     }
 
     /**
+     * @param $storages
+     * @return void
+     */
+    public function setStorages($storages)
+    {
+        $this->storages = $storages;
+    }
+
+    /**
      * @throws WC_Data_Exception
      */
     public function save()
@@ -153,14 +163,22 @@ class IM_Product
             $product = wc_get_product($product_query->get_posts()[0]->ID);
 
             if ($this->sku) {
-                $product->set_sku($this->sku);
+                try {
+                    $product->set_sku($this->sku);
+                } catch (WC_Data_Exception $e) {
+                    $product->set_sku($this->sku . 'd');
+                }
             }
         } else {
             $product = new WC_Product();
             $product->update_meta_data('1c_id',$this->id);
 
             if ($this->sku) {
-                $product->set_sku($this->sku);
+                try {
+                    $product->set_sku($this->sku);
+                } catch (WC_Data_Exception $e) {
+                    $product->set_sku($this->sku . 'd');
+                }
             } else {
                 $product->set_sku(IM_Sku::getGeneratedItemSku());
             }
@@ -179,7 +197,9 @@ class IM_Product
 
         $description = explode('@', $this->description);
         $product->set_description($description[0] ?? '');
-        $product->set_short_description(nl2br($description[1]) ?? '');
+        $product->set_short_description(array_key_exists(1, $description) ? nl2br($description[1]) : '');
+
+        $product->update_meta_data('storages',$this->storages);
 
         $attributes_array = array();
         foreach ($this->properties as $property) {
@@ -190,7 +210,7 @@ class IM_Product
         $product->set_attributes($attributes_array);
 
         // Перебираем картинки, первой делаем картинку обложкой, остальные в галлерею
-        if (count($this->images)) {
+        if ($this->images && count($this->images)) {
             $product_image_id = null;
             $product_gallery_ids = [];
             foreach ($this->images as $key => $image) {
