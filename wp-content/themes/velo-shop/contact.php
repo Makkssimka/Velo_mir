@@ -51,7 +51,9 @@ get_header();
                                 <a href="tel:+7 <?= $item['telephone'] ?>" class="pr-1">
                                     +7 <?= $item['telephone'] ?>
                                 </a>
-                                (<?= $item['address'] ?>)
+                                <?php if ($item['address']) : ?>
+                                  (<?= $item['address'] ?>)
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>

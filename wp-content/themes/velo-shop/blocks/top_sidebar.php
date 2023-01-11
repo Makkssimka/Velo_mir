@@ -33,7 +33,9 @@ $compare_array = isset($_SESSION['compare'])?json_decode($_SESSION['compare']):a
                                 <a href="tel:+7 <?= $item['telephone'] ?>" class="bottom-sidebar-tel block">
                                     +7 <?= $item['telephone'] ?>
                                 </a>
-                                <span class="f-small f-white opacity-70 f-normal">(<?= $item['address'] ?>)</span>
+                                <?php if ($item['address']) : ?>
+                                  <span class="f-small f-white opacity-70 f-normal">(<?= $item['address'] ?>)</span>
+                                <?php endif ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>

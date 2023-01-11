@@ -26,7 +26,9 @@ $inst_url = get_option('instagram');
                         <a href="tel:+7 <?= $item['telephone'] ?>" class="bottom-sidebar-tel block">
                             +7 <?= $item['telephone'] ?>
                         </a>
-                        <span class="f-small">(<?= $item['address'] ?>)</span>
+                        <?php if ($item['address']) : ?>
+                          <span class="f-small">(<?= $item['address'] ?>)</span>
+                        <?php endif ?>
                     </li>
                 <?php endforeach; ?>
                 <li class="bottom-sidebar-time">
