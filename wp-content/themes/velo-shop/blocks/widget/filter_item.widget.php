@@ -17,6 +17,7 @@ function filter_item_widget($attribute){
     // Перебираем все значения аттрибутов и собираем одинаковые в массив и подсчитываем количество
     $terms_list = [];
     foreach ($attribute['terms'] as $term) {
+        print_r($attribute['terms']);
         $term = get_term($term['options'][0]);
         if (array_key_exists($term->term_id, $terms_list)) {
             $terms_list[$term->term_id]['count'] = $terms_list[$term->term_id]['count'] + 1;
