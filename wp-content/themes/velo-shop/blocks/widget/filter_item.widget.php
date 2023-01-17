@@ -30,8 +30,10 @@ function filter_item_widget($attribute){
     }
 
     // Перебираем полученные значения и формируем список с чекбосами
+
     foreach ($terms_list as $item) {
-        $list_item .= '
+        try {
+            $list_item .= '
             <div>
                 <input 
                     type="checkbox" 
@@ -39,8 +41,12 @@ function filter_item_widget($attribute){
                     id="'.$item['id'].'" 
                     value="'.$item['slug'].'"
                     '.(in_array($item['slug'], $item_value_list) ? 'checked' : '').'>';
-        $list_item .= '<label for="'.$item['id'].'">'.$item['name'].' <span>('.$item['count'].')</span></label>';
-        $list_item .= '</div>';
+            $list_item .= '<label for="'.$item['id'].'">'.$item['name'].' <span>('.$item['count'].')</span></label>';
+            $list_item .= '</div>';
+        } catch (Exception $e) {
+            print_r($terms_list);
+            continue;
+        }
 
     }
 
