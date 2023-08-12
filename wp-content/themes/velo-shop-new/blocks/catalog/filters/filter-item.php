@@ -14,11 +14,9 @@ if (property_exists($filter_value, $attribute['slug'])) {
 // Перебираем все значения аттрибутов и собираем одинаковые в массив и подсчитываем количество
 $terms_list = [];
 foreach ($attribute['terms'] as $item) {
-    if(empty($item['options'])) continue;
+    if(!isset($item['options'][0])) continue;
 
     $term = get_term($item['options'][0]);
-    var_dump($item['options'][0]);
-    if (!$term) continue;
 
     if (array_key_exists($term->term_id, $terms_list)) {
         $terms_list[$term->term_id]['count'] = $terms_list[$term->term_id]['count'] + 1;
