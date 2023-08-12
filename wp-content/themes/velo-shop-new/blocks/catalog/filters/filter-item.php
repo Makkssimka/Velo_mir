@@ -21,7 +21,7 @@ foreach ($attribute['terms'] as $term) {
         $terms_list[$term->term_id]['count'] = $terms_list[$term->term_id]['count'] + 1;
     } else {
         $terms_list[$term->term_id]['id'] = $term->term_id;
-        $terms_list[$term->term_id]['name'] = string_crop($term->name, 26);
+        $terms_list[$term->term_id]['name'] = string_crop($term->name, 30);
         $terms_list[$term->term_id]['slug'] = $term->slug;
         $terms_list[$term->term_id]['taxonomy'] = $term->taxonomy;
         $terms_list[$term->term_id]['count'] = 1;
