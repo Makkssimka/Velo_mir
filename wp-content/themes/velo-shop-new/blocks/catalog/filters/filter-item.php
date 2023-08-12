@@ -17,6 +17,7 @@ foreach ($attribute['terms'] as $term) {
     if(!isset($term['options'][0])) continue;
 
     $term = get_term($term['options'][0]);
+    var_dump($term);
     if (array_key_exists($term->term_id, $terms_list)) {
         $terms_list[$term->term_id]['count'] = $terms_list[$term->term_id]['count'] + 1;
     } else {
