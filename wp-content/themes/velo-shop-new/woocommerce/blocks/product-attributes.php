@@ -7,7 +7,7 @@ $visible_attributes = getAttributesListVisible();
 $attributes_array = [];
 
 foreach ($attributes as $key => $attr) {
-    if (!in_array($key, $visible_attributes)) continue;
+    if (!in_array($key, $visible_attributes) || !count($attr['options'])) continue;
 
     $term = get_term($attr['options'][0]);
     $attributes_array[] = [
