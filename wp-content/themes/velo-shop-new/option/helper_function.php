@@ -355,3 +355,13 @@ function mb_lcfirst($string, $charset = 'UTF-8') {
     return mb_strtolower(mb_substr($string, 0, 1, $charset), $charset) .
         mb_substr($string, 1, mb_strlen($string, $charset), $charset);
 }
+
+function string_crop($string, $len) {
+    if (strlen($string) > $len)
+    {
+        $string = wordwrap($string, $len);
+        $string = substr($string, 0, strpos($string, "\n"));
+    }
+
+    return $string;
+}

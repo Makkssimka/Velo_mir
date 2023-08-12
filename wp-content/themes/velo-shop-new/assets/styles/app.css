@@ -1620,7 +1620,7 @@ ul.list_simple li {
   content: "";
   position: absolute;
   left: 0;
-  top: 0;
+  top: 3px;
   box-sizing: border-box;
   width: 22px;
   height: 22px;
@@ -1647,9 +1647,8 @@ ul.list_simple li {
 .filter__list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   overflow: hidden;
-  max-height: calc(66px + 1.5rem);
+  max-height: calc(90px);
 }
 
 .filter__item {
@@ -1657,7 +1656,7 @@ ul.list_simple li {
   flex: none;
   align-items: center;
   position: relative;
-  height: 22px;
+  height: 30px;
 }
 
 .filter__button {

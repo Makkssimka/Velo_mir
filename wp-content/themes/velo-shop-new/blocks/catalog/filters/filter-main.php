@@ -24,8 +24,9 @@ $products_attribute_list = [];
 // Перебираем продукты и собираем аттрибуты в массив
 foreach ($products_filter as $product) {
     $attributes = $product->get_attributes();
+
     foreach ($attributes as $slug => $attribute) {
-        if ($slug === 'pa_cvet_dop') continue;
+        if ($slug === 'pa_cvet_dop' || empty($attribute['options'])) continue;
 
         if (in_array($slug, $products_attribute_list)) {
             $products_attribute_list[$slug]['terms'][] = $attribute;

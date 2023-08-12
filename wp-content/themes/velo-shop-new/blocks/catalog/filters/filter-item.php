@@ -15,12 +15,13 @@ if (property_exists($filter_value, $attribute['slug'])) {
 $terms_list = [];
 foreach ($attribute['terms'] as $term) {
     if(!isset($term['options'][0])) continue;
+
     $term = get_term($term['options'][0]);
     if (array_key_exists($term->term_id, $terms_list)) {
         $terms_list[$term->term_id]['count'] = $terms_list[$term->term_id]['count'] + 1;
     } else {
         $terms_list[$term->term_id]['id'] = $term->term_id;
-        $terms_list[$term->term_id]['name'] = $term->name;
+        $terms_list[$term->term_id]['name'] = string_crop($term->name, 26);
         $terms_list[$term->term_id]['slug'] = $term->slug;
         $terms_list[$term->term_id]['taxonomy'] = $term->taxonomy;
         $terms_list[$term->term_id]['count'] = 1;
