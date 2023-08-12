@@ -360,7 +360,7 @@ function string_crop($string, $len) {
     if (strlen($string) > $len)
     {
         $string = wordwrap($string, $len);
-        $string = substr($string, 0, strpos($string, "\n"));
+        $string = mb_substr($string, 0, mb_strpos($string, "\n"));
     }
 
     return $string;
