@@ -35,14 +35,14 @@ $page_url = get_current_url();
       </div>
 
       <a
-        class="page-nav__arrow <?= $offset_page + 1 >= $count_page ? 'disabled' : '' ?>"
+        class="page-nav__arrow <?= $offset_page + 1 > $count_page ? 'disabled' : '' ?>"
         href="<?= $page_url.'?page_count='.($offset_page + 1)?>"
       >
           <img src="<?= get_asset_path('images/icons', 'r-arrow.svg') ?>" />
       </a>
 
       <a
-        class="page-nav__arrow <?= $offset_page + 1 >= $count_page ? 'disabled' : '' ?>"
+        class="page-nav__arrow <?= $offset_page + 1 > $count_page ? 'disabled' : '' ?>"
         href="<?= $page_url.'?page_count='.$count_page ?>"
       >
           <img src="<?= get_asset_path('images/icons', 'r-d-arrow.svg') ?>" />
