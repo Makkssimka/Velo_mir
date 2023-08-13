@@ -1632,7 +1632,7 @@ ul.list_simple li {
   content: "";
   position: absolute;
   left: 5px;
-  top: 5px;
+  top: 8px;
   width: 12px;
   height: 12px;
   background-color: #C4D9ED;
