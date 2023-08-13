@@ -3,6 +3,7 @@ $category = $args['category'];
 
 $price = null;
 $filter_value = isset($_SESSION['filter']) ? json_decode($_SESSION['filter'], true) : '';
+$filter_value =  $filter_value['category'][0] == $category->slug ? $filter_value : '';
 
 if (isset($filter_value['price'])) $price = $filter_value['price'];
 

@@ -1,10 +1,12 @@
 <?php
 
 $attribute = $args['attribute'];
+$category = $args['category'];
 
 // Старые значения фильтров
 $item_value_list = array();
 $filter_value = isset($_SESSION['filter']) ? json_decode($_SESSION['filter']) : '';
+$filter_value =  $filter_value->category[0] == $category->slug ? $filter_value : '';
 $filter_slug = $attribute['slug'];
 
 if (property_exists($filter_value, $attribute['slug'])) {

@@ -54,6 +54,7 @@ switch ($sort) {
 $filter_value = json_decode($_SESSION['filter'] ?? '');
 
 if ($filter_value && $filter_value->category[0] == $category->slug) {
+
     foreach ($filter_value as $key => $value) {
         if (in_array($key, array('price', 'have', 'category'))) continue;
         $query = array(
@@ -66,7 +67,7 @@ if ($filter_value && $filter_value->category[0] == $category->slug) {
 }
 
 // Получение значения фильтра цен
-if ($filter_value && $filter_value->price) {
+if ($filter_value && $filter_value->price && $filter_value->category[0] == $category->slug) {
     $args_product['price_range'] = $filter_value->price[0] . '|' . $filter_value->price[1];
 }
 

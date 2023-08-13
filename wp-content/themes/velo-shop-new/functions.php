@@ -161,7 +161,7 @@ function mysite_filter_related_products( $related_product_ids ) {
     return $related_product_ids;
 }
 
-// Функция фильтрации товара
+// Функция фильтрации товара по цене
 add_filter( 'woocommerce_product_data_store_cpt_get_products_query', 'handle_price_range_query_var', 10, 2 );
 
 function handle_price_range_query_var( $query, $query_vars ) {

@@ -55,7 +55,7 @@ foreach ($products_filter as $product) {
     <?php get_template_part('blocks/catalog/filters/filter-rage-price', null, ['category' => $category]) ?>
 
     <?php foreach ($products_attribute_list as $item) : ?>
-        <?php get_template_part('blocks/catalog/filters/filter-item', null, ['attribute' => $item]) ?>
+        <?php get_template_part('blocks/catalog/filters/filter-item', null, ['attribute' => $item, 'category' => $category]) ?>
     <?php endforeach ?>
 
     <div class="filter__block">
