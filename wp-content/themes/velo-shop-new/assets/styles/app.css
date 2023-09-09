@@ -1615,6 +1615,7 @@ ul.list_simple li {
 .filter__option label {
   padding-left: 2rem;
   cursor: pointer;
+  line-height: 0.8rem;
 }
 .filter__option label:before {
   content: "";
