@@ -2223,3 +2223,65 @@ h2 {
     display: block;
   }
 }
+
+.search-input__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input__wrapper input {
+  width: calc(100% - 2rem);
+  box-sizing: border-box;
+  padding: 0.6rem 1rem;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+}
+
+.search-input__wrapper button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-left: 0.5rem;
+  background-color: #264796;
+  border-radius: 0 20px 20px 0;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-result__wrapper h3 {
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.search-list__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.search-list__wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.search-list__wrapper .select {
+  box-sizing: border-box;
+  width: 300px;
+}
+
+@media (max-width: 768px) {
+  .search-list__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

@@ -1,17 +1,31 @@
-<div class="search-filter">
-    Категория товара
-    <div id="search_sort" class="select-input">
-        <div class="select-input-value">
-            <span></span>
-            <i class="las la-angle-down"></i>
-        </div>
-        <div class="select-input-option">
-            <div data-value="" class="select-option-item <?= !$sort ? 'option-item-select' : ''  ?>">
-                Выберите категорию
-            </div>
-            <?php foreach ($categories as $category): ?>
-                <div data-value="<?= $category->term_id ?>" class="select-option-item <?= $category->term_id == $sort ? 'option-item-select' : ''  ?>"><?= $category->name ?></div>
-            <?php endforeach; ?>
-        </div>
+<?php
+$categories = $args['categories'];
+$sort = $args['sort'];
+?>
+
+<div id="search_sort" class="select">
+    <div class="select__result"></div>
+
+    <div class="select__arrow">
+        <img src="<?= get_asset_path('images/icons', 'select-arrow.svg') ?>" />
+    </div>
+
+    <div class="select__list">
+            <a
+                href="#"
+                data-value=""
+                class="select__item <?= !$sort ? 'select__item_select' : '' ?>"
+            >
+                Без категории
+            </a>
+        <?php foreach ($categories as $category) : ?>
+            <a
+                href="#"
+                data-value="<?= $category->term_id ?>"
+                class="select__item <?= $category->term_id == $sort ? 'select__item_select' : '' ?>"
+            >
+                <?= $category->name ?>
+            </a>
+        <?php endforeach ?>
     </div>
 </div>

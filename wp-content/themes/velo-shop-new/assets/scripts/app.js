@@ -131,8 +131,8 @@ jQuery(document).ready(function ($) {
    * Инициализация селектора сортировки
    */
   function initSelect() {
-    const elValue = $('#sort .select__item_select');
-    const elField = $('#sort .select__result');
+    const elValue = $('.select__item_select');
+    const elField = $('.select__result');
 
     elField.text(elValue.text());
 
@@ -142,6 +142,14 @@ jQuery(document).ready(function ($) {
     $('.select__item').click(function () {
       elField.text($(this).text());
       const value = $(this).data('value');
+
+      const select = $(this).parents('.select');
+
+      switch (select.attr('id')) {
+        case 'search_sort':
+          searchSort(value);
+          break;
+      }
     });
 
     /**
@@ -155,6 +163,16 @@ jQuery(document).ready(function ($) {
     $(document).click(function () {
       $('.select').removeClass('select__active');
     })
+  }
+
+  function searchSort(value) {
+    let url_params = window.location.search.substring(1);
+    url_params = new URLSearchParams(url_params);
+    url_params.set('sort', value);
+    url_params["delete"]('page_count');
+
+    const link = url_params.toString();
+    window.location.href = window.location.pathname + '?' + link;
   }
 
   /**
