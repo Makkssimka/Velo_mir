@@ -24,7 +24,7 @@ $products_attribute_list = [];
 foreach ($products_filter as $product) {
     $attributes = $product->get_attributes();
     foreach ($attributes as $slug => $attribute) {
-        if ($slug === 'pa_cvet_dop') continue;
+        if (in_array($slug, ['pa_cvet_dop', 'pa_dop-cvet'])) continue;
 
         if (in_array($slug, $products_attribute_list)) {
             $products_attribute_list[$slug]['terms'][] = $attribute;
