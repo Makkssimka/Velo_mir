@@ -2224,6 +2224,67 @@ h2 {
   }
 }
 
+.search__ajax {
+  position: relative;
+}
+
+.search-result-ajax {
+  position: absolute;
+  display: none;
+  top: calc(100% + 1rem);
+  left: 0;
+  right: -120px;
+  background-color: white;
+  z-index: 50;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.search-result-ajax ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.search-result-ajax li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.search-ajax-image img {
+  width: 50px;
+  height: auto;
+}
+
+.search-ajax-link a {
+  font-size: 0.875rem;
+}
+
+.search-ajax-link small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #264796;
+}
+
+.search-ajax-price {
+  width: 70px;
+  flex: none;
+  font-size: 0.875rem;
+}
+
+.search-all {
+  display: none;
+  font-size: 0.875rem;
+  text-align: center;
+  margin: 1rem 0;
+  color: #264796;
+}
+
 .search-input__wrapper {
   position: relative;
   display: flex;

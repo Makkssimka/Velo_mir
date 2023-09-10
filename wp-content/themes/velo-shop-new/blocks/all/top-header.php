@@ -7,11 +7,22 @@
         </div>
 
         <div class="top-header__search">
-            <input type="text" placeholder="Поиск товаров">
+            <div class="search__ajax">
+                <input class="search-input" type="text" placeholder="Поиск товаров">
 
-            <a href="#" class="top-header__icon">
-                <img src="<?= get_asset_path('images/icons', 'search-white.svg') ?>" alt="search">
-            </a>
+                <a href="#" class="top-header__icon">
+                    <img src="<?= get_asset_path('images/icons', 'search-white.svg') ?>" alt="search">
+                </a>
+
+                <div class="search-result-ajax">
+                    <ul>
+                    </ul>
+
+                    <div class="search-all">
+                        <a href="#">Все результаты</a>
+                    </div>
+                </div>
+            </div>
 
             <a href="#" class="top-header__submenu mobile" data-target="top-submenu">
                 <img src="<?= get_asset_path('images/icons', 'menu-dot.svg') ?>" alt="menu dot">

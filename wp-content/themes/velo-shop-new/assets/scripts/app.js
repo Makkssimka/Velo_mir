@@ -17,6 +17,7 @@ jQuery(document).ready(function ($) {
     initModal();
     initSubMenu();
     initMobileMenu();
+    initSearch();
   });
 
   /**
@@ -648,5 +649,97 @@ jQuery(document).ready(function ($) {
    */
   const errorMessage = {
     required: 'Поле :field обязательно',
+  }
+
+  function initSearch() {
+    // Ajax поиск
+    const searchInput = $('.search-input');
+    const searchEl = $('.search-result-ajax');
+    const searchUl = $('.search-result-ajax ul');
+    const searchAllLinks = $('.top-header__icon, .search-all');
+    const searchAll = $('.search-all');
+    let searchTimer = null;
+
+
+    searchInput.on('input', function() {
+      const search = $(this).val();
+
+      searchAll.hide();
+
+      searchAllLinks.attr('href', '/search?search=' + search);
+
+      searchUl.html('<li>Идет поиск...</li>');
+
+      if (search.length > 3) {
+        clearTimeout(searchTimer);
+        searchEl.show();
+        searchTimer = setTimeout(function () {
+          searchEvent(search);
+        }, 500);
+      } else {
+        searchUl.html('');
+        searchEl.hide();
+        clearTimeout(searchTimer);
+      }
+    });
+
+    function searchEvent(search) {
+      $.ajax({
+        type: 'POST',
+        url: window.wp_data.ajax_url,
+        data: {
+          action: 'search_ajax',
+          search: search
+        },
+        success: function (response) {
+          const res = JSON.parse(response);
+          searchUl.html('');
+
+          if (res.search_result.length) {
+            renderSearchUl(res.search_result);
+
+            if (res.search_result.length >= 5) {
+              searchAll.show()
+            }
+
+          } else {
+            searchUl.html('<li>Ничего не найдено...</li>');
+          }
+        }
+      });
+    }
+
+    function renderSearchUl(items) {
+      items.forEach(item => {
+        const li = document.createElement('li');
+
+        const photoEl = document.createElement('div');
+        photoEl.classList.add('search-ajax-image');
+        const photoImg = document.createElement('img');
+        photoImg.src = item.image;
+        photoEl.appendChild(photoImg);
+
+        const titleEl = document.createElement('div')
+        titleEl.classList.add('search-ajax-link');
+        const titleLink = document.createElement('a');
+        titleLink.href = item.link;
+        titleLink.target = '_blank'
+        titleLink.innerHTML = item.title;
+        titleEl.appendChild(titleLink);
+        const skuElem = document.createElement('small');
+        skuElem.innerHTML = item.sku;
+        titleEl.appendChild(skuElem);
+
+        const priceEl = document.createElement('div');
+        priceEl.classList.add('search-ajax-price');
+        priceEl.innerHTML = item.price;
+
+        li.appendChild(photoEl);
+        li.appendChild(titleEl);
+        li.appendChild(priceEl);
+
+        searchUl.append(li);
+      });
+    }
   }
 });
