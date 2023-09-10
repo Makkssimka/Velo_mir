@@ -656,7 +656,7 @@ jQuery(document).ready(function ($) {
     const searchInput = $('.search-input');
     const searchEl = $('.search-result-ajax');
     const searchUl = $('.search-result-ajax ul');
-    const searchAllLinks = $('.top-header__icon, .search-all');
+    const searchAllLinks = $('.top-header__icon, .search-all a');
     const searchAll = $('.search-all');
     let searchTimer = null;
 
