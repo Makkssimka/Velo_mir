@@ -39,6 +39,13 @@ class Importer_Public {
 	 */
 	private $version;
 
+    /**
+     * Api key for the app
+     *
+     * @var string
+     */
+    private $api_key = '$2y$12$YOIEgLfL5jXoewLDR24Tj.3F/h3ksZ6sAH1f/6cERno10AYKNoZxi';
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -53,6 +60,32 @@ class Importer_Public {
 
         add_action( 'init', array($this, "router") );
 
+        add_action( 'rest_api_init', function () {
+            register_rest_route( 'importer/v1', '/unzip', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'unzip_callback'),
+            ));
+            register_rest_route( 'importer/v1', '/categories-data', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'categories_data_callback'),
+            ));
+            register_rest_route( 'importer/v1', '/categories-import', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'categories_import_callback'),
+            ));
+            register_rest_route( 'importer/v1', '/products-data', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'products_data_callback'),
+            ));
+            register_rest_route( 'importer/v1', '/products-import', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'products_import_callback'),
+            ));
+            register_rest_route( 'importer/v1', '/clean-import', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'clean_import_callback'),
+            ));
+        });
 	}
 
 	/**
@@ -158,4 +191,105 @@ class Importer_Public {
         die();
     }
 
+    public function unzip_callback($data) {
+        $importer = new IM_FilesImport();
+        $steps = $importer->unzip();
+
+        return [
+            'steps' => $steps,
+            'key' => $data['api_key']
+        ];
+    }
+
+    public function categories_data_callback($data) {
+        $counter = $data['counter'];
+
+        $category = new IM_CategoriesImport($counter);
+        $category->runAjax();
+
+        return [
+            'categories' => $category->getCategoriesAjax()
+        ];
+    }
+
+    public function categories_import_callback($data) {
+        $categories = $data['categories'];
+        $counter = count($categories);
+
+        foreach ($categories as $item) {
+            $id = $item['id'];
+            $name = $item['name'];
+            $parent = $item['parent'];
+
+            $category = new IM_Category();
+            $category->setId($id);
+            $category->setName($name);
+            $category->setParent($parent);
+            $category->save();
+        }
+
+        return [
+            'counter' => $counter
+        ];
+    }
+
+    public function products_data_callback($data) {
+        $counter = $data['counter'];
+        $importer = new IM_FilesImport($counter);
+        $data = $importer->getData();
+
+        return [
+            'products' => $data
+        ];
+    }
+
+    public function products_import_callback($data) {
+        $products = $data['products'];
+        $counter = count($products);
+
+        foreach ($products as $item) {
+            $id = $item['id'];
+            $name = $item['name'];
+            $sku = $item['sku'];
+            $price = $item['price'];
+            $quantity = $item['quantity'];
+            $category = IM_Helper::getSiteCategoryId($item['category']);
+            $description = $item['description'];
+            $images = key_exists('images', $item) ? $item['images'] : [];
+            $properties = $item['properties'];
+            $tags = key_exists('tags', $item) ? $item['tags']: [];
+            $storages = $item['storages'];
+
+
+            $product = new IM_Product();
+
+            if ($properties) {
+                $product->createAndAddProperties($properties);
+            }
+
+            $product->setId($id);
+            $product->setName($name);
+            $product->setSku($sku);
+            $product->setPrice($price);
+            $product->setQuantity($quantity);
+            $product->setCategoryId($category);
+            $product->setDescription($description);
+            $product->setImages($images);
+            $product->setTags($tags);
+            $product->setStorages($storages);
+
+            $product->save();
+        }
+
+        return [
+            'counter' => $counter
+        ];
+    }
+
+    public function clean_import_callback() {
+        $importer = new IM_FilesImport();
+        $importer->cleanDataFolders();
+
+        return true;
+    }
 }
