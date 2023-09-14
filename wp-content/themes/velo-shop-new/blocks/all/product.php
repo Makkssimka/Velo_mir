@@ -1,4 +1,5 @@
 <?php
+global $cart_ids;
 $product = $args['product'];
 ?>
 
@@ -34,8 +35,14 @@ $product = $args['product'];
             <div class="catalog-item__price_new"><?= wc_price($product->get_sale_price()) ?></div>
         </div>
 
-        <a href="#" class="catalog-item__button">
+        <a
+            <?= in_array($product->get_id(), $cart_ids) ? '' : 'data-add-cart' ?>
+            data-product="<?= $product->get_id() ?>"
+            href="/cart"
+            class="catalog-item__button <?= in_array($product->get_id(), $cart_ids) ? 'catalog-item__button_active' : '' ?>"
+        >
             <img src="<?= get_asset_path('images/icons', 'cart.svg') ?>" alt="cart">
+            <img src="<?= get_asset_path('images/icons', 'cart-check.svg') ?>" alt="cart">
         </a>
     </div>
 </div>

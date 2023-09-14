@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:none;stroke:#000000;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="24" height="24"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st0">
+		<path class="st1" d="M6,21c1.1,0,2-0.9,2-2s-0.9-2-2-2s-2,0.9-2,2S4.9,21,6,21z"/>
+		<path class="st1" d="M17,21c1.1,0,2-0.9,2-2s-0.9-2-2-2s-2,0.9-2,2S15.9,21,17,21z"/>
+		<path class="st1" d="M17,17H6V3H4"/>
+		<path class="st1" d="M19.1,12L19,13H6 M6,5l6,0.4L6,5z"/>
+	</g>
+</g>
+<polyline class="st1" points="14.4,5.4 17.2,8.7 21.7,2.4 "/>
+</svg>

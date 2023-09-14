@@ -1,3 +1,8 @@
+<?php
+$cart = WC()->cart;
+$cart_count = $cart->get_cart_contents_count();
+?>
+
 <div class="container">
     <div class="top-header">
         <div class="top-header__logo">
@@ -51,19 +56,36 @@
                     КАТАЛОГ
                 </a>
 
-                <a href="/compare">
+                <a class="top-header__item" href="/compare">
                     <img src="<?= get_asset_path('images/icons', 'compare.svg') ?>" alt="compare">
                     Сравнение
+                    <span class="top-header__counter"></span>
+                    <span
+                        data-counter="compare"
+                        data-count="0"
+                        class="top-header__counter">
+                    </span>
                 </a>
 
-                <a href="/favorites">
+                <a class="top-header__item" href="/favorites">
                     <img src="<?= get_asset_path('images/icons', 'heart.svg') ?>" alt="compare">
                     Избранное
+                    <span class="top-header__counter"></span>
+                    <span
+                        data-counter="favorites"
+                        data-count="0"
+                        class="top-header__counter">
+                    </span>
                 </a>
 
-                <a href="/cart">
+                <a class="top-header__item" href="/cart">
                     <img src="<?= get_asset_path('images/icons', 'cart.svg') ?>" alt="compare">
                     Корзина
+                    <span
+                        data-counter="cart"
+                        data-count="<?= $cart_count ?>"
+                        class="top-header__counter">
+                    </span>
                 </a>
             </div>
         </div>

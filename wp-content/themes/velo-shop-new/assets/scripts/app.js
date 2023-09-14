@@ -18,6 +18,8 @@ jQuery(document).ready(function ($) {
     initSubMenu();
     initMobileMenu();
     initSearch();
+    initHeaderItems();
+    initCartManipulation();
   });
 
   /**
@@ -275,7 +277,7 @@ jQuery(document).ready(function ($) {
     }
 
     $.post(window.wp_data.ajax_url, data)
-      .success(function(res) {
+      .success(function (res) {
         const result = JSON.parse(res);
 
         headMenu.text(result.category.name);
@@ -293,7 +295,7 @@ jQuery(document).ready(function ($) {
     const listMenu = $('[data-catalog="list"]');
     listMenu.html('');
 
-    list.forEach(function(item) {
+    list.forEach(function (item) {
       const link = $(document.createElement('a'));
       link.addClass('catalog-category__item');
       link.attr('href', item.link);
@@ -552,12 +554,12 @@ jQuery(document).ready(function ($) {
 
     let link = '?session_filter';
     for (let key in value_array) {
-      link += '&'+key+'='+value_array[key].join(',');
+      link += '&' + key + '=' + value_array[key].join(',');
     }
 
-    link += '&price='+price.join(',');
-    link += '&category='+category;
-    window.location.href = window.location.pathname+link;
+    link += '&price=' + price.join(',');
+    link += '&category=' + category;
+    window.location.href = window.location.pathname + link;
   });
 
 
@@ -651,6 +653,9 @@ jQuery(document).ready(function ($) {
     required: 'Поле :field обязательно',
   }
 
+  /**
+   * Инициализация поиска
+   */
   function initSearch() {
     // Ajax поиск
     const searchInput = $('.search-input');
@@ -661,7 +666,7 @@ jQuery(document).ready(function ($) {
     let searchTimer = null;
 
 
-    searchInput.on('input', function() {
+    searchInput.on('input', function () {
       const search = $(this).val();
 
       searchAll.hide();
@@ -683,6 +688,10 @@ jQuery(document).ready(function ($) {
       }
     });
 
+    /**
+     * Функция обработки события поиска
+     * @param search
+     */
     function searchEvent(search) {
       $.ajax({
         type: 'POST',
@@ -709,6 +718,10 @@ jQuery(document).ready(function ($) {
       });
     }
 
+    /**
+     * Функция отрисовки списка найденных элементов
+     * @param items
+     */
     function renderSearchUl(items) {
       items.forEach(item => {
         const li = document.createElement('li');
@@ -741,5 +754,83 @@ jQuery(document).ready(function ($) {
         searchUl.append(li);
       });
     }
+  }
+
+  /**
+   *  Инициализация верхнего меню
+   *  сравнения, добавления в корзину и т.д.
+   */
+  function initHeaderItems() {
+    renderHeaderItems();
+  }
+
+  /**
+   * Функция изменения счетчика элементов
+   * @param type
+   * @param count
+   */
+  function addHeaderItems(type = 'cart', count) {
+    const item = $(`[data-counter="${type}"]`);
+    item.attr('data-count', count);
+    renderHeaderItems();
+  }
+
+  /**
+   * Функция перерисовки счетчик элементов
+   */
+  function renderHeaderItems() {
+    const counters = $('[data-counter]');
+
+    counters.each(function () {
+      const item = $(this);
+      const count = Number($(this).attr('data-count'));
+
+      if (count) {
+        $(this).addClass('top-header__counter_visible');
+        $(this).text(count);
+      } else {
+        $(this).removeClass('top-header__counter_visible');
+      }
+    })
+  }
+
+  /**
+   *  Функция инициализации изменения карты
+   */
+  function initCartManipulation() {
+    const addBtn = $('[data-add-cart]');
+
+    addBtn.click(function(event) {
+      event.preventDefault();
+      addToCart($(this));
+    })
+  }
+
+  /**
+   * Функция добавления товара в корзину
+   * @param elem
+   */
+  function addToCart(elem) {
+    const id = elem.attr('data-product');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'add_to_cart',
+        id: id
+      },
+      beforeSend: function() {
+        elem.addClass('catalog-item__button_inactive');
+      },
+      success: function (response) {
+        const count = JSON.parse(response);
+        addHeaderItems('cart', count);
+
+        elem.removeClass('catalog-item__button_inactive');
+        elem.addClass('catalog-item__button_active');
+        elem.unbind('click');
+      }
+    });
   }
 });

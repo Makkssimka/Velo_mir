@@ -108,6 +108,19 @@ add_action( 'after_setup_theme', 'custom_logo_setup' );
 
  }
 
+// Global variables
+function add_global_variables(){
+
+    // Глобальная переменная с id продуктов в корзине
+    global $cart_ids;
+    $cart_ids = [];
+
+    foreach (WC()->cart->get_cart() as $item) {
+        $cart_ids[] = $item['product_id'];
+    }
+}
+add_action('wp_loaded', 'add_global_variables');
+
  // Custom menu template
 add_filter('wp_nav_menu_objects', 'custom_menu', 10, 2);
  function custom_menu($items){
