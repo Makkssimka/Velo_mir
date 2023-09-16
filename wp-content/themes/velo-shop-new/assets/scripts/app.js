@@ -940,6 +940,9 @@ jQuery(document).ready(function ($) {
         const count = JSON.parse(response);
         addHeaderItems('cart', count);
 
+        const text = elem.find('span');
+        if (text) text.text('В корзину')
+
         elem.removeClass('catalog-item__button_inactive');
         elem.addClass('catalog-item__button_active');
         elem.unbind('click');

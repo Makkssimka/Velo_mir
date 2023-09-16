@@ -1260,6 +1260,10 @@ ul.list_simple li {
   justify-content: center;
 }
 
+.info__button .catalog-item__button_active img:first-child {
+  display: inline-block;
+}
+
 .product-table {
   margin-top: 1.75rem;
 }
