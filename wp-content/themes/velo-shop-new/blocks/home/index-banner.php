@@ -13,7 +13,7 @@ $addresses = explode('?', get_option('address'));
                 <span>Самый большой</span> выбор велосипедов и запчастей в Волгограде!
             </h1>
 
-            <a href="/product-category/velosipedy" data-target="mobile_menu" class="button button_orange button_upper">
+            <a href="/product-category/velosipedy" data-target="mobile_menu" class="buttons buttons_orange buttons_upper">
                 Каталог товаров
             </a>
         </div>
@@ -22,7 +22,7 @@ $addresses = explode('?', get_option('address'));
             <h3>Приходите в магазин!</h3>
 
             <?php foreach ($addresses as $address) : ?>
-                <a href="/contact" class="button button_blue"><?= $address ?></a>
+                <a href="/contact" class="buttons buttons_blue"><?= $address ?></a>
             <?php endforeach ?>
         </div>
     </div>

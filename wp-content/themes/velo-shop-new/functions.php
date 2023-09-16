@@ -115,8 +115,10 @@ function add_global_variables(){
     global $cart_ids;
     $cart_ids = [];
 
-    foreach (WC()->cart->get_cart() as $item) {
-        $cart_ids[] = $item['product_id'];
+    if (WC()->cart) {
+        foreach (WC()->cart->get_cart() as $item) {
+            $cart_ids[] = $item['product_id'];
+        }
     }
 }
 add_action('wp_loaded', 'add_global_variables');

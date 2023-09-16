@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Yanone+Kaffeesatz:wght@400;500&display=swap");
 
+.inactive {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .top-submenu {
   display: flex;
   align-items: center;
@@ -319,7 +324,7 @@
   text-align: center;
 }
 
-.index-banner__address .button {
+.index-banner__address .buttons {
   margin-top: 0.625rem;
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
@@ -328,7 +333,7 @@
   border-radius: 40px;
 }
 
-.index-banner__address .button:before {
+.index-banner__address .buttons:before {
   top: 4px;
   bottom: 4px;
   left: 4px;
@@ -347,7 +352,7 @@
     margin-bottom: 9rem;
   }
 
-  .index-banner__title .button {
+  .index-banner__title .buttons {
     width: 100%;
     text-align: center;
   }
@@ -362,7 +367,7 @@
   }
 }
 
-.button {
+.buttons {
   display: inline-block;
   box-sizing: border-box;
   position: relative;
@@ -370,7 +375,7 @@
   border-radius: 22px;
 }
 
-.button:before {
+.buttons:before {
   content: "";
   position: absolute;
   top: 2px;
@@ -381,54 +386,54 @@
   border-radius: 20px;
 }
 
-.button_orange {
+.buttons_orange {
   background-color: #E07A25;
   color: white;
 }
 
-.button_orange:hover {
+.buttons_orange:hover {
   background-color: #CB620A;
   color: white;
 }
 
-.button_green {
+.buttons_green {
   background-color: #ACD29A;
   color: #010101;
 }
 
-.button_green:hover {
+.buttons_green:hover {
   background-color: #88B374;
   color: #010101;
 }
 
-.button_blue {
+.buttons_blue {
   background-color: #EAF1F8;
   color: #010101;
 }
 
-.button_blue:hover {
+.buttons_blue:hover {
   color: #CB620A;
 }
 
-.button_blue-dark {
+.buttons_blue-dark {
   background-color: #C4D9ED;
   color: #010101;
 }
 
-.button_blue-dark:hover {
+.buttons_blue-dark:hover {
   color: #CB620A;
 }
 
-.button_upper {
+.buttons_upper {
   text-transform: uppercase;
 }
 
-.button_full {
+.buttons_full {
   text-align: center;
   width: 100%;
 }
 
-.button_sm {
+.buttons_sm {
   font-size: 0.875rem;
 }
 
@@ -594,7 +599,7 @@
     margin-top: 1rem;
   }
 
-  .info-banner__button .button {
+  .info-banner__button .buttons {
     width: 100%;
     text-align: center;
   }
@@ -721,7 +726,7 @@ ul.list_simple li {
   background-color: #EAF1F8;
 }
 
-.service-banner .button {
+.service-banner .buttons {
   font-size: 0.75rem;
   text-align: center;
 }
@@ -1248,7 +1253,7 @@ ul.list_simple li {
   display: block;
 }
 
-.info__button .button {
+.info__button .buttons {
   width: 100%;
   display: flex;
   align-items: center;
@@ -1572,7 +1577,7 @@ ul.list_simple li {
 
 .cart-result__total-item {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   align-items: center;
 }
 
@@ -2164,6 +2169,10 @@ h2 {
   display: flex;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .align-center {
   align-items: center;
 }
@@ -2195,6 +2204,11 @@ h2 {
 .grid-cart-main {
   grid-template-columns: 1fr 300px;
   gap: 0.5rem;
+}
+
+.grid-cart-main__inactive {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .grid-filter {

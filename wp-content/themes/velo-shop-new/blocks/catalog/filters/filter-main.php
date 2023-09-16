@@ -59,7 +59,7 @@ foreach ($products_filter as $product) {
     <?php endforeach ?>
 
     <div class="filter__block">
-        <a id="filter_submit" href="#" class="button button_blue-dark button_full button_sm" data-category="<?= $category->slug ?>">Применить</a>
+        <a id="filter_submit" href="#" class="buttons buttons_blue-dark buttons_full buttons_sm" data-category="<?= $category->slug ?>">Применить</a>
         <a href="?session_reset" class="link_center link_sm mt-05">Сбросить фильтры</a>
     </div>
 </div>

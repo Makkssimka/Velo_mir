@@ -3,47 +3,71 @@
 $address_list = explode('?', get_option('address'));
 
 ?>
-<div class="form-checkout">
-   <div class="form-checkout-wrapper">
-       <div class="form-wrapper">
-           <label for="names">Имя<span>*</span></label>
-           <input class="require" id="names" type="text" placeholder="Петр">
-           <div class="info-wrapper">
-               <i class="las la-question-circle title-show" data-title="Наш менеджер будет обращатся к Вам по этому имени"></i>
-           </div>
-       </div>
-       <div class="form-wrapper">
-           <label for="last-name">Фамилия</label>
-           <input id="last-name" type="text" placeholder="Петров">
-       </div>
-       <div class="form-wrapper">
-           <label for="email">Адрес электронной почты<span>*</span></label>
-           <input class="require" id="email" type="text" placeholder="petr-petrov@yandex.ru">
-           <div class="info-wrapper">
-               <i class="las la-question-circle  title-show" data-title="На эту почту будет отправлено письмо с подробностями о заказе"></i>
-           </div>
-       </div>
-       <div class="form-wrapper">
-           <label for="telephone">Номер телефона<span>*</span></label>
-           <input class="require" id="telephone" type="text" placeholder="+7 (988) 456-45-45">
-           <div class="info-wrapper">
-               <i class="las la-question-circle title-show" data-title="На данный номер позвонит наш менеджер для уточнения деталей заказа"></i>
-           </div>
-       </div>
-       <div class="radio-box-wrapper">
-            <label>Выберите магазин откуда забрать заказ<span>*</span></label>
-           <div class="address-wrapper">
-               <?php foreach ($address_list as $index => $address) : ?>
-                   <div class="item-address">
-                       <input id="adress<?= $index ?>" type="radio" name="address" value="<?= trim($address) ?>" <?= $index==0?'checked':'' ?>>
-                       <label for="adress<?= $index ?>"><?= trim($address) ?></label>
-                   </div>
-               <?php endforeach; ?>
-           </div>
-       </div>
-       <div class="form-wrapper comment-checkout">
-           <label for="comment">Комментарий к заказу</label>
-           <textarea id="comment" type="text" placeholder="Ваш комментарий" rows="6"></textarea>
-       </div>
+
+<form class="cart-form" data-role="form">
+    <div class="cart-form__item">
+        <label>Имя*</label>
+        <div class="relative">
+            <div class="input-form__message"></div>
+            <input data-valid="required" name="name" class="input-form w-full" type="text" placeholder="Иван">
+        </div>
     </div>
-</div>
+
+    <div class="cart-form__item">
+        <label>Фамилия</label>
+        <div class="relative">
+            <div class="input-form__message"></div>
+            <input name="last_name" class="input-form w-full" type="text" placeholder="Иванов">
+        </div>
+    </div>
+
+    <div class="cart-form__item">
+        <label>Электронная почта*</label>
+        <div class="relative">
+            <div class="input-form__message"></div>
+            <input data-valid="required" name="email" class="input-form w-full" type="text" placeholder="IvanIvanov@mail.ru">
+        </div>
+    </div>
+
+    <div class="cart-form__item">
+        <label>Телефон*</label>
+        <div class="relative">
+            <div class="input-form__message"></div>
+            <input data-valid="required" name="telephone" class="input-form w-full phone-mask" type="text" placeholder="+7(901)111-01-01">
+        </div>
+    </div>
+
+    <div class="cart-form__item cart-form__item_top">
+        <label>Откуда удобнее забрать заказ*</label>
+
+        <div>
+            <?php foreach ($address_list as $index => $address) : ?>
+                <div class="input__radio">
+                    <input
+                        id="<?= 'address_'.$index ?>"
+                        type="radio"
+                        name="address"
+                        value="<?= trim($address) ?>"
+                        <?= $index === 0 ? 'checked' : ''  ?>
+                    >
+                    <label for="<?= 'address_'.$index ?>">
+                        <?= trim($address) ?>
+                    </label>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+
+    <div class="cart-form__item cart-form__item_top">
+        <label>Комментарий к заказу</label>
+        <div class="relative">
+            <div class="input-form__message"></div>
+            <textarea name="comment" rows="4" class="input-form w-full" placeholder="Ваш комментарий"></textarea>
+        </div>
+    </div>
+
+    <div class="cart-form__item mt-2">
+        <div></div>
+        <a id="send-order" href="#" class="buttons buttons_upper buttons_orange text_center">Оформить заказ</a>
+    </div>
+</form>

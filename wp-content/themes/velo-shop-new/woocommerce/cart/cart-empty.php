@@ -19,20 +19,17 @@ defined( 'ABSPATH' ) || exit;
 
 if ( wc_get_page_id( 'cart' ) > 0 ) : ?>
 
-<div class="content-main article cart-empty">
-    <h1>Ваша корзина пуста</h1>
-    <div class="article-subheader">Вы не добавили не одного товара</div>
-    <div class="article-content">
-        <div class="article-text">
-            <img src="<?= get_asset_path('images', 'empty_cart.svg') ?>">
-            <div class="empty-head">Ваша корзина пуста!</div>
-            <p>Выберите товар для продолжения оформления заказа</p>
-            <div class="empty-more-btn">
-                <a class="btn btn-green" href="/">На главную</a>
-            </div>
-        </div>
-        <div class="article-navbar">
-            <?php expert_widget() ?>
+<?php get_template_part('blocks/breadcrumbs') ?>
+
+<div class="container">
+    <h1 class="h3">Ваша корзина пуста</h1>
+    <div class="h6">Вы не добавили не одного товара</div>
+    <div class="text_center">
+        <img width="250px" src="<?= get_asset_path('images/content', 'order_empty.svg') ?>" alt="order empty">
+        <div class="mt-2">Ваша корзина пуста!</div>
+        <div class="mt-2">Выберите товар для продолжения оформления заказа</div>
+        <div class=" mt-2 flex justify-center gap-1">
+            <a href="/" class="buttons buttons_blue">На главную</a>
         </div>
     </div>
 </div>

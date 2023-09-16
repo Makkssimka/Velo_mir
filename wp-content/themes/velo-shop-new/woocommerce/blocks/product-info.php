@@ -20,7 +20,7 @@ $sale = round((1 - $product->get_sale_price() / $product->get_regular_price()) *
     </div>
 
     <div class="info__button mt-4">
-        <a href="#" class="button button_upper button_orange">
+        <a href="#" class="buttons buttons_upper buttons_orange">
             <img src="<?= get_asset_path('images/icons', 'cart-white.svg') ?>">
             <span class="ml-1">Добавить в корзину</span>
         </a>

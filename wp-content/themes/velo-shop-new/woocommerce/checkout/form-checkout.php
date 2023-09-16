@@ -20,16 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 ?>
 
-<div class="content-main article checkout">
-    <h1><?= $post->post_title; ?></h1>
-    <div class="article-subheader"><?= $post->post_excerpt; ?></div>
-    <div class="checkout-wrapper">
-        <div class="loading checkout-loading">
-            <i class="las la-spinner"></i><span>
-        </div>
+<?php get_template_part('blocks/breadcrumbs') ?>
+
+<div class="container">
+    <h1 class="h3"><?= $post->post_title; ?></h1>
+    <div class="h6"><?= $post->post_excerpt; ?></div>
+
+    <div class="grid grid-cart-order">
         <?php require_once "blocks/form-checkout-block.php" ?>
         <?php require_once "blocks/send-checkout.php" ?>
     </div>
 </div>
-
-<?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

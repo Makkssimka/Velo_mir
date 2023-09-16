@@ -16,7 +16,7 @@
             <div class="modal-desc">
                 Нажимая на кнопку "Заказать", я подтверждаю, что ознакомлен и согласен с <a href="#">Политикой конфиденциальности</a> и даю письменное согласие на обработку своих персональных данных.
             </div>
-            <div class="modal-button">
+            <div class="modal-buttons">
                 <a href="#" class="btn btn-blue submit">Заказать</a>
             </div>
         </div>

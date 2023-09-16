@@ -1,63 +1,53 @@
+<div class="cart-table">
+    <div class="cart-table__item cart-table__head">
+        <div class="desktop">Товар</div>
+        <div class="text_center desktop">Количество</div>
+        <div class="desktop">Цена</div>
+        <div class="desktop"></div>
+    </div>
 
-<div class="product-cart-list">
-    <table>
-        <thead>
-        <tr>
-            <th>Продукт</th>
-            <th>Название</th>
-            <th>Количество</th>
-            <th>Цена</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php do_action( 'woocommerce_before_cart_contents' ); ?>
-        <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) : ?>
-            <?php $product = wc_get_product($cart_item['product_id']) ?>
-            <tr>
-                <td class="cart-item-image">
-                    <img src="<?= get_image_link($product) ?>">
-                </td>
-                <td class="cart-item-description">
-                    <div class="cart-item-name">
-                        <?= $product->get_title() ?>
-                    </div>
-                    <div class="cart-item-sku">
-                        <?= $product->get_sku() ?>
-                    </div>
-                    <div class="cart-item-attribute">
-                        <span>колеса:</span>
-                        <?= $product->get_attribute('wheel_size') ?>
-                        <span>цвет:</span>
-                        <?= $product->get_attribute('color') ?>
-                        <?php if ($product->get_attribute('frame_size')) : ?>
-                            <span>рама:</span>
-                            <?= $product->get_attribute('frame_size') ?>
-                        <?php endif; ?>
-                    </div>
-                </td>
-                <td class="cart-item-quantity">
-                    <div class="quantity-wrapper">
-                        <span class="up-down-btn down"><i class="las la-minus"></i></span>
-                        <input data-key="<?= $cart_item['key'] ?>" class="cart-counter" type="number" max="10" min="1" value="<?= $cart_item['quantity'] ?>">
-                        <span class="up-down-btn up"><i class="las la-plus"></i></span>
-                    </div>
-                </td>
-                <td class="cart-item-total">
+    <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) : ?>
+    <?php $product = $cart_item['data'] ?>
+        <div class="cart-table__item cart-table__product">
+            <div class="flex align-center">
+                <div
+                    class="cart-table__preview"
+                    style="background-image: url('<?= get_image_link($product) ?>');">
+                </div>
+
+                <a href="<?= get_permalink($product->get_id()) ?>">
+                    <?= $product->get_title() ?>
+                </a>
+            </div>
+
+            <div class="cart-table__counter">
+                <a data-cart-counter="down" data-key="<?= $cart_item['key'] ?>" href="#">
+                    <img src="<?= get_asset_path('images/icons', 'minus.svg') ?>">
+                </a>
+
+                <div data-cart-count class="cart-table__count">
+                    <?= $cart_item['quantity'] ?>
+                </div>
+
+                <a data-cart-counter="up" data-key="<?= $cart_item['key'] ?>" href="#">
+                    <img src="<?= get_asset_path('images/icons', 'plus.svg') ?>">
+                </a>
+            </div>
+
+            <div class="cart-table__price">
+                <div class="cart-table__price_old">
+                    <?= wc_price($cart_item['quantity'] * $product->get_regular_price()) ?>
+                </div>
+                <div class="cart-table__price_new">
                     <?= wc_price($cart_item['line_subtotal']) ?>
-                </td>
-                <td class="cart-item-remove">
-                    <i data-key="<?= $cart_item['key'] ?>" class="las la-times item-remove"></i>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="cart-subtotal-desc">Общая сумма:</td>
-            <td class="cart-subtotal"><?= WC()->cart->get_cart_subtotal() ?></td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+
+            <div class="cart-table__remove">
+                <a data-cart-remove data-key="<?= $cart_item['key'] ?>" href="#">
+                    <img src="<?= get_asset_path('images/icons', 'remove.svg') ?>">
+                </a>
+            </div>
+        </div>
+    <?php endforeach ?>
 </div>

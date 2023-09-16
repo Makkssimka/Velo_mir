@@ -17,18 +17,17 @@
 global $post;
 defined( 'ABSPATH' ) || exit; ?>
 
-<div class="content-main article cart">
-    <h1><?= $post->post_title; ?></h1>
-    <div class="article-subheader"><?= $post->post_excerpt; ?></div>
+<?php get_template_part('blocks/breadcrumbs') ?>
+
+<div class="container">
+    <h1 class="h3"><?= $post->post_title; ?></h1>
+    <div class="h6"><?= $post->post_excerpt; ?></div>
+
     <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-        <div class="product-cart-wrapper">
-            <div class="loading cart-loading">
-                <i class="las la-spinner"></i><span>
-            </div>
+        <div data-cart class="grid grid-cart-main">
             <?php require_once "blocks/cart_list.php" ?>
             <?php require_once "blocks/cart_total.php" ?>
         </div>
     </form>
-
 </div>
 

@@ -35,8 +35,41 @@ jQuery(document).ready(function ($) {
     btn.click(function (e) {
       e.preventDefault();
 
-      validate($(this));
+      if (validate($(this)).count) return;
+
+      sendCart($(this));
     })
+  }
+
+  /**
+   * Функция отправки формы заказа
+   * @param button
+   */
+  function sendCart(button) {
+    const form = button.parents('[data-role="form"]');
+    const fields = {};
+
+    form.serializeArray().forEach(item => {
+      fields[item.name] = item.value;
+    });
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'send_order',
+        ...fields
+      },
+      beforeSend: function() {
+        $('.grid-cart-order').addClass('inactive');
+      },
+      success: function (response) {
+        let result = JSON.parse(response);
+        let order = result.order_number;
+
+        window.location.href = "/order-complete/?order="+order;
+      }
+    });
   }
 
   /**
@@ -571,7 +604,9 @@ jQuery(document).ready(function ($) {
    */
   function validate(button, visible = true) {
     const form = button.parents('[data-role="form"]');
-    const errors = {};
+    const errors = {
+      count: 0
+    };
 
     /**
      * Перебираем поля формы и проверяем правила
@@ -582,11 +617,13 @@ jQuery(document).ready(function ($) {
       const val = $(this).val();
       const field = $(this).attr('name');
 
+
       rules.forEach(function (item) {
         const result = window[item](val, field);
 
         if (result) {
           errors[field] = errors[field] ? errors[field].push(result) : [result];
+          errors.count++;
         }
       })
     })
@@ -605,52 +642,6 @@ jQuery(document).ready(function ($) {
     if (visible) visibleErrors(form, errors);
 
     return errors;
-  }
-
-  /**
-   * Функция вывода ошибки
-   * @param form
-   * @param errors
-   */
-  function visibleErrors(form, errors) {
-    for (const field in errors) {
-      const input = form.find(`[name="${field}"]`);
-      const message = input.prev('.input-form__message');
-
-      input.addClass('input-form_error');
-      message.text(errors[field][0]);
-    }
-  }
-
-  /**
-   * Правило валидации - обязательное поле
-   * @param value
-   * @param field
-   * @return {string}
-   */
-  function required(value, field) {
-    if (value.trim()) return '';
-
-    const name = fieldsName[field];
-    return errorMessage.required.replace(':field', name);
-  }
-
-  /**
-   * Названия полей
-   * @type {{phone: string}}
-   */
-  const fieldsName = {
-    phone: 'номер телефона',
-    name: 'имя',
-    email: 'электронная почта'
-  }
-
-  /**
-   * Строки с ошибками
-   * @type {{required: string}}
-   */
-  const errorMessage = {
-    required: 'Поле :field обязательно',
   }
 
   /**
@@ -798,12 +789,134 @@ jQuery(document).ready(function ($) {
    *  Функция инициализации изменения карты
    */
   function initCartManipulation() {
-    const addBtn = $('[data-add-cart]');
-
-    addBtn.click(function(event) {
+    $('[data-add-cart]').click(function(event) {
       event.preventDefault();
       addToCart($(this));
     })
+
+    $('[data-cart-counter]').click(function(event) {
+      event.preventDefault();
+
+      const type = $(this).attr('data-cart-counter');
+      const key = $(this).attr('data-key');
+      cartCounterChange(type, key, $(this));
+    });
+
+    $('[data-cart-remove]').click(function(event) {
+      event.preventDefault();
+
+      const key = $(this).attr('data-key');
+      cartRemove(key, $(this));
+    })
+
+    $('[data-send-coupon]').click(function(event) {
+      event.preventDefault();
+
+      const coupon = $('[data-coupon]').val();
+      setCoupon(coupon, $(this));
+    });
+
+    $('[data-remove-coupon]').click(function(event) {
+      event.preventDefault();
+
+      removeCoupon($(this));
+    })
+  }
+
+  /**
+   * Функция изменения количества товаров в корзине
+   * @param type
+   * @param key
+   * @param elem
+   */
+  function cartCounterChange(type = 'up', key = '', elem) {
+    const parent = elem.parents('[data-cart]');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'up_down_cart',
+        method: type,
+        key: key
+      },
+      beforeSend: function() {
+        parent.addClass('grid-cart-main__inactive');
+      },
+      success: function () {
+        location.reload();
+      }
+    });
+  }
+
+  /**
+   * Функция удаления элемента корзины
+   * @param key
+   * @param elem
+   */
+  function cartRemove(key ='', elem) {
+    const parent = elem.parents('[data-cart]');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'cart_item_remove',
+        key: key
+      },
+      beforeSend: function() {
+        parent.addClass('grid-cart-main__inactive');
+      },
+      success: function (response) {
+        location.reload();
+      }
+    });
+  }
+
+  /**
+   * Функция добавления купона
+   * @param coupon
+   * @param elem
+   */
+  function setCoupon(coupon, elem) {
+    const parent = elem.parents('[data-cart]');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'add_coupon',
+        coupon: coupon
+      },
+      beforeSend: function() {
+        parent.addClass('grid-cart-main__inactive');
+      },
+      success: function (response) {
+        location.reload();
+      }
+    });
+  }
+
+  /**
+   * Функция удаление купона
+   * @param elem
+   */
+  function removeCoupon(elem) {
+    const parent = elem.parents('[data-cart]');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'remove_coupon'
+      },
+      beforeSend: function() {
+        parent.addClass('grid-cart-main__inactive');
+      },
+      success: function (response) {
+        location.reload();
+      }
+    });
   }
 
   /**
@@ -834,3 +947,49 @@ jQuery(document).ready(function ($) {
     });
   }
 });
+
+/**
+ * Функция вывода ошибки
+ * @param form
+ * @param errors
+ */
+function visibleErrors(form, errors) {
+  for (const field in errors) {
+    const input = form.find(`[name="${field}"]`);
+    const message = input.prev('.input-form__message');
+
+    input.addClass('input-form_error');
+    message.text(errors[field][0]);
+  }
+}
+
+/**
+ * Правило валидации - обязательное поле
+ * @param value
+ * @param field
+ * @return {string}
+ */
+function required(value, field) {
+  if (value.trim()) return '';
+
+  const name = fieldsName[field];
+  return errorMessage.required.replace(':field', name);
+}
+
+/**
+ * Названия полей
+ * @type {{phone: string}}
+ */
+const fieldsName = {
+  phone: 'номер телефона',
+  name: 'имя',
+  email: 'электронная почта'
+}
+
+/**
+ * Строки с ошибками
+ * @type {{required: string}}
+ */
+const errorMessage = {
+  required: 'Поле :field обязательно',
+}
