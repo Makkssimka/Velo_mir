@@ -15,7 +15,7 @@ foreach ($telephone_array as $telephone) {
     $item = explode(':', $telephone);
     $telephone_with_address_array[] = [
         'telephone' => trim($item[0]),
-        'address' => trim($item[1])
+        'address' => trim($item[1] ?? '')
     ];
 }
 
@@ -24,69 +24,89 @@ $email_array = explode(', ', get_option('email'));
 get_header();
 ?>
 
-<div class="content-main article">
-    <div class="container">
-        <h1><?= $post->post_title; ?></h1>
-        <div class="article-subheader"><?= $post->post_excerpt; ?></div>
-        <div class="article-content">
-            <div class="article-text">
-                <h2 class="margin-top-none">Наши магазины</h2>
-                <div class="flex-wrapper">
-                    <div class="semi-flex">
-                        <strong>Адрес:</strong>
+<?php get_template_part('blocks/breadcrumbs') ?>
+
+<div class="container content">
+    <h1 class="h3"><?= $post->post_title; ?></h1>
+    <div class="h6"><?= $post->post_excerpt; ?></div>
+
+    <div class="flex gap-1 block-m">
+        <div class="w-full">
+            <div class="contact__grid">
+                <div>
+                    <div class="h5">Адреса магазинов:</div>
+
+                    <ul class="list_simple">
                         <?php foreach ($address as $item): ?>
-                            <div><?= $item; ?></div>
+                            <li><?= $item; ?></li>
                         <?php endforeach; ?>
-                    </div>
-                    <div class="semi-flex">
-                        <strong>Часы работы:</strong>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="h5">Часы работы:</div>
+
+                    <ul class="list_simple">
                         <?php foreach ($time_job_array as $time_job) : ?>
-                            <div><?= $time_job['label'] ?> <?= $time_job['time'] ?></div>
+                            <li><?= $time_job['label'] ?> <?= $time_job['time'] ?></li>
                         <?php endforeach; ?>
-                    </div>
-                    <div class="semi-flex">
-                        <strong>Телефон:</strong>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="h5">Телефон:</div>
+
+                    <ul class="list_simple">
                         <?php foreach ($telephone_with_address_array as $item) : ?>
-                            <div>
-                                <a href="tel:+7 <?= $item['telephone'] ?>" class="pr-1">
+                            <li>
+                                <a class="link_under" href="tel:+7 <?= $item['telephone'] ?>">
                                     +7 <?= $item['telephone'] ?>
                                 </a>
-                                <?php if ($item['address']) : ?>
-                                  (<?= $item['address'] ?>)
-                                <?php endif; ?>
-                            </div>
+                            </li>
                         <?php endforeach; ?>
-                    </div>
-                    <div class="semi-flex">
-                        <strong>Электронная почта:</strong>
-                        <?php foreach ($email_array as $email) : ?>
-                            <div><a href="mailto: <?= $email ?>"><?= $email ?></a></div>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="semi-flex">
-                        <strong>Наименование организации:</strong>
-                        <div><?= $name_org ?></div>
-                    </div>
-                    <div class="semi-flex">
-                        <strong>Юридический адрес:</strong>
-                        <div><?= $ur_address ?></div>
-                    </div>
+                    </ul>
                 </div>
-                <h2>Схема проезда</h2>
-                <div class="article-map">
-                    <?= $map_script ?>
-                </div>
-            </div>
-            <div class="article-navbar">
-                <?php expert_widget() ?>
-                <div class="article-anchor-nav">
-                    <p>Содержание:</p>
-                    <ul class="anchor-list">
 
+                <div>
+                    <div class="h5">Электронная почта:</div>
+
+                    <ul class="list_simple">
+                        <li>
+                            <?php foreach ($email_array as $email) : ?>
+                                <a class="link_under" href="mailto: <?= $email ?>"><?= $email ?></a>
+                            <?php endforeach; ?>
+                        </li>
+                        <li class="contact__social">
+                            <a href="#">
+                                <img src="<?= get_asset_path('images/icons', 'instagram.svg') ?>" alt="instagram">
+                            </a>
+                            <a href="#">
+                                <img src="<?= get_asset_path('images/icons', 'whatsapp.svg') ?>" alt="whatsapp">
+                            </a>
+                            <a href="#">
+                                <img src="<?= get_asset_path('images/icons', 'vk.svg') ?>" alt="vk">
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
+
+            <div class="h5 mt-2">Наименование организации:</div>
+            <p><?= $name_org ?></p>
+
+            <div class="h5 mt-2">Юридический адрес:</div>
+            <p><?= $ur_address ?></p>
         </div>
+
+        <?php get_template_part('blocks/all/service-banner') ?>
+    </div>
+
+    <div class="separator">
+        <span>Схема проезда</span>
+    </div>
+
+    <div class="contact__map">
+        <?= $map_script ?>
     </div>
 </div>
 
