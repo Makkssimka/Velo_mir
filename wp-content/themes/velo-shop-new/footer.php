@@ -79,6 +79,8 @@ $categories = getMainCategoriesList();
     </div>
 </footer>
 
+<?php get_template_part('blocks/all/modal_call') ?>
+
 <?php wp_footer() ?>
 </body>
 </html>

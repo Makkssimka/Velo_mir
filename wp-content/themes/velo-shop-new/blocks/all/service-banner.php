@@ -6,6 +6,6 @@
 
         <img src="<?= get_asset_path('images/app', 'service.svg') ?>" alt="service">
 
-        <a href="#" class="buttons buttons_green buttons_upper">Получить консультацию</a>
+        <a data-modal="modal_call" href="#" class="buttons buttons_green buttons_upper">Получить консультацию</a>
     </div>
 </div>

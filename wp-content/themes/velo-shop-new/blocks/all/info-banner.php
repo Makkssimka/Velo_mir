@@ -12,7 +12,7 @@
         </div>
 
         <div class="info-banner__button">
-            <a href="#" class="buttons buttons_orange buttons_upper">
+            <a data-modal="modal_call" href="#" class="buttons buttons_orange buttons_upper">
                 Оставить заявку
             </a>
         </div>

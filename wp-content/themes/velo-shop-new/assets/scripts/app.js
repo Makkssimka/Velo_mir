@@ -407,7 +407,9 @@ jQuery(document).ready(function ($) {
     /**
      * Открытие модального окна
      */
-    $('[data-modal]').click(function () {
+    $('[data-modal]').click(function (event) {
+      event.preventDefault();
+
       const id = '#' + $(this).data('modal');
       $(id).addClass('modal_show');
     });
@@ -428,8 +430,34 @@ jQuery(document).ready(function ($) {
     $('.modal__submit').click(function (event) {
       event.preventDefault();
 
-      validate($(this));
+      if (validate($(this)).count) return;
+
+      sendCall($(this));
     })
+  }
+
+  function sendCall(button) {
+    const form = button.parents('[data-role="form"]');
+    const fields = {};
+
+    form.serializeArray().forEach(item => {
+      fields[item.name] = item.value;
+    });
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'call_form_add_request',
+        ...fields
+      },
+      beforeSend: function() {
+        form.addClass('inactive');
+      },
+      success: function (response) {
+        $('.modal').addClass('modal_success');
+      }
+    });
   }
 
   /**

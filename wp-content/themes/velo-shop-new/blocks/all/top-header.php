@@ -43,7 +43,7 @@ $cart_count = $cart->get_cart_contents_count();
 
                 <div>
                     <a href="tel:+7 <?= get_option('telephone_num') ?>">+7 <?= get_option('telephone_num') ?></a>
-                    <a href="#" class="link_under" data-modal="call">Заказать звонок</a>
+                    <a data-modal="modal_call" href="#" class="link_under">Заказать звонок</a>
                     <div class="top-header__time">
                         Ежедневно: <span>с 10:00 до 18:00</span>
                     </div>

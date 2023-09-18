@@ -1999,6 +1999,18 @@ ul.list_simple li {
   visibility: visible;
 }
 
+.modal_success form{
+  display: none;
+}
+
+.modal_success .modal__message {
+  display: block;
+}
+
+.modal__message {
+  display: none;
+}
+
 .modal_blocked {
   position: fixed;
 }
