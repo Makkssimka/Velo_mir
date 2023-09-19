@@ -1,6 +1,8 @@
 <?php
 
 global $product;
+global $favorite_ids;
+
 $attachment_ids = $product->get_gallery_image_ids();
 
 $image_links[] = get_image_link($product);
@@ -26,7 +28,11 @@ foreach ($attachment_ids as $attachment_id) {
                 <span class="desktop">Сравнение</span>
             </a>
 
-            <a href="#">
+            <a
+                href="#"
+                data-favorite="<?= $product->get_id() ?>"
+                class="<?= in_array($product->get_id(), $favorite_ids) ? 'selected_orange' : '' ?>"
+            >
                 <img src="<?= get_asset_path('images/icons', 'heart.svg') ?>" alt="product heart">
                 <span class="desktop">Избранное</span>
             </a>

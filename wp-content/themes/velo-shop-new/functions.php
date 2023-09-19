@@ -120,6 +120,14 @@ function add_global_variables(){
             $cart_ids[] = $item['product_id'];
         }
     }
+
+    // Глобальная переменная с id избранных продуктов
+    global $favorite_ids;
+    $favorite_ids = [];
+
+    if(isset($_SESSION['favorites'])) {
+        $favorite_ids =  json_decode($_SESSION['favorites']);
+    }
 }
 add_action('wp_loaded', 'add_global_variables');
 

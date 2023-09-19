@@ -60,14 +60,14 @@ jQuery(document).ready(function ($) {
         action: 'send_order',
         ...fields
       },
-      beforeSend: function() {
+      beforeSend: function () {
         $('.grid-cart-order').addClass('inactive');
       },
       success: function (response) {
         let result = JSON.parse(response);
         let order = result.order_number;
 
-        window.location.href = "/order-complete/?order="+order;
+        window.location.href = "/order-complete/?order=" + order;
       }
     });
   }
@@ -436,6 +436,10 @@ jQuery(document).ready(function ($) {
     })
   }
 
+  /**
+   * Функция отправки обратного вызова
+   * @param button
+   */
   function sendCall(button) {
     const form = button.parents('[data-role="form"]');
     const fields = {};
@@ -451,7 +455,7 @@ jQuery(document).ready(function ($) {
         action: 'call_form_add_request',
         ...fields
       },
-      beforeSend: function() {
+      beforeSend: function () {
         form.addClass('inactive');
       },
       success: function (response) {
@@ -781,6 +785,41 @@ jQuery(document).ready(function ($) {
    */
   function initHeaderItems() {
     renderHeaderItems();
+
+    $('[data-favorite]').click(function (event) {
+      event.preventDefault();
+
+      changeFavorites($(this));
+    });
+  }
+
+  function changeFavorites(button) {
+    const id = button.attr('data-favorite');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'add_favorites',
+        id: id
+      },
+      beforeSend: function() {
+        button.addClass('inactive');
+      },
+      success: function () {
+        let count = Number($('[data-counter="favorites"]').attr('data-count'));
+        addHeaderItems('favorites', button.hasClass('selected_orange') ? --count : ++count);
+
+        button.removeClass('inactive');
+        button.hasClass('selected_orange') ? button.removeClass('selected_orange') : button.addClass('selected_orange')
+
+        const url = new URL(window.location.href);
+        console.log(url.pathname);
+        if (url.pathname === '/favorites/') {
+          window.location.reload();
+        }
+      }
+    });
   }
 
   /**
@@ -817,12 +856,12 @@ jQuery(document).ready(function ($) {
    *  Функция инициализации изменения карты
    */
   function initCartManipulation() {
-    $('[data-add-cart]').click(function(event) {
+    $('[data-add-cart]').click(function (event) {
       event.preventDefault();
       addToCart($(this));
     })
 
-    $('[data-cart-counter]').click(function(event) {
+    $('[data-cart-counter]').click(function (event) {
       event.preventDefault();
 
       const type = $(this).attr('data-cart-counter');
@@ -830,21 +869,21 @@ jQuery(document).ready(function ($) {
       cartCounterChange(type, key, $(this));
     });
 
-    $('[data-cart-remove]').click(function(event) {
+    $('[data-cart-remove]').click(function (event) {
       event.preventDefault();
 
       const key = $(this).attr('data-key');
       cartRemove(key, $(this));
     })
 
-    $('[data-send-coupon]').click(function(event) {
+    $('[data-send-coupon]').click(function (event) {
       event.preventDefault();
 
       const coupon = $('[data-coupon]').val();
       setCoupon(coupon, $(this));
     });
 
-    $('[data-remove-coupon]').click(function(event) {
+    $('[data-remove-coupon]').click(function (event) {
       event.preventDefault();
 
       removeCoupon($(this));
@@ -868,7 +907,7 @@ jQuery(document).ready(function ($) {
         method: type,
         key: key
       },
-      beforeSend: function() {
+      beforeSend: function () {
         parent.addClass('grid-cart-main__inactive');
       },
       success: function () {
@@ -882,7 +921,7 @@ jQuery(document).ready(function ($) {
    * @param key
    * @param elem
    */
-  function cartRemove(key ='', elem) {
+  function cartRemove(key = '', elem) {
     const parent = elem.parents('[data-cart]');
 
     $.ajax({
@@ -892,7 +931,7 @@ jQuery(document).ready(function ($) {
         action: 'cart_item_remove',
         key: key
       },
-      beforeSend: function() {
+      beforeSend: function () {
         parent.addClass('grid-cart-main__inactive');
       },
       success: function (response) {
@@ -916,7 +955,7 @@ jQuery(document).ready(function ($) {
         action: 'add_coupon',
         coupon: coupon
       },
-      beforeSend: function() {
+      beforeSend: function () {
         parent.addClass('grid-cart-main__inactive');
       },
       success: function (response) {
@@ -938,7 +977,7 @@ jQuery(document).ready(function ($) {
       data: {
         action: 'remove_coupon'
       },
-      beforeSend: function() {
+      beforeSend: function () {
         parent.addClass('grid-cart-main__inactive');
       },
       success: function (response) {
@@ -961,7 +1000,7 @@ jQuery(document).ready(function ($) {
         action: 'add_to_cart',
         id: id
       },
-      beforeSend: function() {
+      beforeSend: function () {
         elem.addClass('catalog-item__button_inactive');
       },
       success: function (response) {

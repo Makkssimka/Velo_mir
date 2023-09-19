@@ -1,4 +1,6 @@
 <?php
+global $favorite_ids;
+
 $cart = WC()->cart;
 $cart_count = $cart->get_cart_contents_count();
 ?>
@@ -73,7 +75,7 @@ $cart_count = $cart->get_cart_contents_count();
                     <span class="top-header__counter"></span>
                     <span
                         data-counter="favorites"
-                        data-count="0"
+                        data-count="<?= count($favorite_ids) ?>"
                         class="top-header__counter">
                     </span>
                 </a>

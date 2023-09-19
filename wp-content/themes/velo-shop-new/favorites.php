@@ -2,12 +2,11 @@
 /* Template Name: Favorites */
 
 global $post;
+global $favorite_ids;
 
-$favorites_ids = (isset($_SESSION['favorites'])) ? json_decode($_SESSION['favorites']) : array();
-
-if ($favorites_ids) {
-    $bikes = wc_get_products(array(
-        'include' => $favorites_ids
+if ($favorite_ids) {
+    $products = wc_get_products(array(
+        'include' => $favorite_ids
     ));
 }
 
@@ -15,31 +14,28 @@ if ($favorites_ids) {
 
 <?php get_header(); ?>
 
-<div class="content-main article favorites">
-    <div class="container">
-        <h1><?= $post->post_title; ?></h1>
-        <div class="article-subheader"><?= $post->post_excerpt; ?></div>
-        <div class="article-content">
-            <div class="article-text">
-                <?php if (count($favorites_ids)) : ?>
-                    <div class="favorites-list">
-                        <?php foreach ($bikes as $bike) : ?>
-                            <?= bike_widget($bike, true) ?>
-                        <?php endforeach ?>
-                    </div>
-                <?php else : ?>
-                    <div class="empty">
-                        <img src="<?= get_asset_path('images', 'empty_page.svg') ?>">
-                        <div class="empty-head">Нет избранных товаров!</div>
-                        <p>Вы не добавили ни одного товара в избранные</p>
-                        <div class="empty-more-btn">
-                            <a class="btn btn-green" href="/">На главную</a>
-                        </div>
-                    </div>
-                <?php endif ?>
+<?php get_template_part('blocks/breadcrumbs') ?>
+
+<div class="container content">
+    <h1 class="h3"><?= $post->post_title; ?></h1>
+    <div class="h6"><?= $post->post_excerpt; ?></div>
+
+    <?php if (count($favorite_ids)) : ?>
+        <div class="catalog-list catalog-list_5">
+            <?php foreach ($products as $product) : ?>
+                <?php get_template_part('blocks/all/product', null, ['product' => $product]) ?>
+            <?php endforeach ?>
+        </div>
+    <?php else : ?>
+        <div class="text_center">
+            <img width="160px" src="<?= get_asset_path('images/content', 'order_empty.svg') ?>" alt="order empty">
+            <div class="mt-2">У Вас нет избранных товаров!</div>
+            <div class="mt-1">Добавьте товары в избранные, чтобы не потерять их</div>
+            <div class=" mt-2 flex justify-center gap-1">
+                <a href="/" class="buttons buttons_blue">На главную</a>
             </div>
         </div>
-    </div>
+    <?php endif ?>
 </div>
 
 <?php get_footer(); ?>

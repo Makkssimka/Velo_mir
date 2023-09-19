@@ -1,5 +1,6 @@
 <?php
 global $cart_ids;
+global $favorite_ids;
 $product = $args['product'];
 ?>
 
@@ -10,7 +11,11 @@ $product = $args['product'];
           <img src="<?= get_asset_path('images/icons', 'compare.svg') ?>" alt="compare">
         </a>
 
-        <a href="#">
+        <a
+            href="#"
+            data-favorite="<?= $product->get_id() ?>"
+            class="<?= in_array($product->get_id(), $favorite_ids) ? 'selected_orange' : '' ?>"
+        >
           <img src="<?= get_asset_path('images/icons', 'heart.svg') ?>" alt="heart">
         </a>
       </div>

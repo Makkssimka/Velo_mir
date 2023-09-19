@@ -987,11 +987,28 @@ ul.list_simple li {
 }
 
 .catalog-item__icons img {
+  padding: 0.1rem;
   transition: 0.3s;
 }
 
 .catalog-item__icons a:hover img {
   transform: scale(1.2);
+}
+
+.catalog-item__icons a.inactive {
+  pointer-events: none;
+  animation: flick 0.5s infinite;
+}
+
+.product__compare a.selected_orange img,
+.catalog-item__icons a.selected_orange img {
+  background-color: rgba(224, 122, 37, 0.6);
+  border-radius: 50%;
+}
+
+.catalog-item__icons a.selected_blue img {
+  background-color: #C4D9ED;
+  border-radius: 50%;
 }
 
 .catalog-item__image {
@@ -1133,13 +1150,13 @@ ul.list_simple li {
 }
 
 .product__compare a {
-  display: block;
   margin-left: 0.725rem;
   display: flex;
   align-items: center;
 }
 
 .product__compare img {
+  padding: 0.1rem;
   width: 24px;
   height: 24px;
 }
