@@ -64,26 +64,32 @@ class Importer_Public {
             register_rest_route( 'importer/v1', '/unzip', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'unzip_callback'),
+                'permission_callback' => __return_true()
             ));
             register_rest_route( 'importer/v1', '/categories-data', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'categories_data_callback'),
+                'permission_callback' => __return_true()
             ));
             register_rest_route( 'importer/v1', '/categories-import', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'categories_import_callback'),
+                'permission_callback' => __return_true()
             ));
             register_rest_route( 'importer/v1', '/products-data', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'products_data_callback'),
+                'permission_callback' => __return_true()
             ));
             register_rest_route( 'importer/v1', '/products-import', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'products_import_callback'),
+                'permission_callback' => __return_true()
             ));
             register_rest_route( 'importer/v1', '/clean-import', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'clean_import_callback'),
+                'permission_callback' => __return_true()
             ));
         });
 	}
