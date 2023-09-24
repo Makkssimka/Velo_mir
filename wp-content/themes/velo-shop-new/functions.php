@@ -128,6 +128,14 @@ function add_global_variables(){
     if(isset($_SESSION['favorites'])) {
         $favorite_ids =  json_decode($_SESSION['favorites']);
     }
+
+    // Глобальная переменная с id продуктами для сравнения
+    global $compare_ids;
+    $compare_ids = [];
+
+    if(isset($_SESSION['compare'])) {
+        $compare_ids =  json_decode($_SESSION['compare']);
+    }
 }
 add_action('wp_loaded', 'add_global_variables');
 

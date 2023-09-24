@@ -1,13 +1,18 @@
 <?php
 global $cart_ids;
 global $favorite_ids;
+global $compare_ids;
 $product = $args['product'];
 ?>
 
 <div class="catalog-item">
     <div>
       <div class="catalog-item__icons">
-        <a href="#">
+        <a
+            href="#"
+            data-compare="<?= $product->get_id() ?>"
+            class="<?= in_array($product->get_id(), $compare_ids) ? 'selected_blue' : '' ?>"
+        >
           <img src="<?= get_asset_path('images/icons', 'compare.svg') ?>" alt="compare">
         </a>
 

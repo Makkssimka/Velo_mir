@@ -2,6 +2,7 @@
 
 global $product;
 global $favorite_ids;
+global $compare_ids;
 
 $attachment_ids = $product->get_gallery_image_ids();
 
@@ -23,7 +24,11 @@ foreach ($attachment_ids as $attachment_id) {
         <div class="product__slug">Артикул <?= $product->get_sku() ?></div>
 
         <div class="product__compare">
-            <a href="#">
+            <a
+                href="#"
+                data-compare="<?= $product->get_id() ?>"
+                class="<?= in_array($product->get_id(), $compare_ids) ? 'selected_blue' : '' ?>"
+            >
                 <img src="<?= get_asset_path('images/icons', 'compare.svg') ?>" alt="product compare">
                 <span class="desktop">Сравнение</span>
             </a>

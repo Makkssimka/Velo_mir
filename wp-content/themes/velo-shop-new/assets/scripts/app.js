@@ -791,8 +791,18 @@ jQuery(document).ready(function ($) {
 
       changeFavorites($(this));
     });
+
+    $('[data-compare]').click(function (event) {
+      event.preventDefault();
+
+      changeCompare($(this));
+    });
   }
 
+  /**
+   * Функция добавления/удаления из избранного
+   * @param button
+   */
   function changeFavorites(button) {
     const id = button.attr('data-favorite');
 
@@ -814,8 +824,39 @@ jQuery(document).ready(function ($) {
         button.hasClass('selected_orange') ? button.removeClass('selected_orange') : button.addClass('selected_orange')
 
         const url = new URL(window.location.href);
-        console.log(url.pathname);
         if (url.pathname === '/favorites/') {
+          window.location.reload();
+        }
+      }
+    });
+  }
+
+  /**
+   * Функция добавления/удаления из сравнения
+   * @param button
+   */
+  function changeCompare(button) {
+    const id = button.attr('data-compare');
+
+    $.ajax({
+      type: 'POST',
+      url: window.wp_data.ajax_url,
+      data: {
+        action: 'add_compare',
+        id: id
+      },
+      beforeSend: function() {
+        button.addClass('inactive');
+      },
+      success: function () {
+        let count = Number($('[data-counter="compare"]').attr('data-count'));
+        addHeaderItems('compare', button.hasClass('selected_blue') ? --count : ++count);
+
+        button.removeClass('inactive');
+        button.hasClass('selected_blue') ? button.removeClass('selected_blue') : button.addClass('selected_blue')
+
+        const url = new URL(window.location.href);
+        if (url.pathname === '/compare/') {
           window.location.reload();
         }
       }
