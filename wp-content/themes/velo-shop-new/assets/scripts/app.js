@@ -595,12 +595,14 @@ jQuery(document).ready(function ($) {
    */
   $('#filter_submit').click(function (event) {
     event.preventDefault();
-    let list_checkbox = $('input[type="checkbox"]');
+    let list_checkbox = $('.filter input[type="checkbox"]');
     let value_array = {};
     const category = $(this).data('category');
 
     list_checkbox.each(function (index, item) {
       if ($(item).is(":checked")) {
+        console.log(item);
+
         let key = $(item).attr('name');
         let value = $(item).val();
 
