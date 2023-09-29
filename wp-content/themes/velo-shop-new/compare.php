@@ -23,6 +23,22 @@ if ($compare_ids) {
         $product_list[$product->get_name()]['product'] = $product;
         $description = $product->get_description();
 
+        // Перебираем основные параметры и создаем список параметров
+        foreach ($product->get_attributes() as $attribute) {
+            $key = wc_attribute_label($attribute->get_name());
+            $value = $attribute->get_terms()[0]->name;
+
+            if ($key === 'Цвет' || $key === 'Цвет_доп') continue;
+
+            if ($value) {
+                $product_list[$product->get_name()]['desc'][$key] = $value;
+            }
+
+            if (!in_array($key, $params_list) && $value) {
+                $params_list[] = $key;
+            }
+        }
+
         // Перебираем описание и создаем список параметров
         foreach (explode(PHP_EOL, $description) as $item_description) {
             $item_description = explode(':', $item_description);
