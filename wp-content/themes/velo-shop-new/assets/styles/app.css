@@ -2017,7 +2017,8 @@ ul.list_simple li {
   visibility: visible;
 }
 
-.modal_success form{
+.modal_success form,
+.modal_error form{
   display: none;
 }
 
@@ -2025,7 +2026,12 @@ ul.list_simple li {
   display: block;
 }
 
-.modal__message {
+.modal_error .modal__message_error {
+  display: block;
+}
+
+.modal__message,
+.modal__message_error {
   display: none;
 }
 

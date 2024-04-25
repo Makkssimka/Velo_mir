@@ -107,6 +107,14 @@ class Call_Form_Free_Public {
         $telephone = filter_input(INPUT_POST,'tel', FILTER_SANITIZE_STRING);
         $name = filter_input(INPUT_POST,'name', FILTER_SANITIZE_STRING);
 
+        $code = filter_input(INPUT_POST,'code', FILTER_SANITIZE_STRING);
+        $hash = filter_input(INPUT_POST,'hash', FILTER_SANITIZE_STRING);
+
+        if (md5($code) !== $hash) {
+            echo json_encode(0);
+            wp_die();
+        }
+
         global $wpdb;
         $table_name = CALL_FORM_TABLE_NAME;
 
@@ -123,9 +131,9 @@ class Call_Form_Free_Public {
         if ($result) {
             Call_Form_Helper::sendEmail($name, $telephone);
             Call_Form_Helper::sendTelegram($name, $telephone);
-            echo json_encode(true);
+            echo json_encode(1);
         } else {
-            echo json_encode(false);
+            echo json_encode(0);
         }
 
 	    wp_die();

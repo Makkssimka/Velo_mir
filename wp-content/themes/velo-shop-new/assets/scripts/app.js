@@ -459,7 +459,12 @@ jQuery(document).ready(function ($) {
         form.addClass('inactive');
       },
       success: function (response) {
-        $('.modal').addClass('modal_success');
+        console.log(response);
+        if(response === '1') {
+          $('.modal').addClass('modal_success');
+        } else {
+          $('.modal').addClass('modal_error');
+        }
       }
     });
   }

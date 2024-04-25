@@ -17,6 +17,8 @@
                        placeholder="Ваше имя">
             </div>
 
+            <?php get_template_part('blocks/all/captcha-form') ?>
+
             <div class="input__checkbox mb-1">
                 <input id="politic" type="checkbox" checked>
                 <label class="modal__politic" for="politic">
@@ -31,6 +33,11 @@
         <div class="modal__message">
             <div class="modal__header mb-2">Ваш запрос отправлен</div>
             <p class="text_center">Наш менеджер свяжется с Вами в ближайшее время!</p>
+        </div>
+
+        <div class="modal__message_error">
+            <div class="modal__header mb-2 red">Что-то пошло не так</div>
+            <p class="text_center">Проверьте введенные данные и повторите запрос!</p>
         </div>
     </div>
 </div>
