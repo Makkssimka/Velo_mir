@@ -20,6 +20,7 @@ function add_theme_menu_item(){
 
 function register_my_settings(){
     register_setting("contact_settings", "address");
+    register_setting("contact_settings", "address_partner");
     register_setting("contact_settings", "map_script");
     register_setting("contact_settings", "ur_address");
     register_setting("contact_settings", "name_org");
@@ -61,6 +62,21 @@ function contact_setting_page_template(){ ?>
                         <td>
                             <textarea rows="4" name="address" type="text" id="address" class="regular-text" placeholder="Волгоград, просп. Маршала Жукова, 121"><?= get_option('address') ?></textarea>
                             <p class="description" id="address">Адреса магазинов с разделителем ?</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="address_partner">Адреса магазинов партнеров</label>
+                        </th>
+                        <td>
+                            <textarea
+                                rows="4"
+                                name="address_partner"
+                                type="text"
+                                id="address_partner"
+                                class="regular-text"
+                                placeholder="Волгоград, просп. Маршала Жукова, 121"><?= get_option('address_partner') ?></textarea>
+                            <p class="description" id="address_partner">Адреса магазинов партнеров с разделителем ?</p>
                         </td>
                     </tr>
                     <tr>

@@ -1,5 +1,6 @@
 <?php
 $addresses = explode('?', get_option('address'));
+$addresses_partner = explode('?', get_option('address_partner'));
 ?>
 
 <div class="container">
@@ -22,6 +23,13 @@ $addresses = explode('?', get_option('address'));
             <h3>Приходите в магазин!</h3>
 
             <?php foreach ($addresses as $address) : ?>
+                <a href="/contact" class="buttons buttons_blue"><?= $address ?></a>
+            <?php endforeach ?>
+
+            <h4>Магазины наших партнеров</h4>
+            <p>(договор №14 от 14.01.2023)</p>
+
+            <?php foreach ($addresses_partner as $address) : ?>
                 <a href="/contact" class="buttons buttons_blue"><?= $address ?></a>
             <?php endforeach ?>
         </div>

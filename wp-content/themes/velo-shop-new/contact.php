@@ -4,6 +4,7 @@
 global $post;
 $name_expert = get_option('name_expert');
 $address = explode('?', get_option('address'));
+$addresses_partner = explode('?', get_option('address_partner'));
 $ur_address = get_option('ur_address');
 $map_script = get_option('map_script');
 $name_org = get_option('name_org');
@@ -49,6 +50,16 @@ get_header();
                     <ul class="list_simple">
                         <?php foreach ($time_job_array as $time_job) : ?>
                             <li><?= $time_job['label'] ?> <?= $time_job['time'] ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="h5">Адреса магазинов партнеров:</div>
+
+                    <ul class="list_simple">
+                        <?php foreach ($addresses_partner as $item): ?>
+                            <li><?= $item; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
