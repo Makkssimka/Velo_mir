@@ -10,7 +10,7 @@ $cart_count = $cart->get_cart_contents_count();
     <div class="top-header">
         <div class="top-header__logo">
             <a href="/">
-                <img src="<?= get_asset_path('images/app', 'logo.svg') ?>" alt="logo">
+                <img src="<?= get_asset_path('images/app', 'logo_new.svg') ?>" alt="logo">
             </a>
         </div>
 

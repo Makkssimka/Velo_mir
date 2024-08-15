@@ -14,7 +14,7 @@ $categories = getMainCategoriesList();
 
         <div class="footer__content">
             <div class="footer__logo">
-                <img src="<?= get_asset_path('images/app', 'logo.svg') ?>" alt="logo">
+                <img src="<?= get_asset_path('images/app', 'logo_new.svg') ?>" alt="logo">
 
                 <a href="tel:+7 <?= get_option('telephone_num') ?>">+7 <?= get_option('telephone_num') ?></a>
 
