@@ -39,7 +39,7 @@ function velo_shop_custom(){
     wp_enqueue_style('slider', get_template_directory_uri()."/assets/styles/libraries/ion.rangeSlider.min.css", false, '1.0.0');
     wp_enqueue_style('carousel', get_template_directory_uri()."/assets/styles/libraries/owl.carousel.min.css", false, '1.0.0');
     wp_enqueue_style('carousel_theme', get_template_directory_uri()."/assets/styles/libraries/owl.theme.default.min.css", false, '1.0.0');
-    wp_enqueue_style('app', get_template_directory_uri()."/assets/styles/app.css", false, '1.0.0');
+    wp_enqueue_style('app', get_template_directory_uri()."/assets/styles/app.css", false, '1.0.1');
 
     wp_enqueue_script('box', get_template_directory_uri()."/assets/scripts/libraries/fslightbox.js", array(), 1.0, true);
     wp_enqueue_script('slider', get_template_directory_uri()."/assets/scripts/libraries/ion.rangeSlider.min.js", array(), 1.0, true);
