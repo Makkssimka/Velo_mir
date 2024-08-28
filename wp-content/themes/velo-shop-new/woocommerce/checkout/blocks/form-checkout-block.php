@@ -38,27 +38,6 @@ $address_list = explode('?', get_option('address'));
     </div>
 
     <div class="cart-form__item cart-form__item_top">
-        <label>Откуда удобнее забрать заказ*</label>
-
-        <div>
-            <?php foreach ($address_list as $index => $address) : ?>
-                <div class="input__radio">
-                    <input
-                        id="<?= 'address_'.$index ?>"
-                        type="radio"
-                        name="address"
-                        value="<?= trim($address) ?>"
-                        <?= $index === 0 ? 'checked' : ''  ?>
-                    >
-                    <label for="<?= 'address_'.$index ?>">
-                        <?= trim($address) ?>
-                    </label>
-                </div>
-            <?php endforeach ?>
-        </div>
-    </div>
-
-    <div class="cart-form__item cart-form__item_top">
         <label>Комментарий к заказу</label>
         <div class="relative">
             <div class="input-form__message"></div>
