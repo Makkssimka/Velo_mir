@@ -3,6 +3,15 @@ global $cart_ids;
 global $favorite_ids;
 global $compare_ids;
 $product = $args['product'];
+
+$product_term = get_the_terms($product->get_id(), 'product_tag')[0]->name ?? '';
+$tip = $product->get_attribute('tip-ts');
+
+if ($tip) {
+    $name = $tip . ' ' . $product_term;
+} else {
+    $name = $product->get_name();
+}
 ?>
 
 <div class="catalog-item">
