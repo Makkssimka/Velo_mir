@@ -5,11 +5,13 @@ global $compare_ids;
 $product = $args['product'];
 
 $product_term = get_the_terms($product->get_id(), 'product_tag')[0]->name ?? '';
+$product_cat = wc_get_product_category_list($product->get_id());
+
 $tip = $product->get_attribute('tip-ts');
 $generation = $product->get_attribute('stelspokolenie');
 $trechkolesnik = $product->get_attribute('nazvanie-trehkolesnik');
 
-if ($tip && mb_strpos($tip, 'велосипед') !== false) {
+if ($tip && mb_strpos($product_cat, 'велосипед') !== false) {
     if ($trechkolesnik) {
         $name = $tip . ' ' . $trechkolesnik;
     } else {
