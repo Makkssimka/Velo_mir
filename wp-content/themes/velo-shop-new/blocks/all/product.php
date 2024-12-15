@@ -11,7 +11,7 @@ $tip = $product->get_attribute('tip-ts');
 $generation = $product->get_attribute('stelspokolenie');
 $trechkolesnik = $product->get_attribute('nazvanie-trehkolesnik');
 
-if ($tip && mb_strpos($product_cat, 'велосипед') !== false) {
+if ($tip && mb_stripos($product_cat, 'велосипед') !== false) {
     if ($trechkolesnik) {
         $name = $tip . ' ' . $trechkolesnik;
     } else {
