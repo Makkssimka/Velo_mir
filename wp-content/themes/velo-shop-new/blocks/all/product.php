@@ -6,9 +6,10 @@ $product = $args['product'];
 
 $product_term = get_the_terms($product->get_id(), 'product_tag')[0]->name ?? '';
 $tip = $product->get_attribute('tip-ts');
+$generation = $product->get_attribute('stelspokolenie');
 
 if ($tip) {
-    $name = $tip . ' ' . $product_term;
+    $name = $tip . ' ' . $product_term . ($generation ? ' ' . $generation : '');
 } else {
     $name = $product->get_name();
 }
