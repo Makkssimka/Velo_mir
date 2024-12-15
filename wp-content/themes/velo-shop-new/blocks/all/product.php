@@ -45,7 +45,7 @@ if ($tip) {
       </div>
 
       <div class="catalog-item__title">
-        <a href="<?= get_permalink($product->get_id()) ?>"><?= $product->get_name() ?></a>
+        <a href="<?= get_permalink($product->get_id()) ?>"><?= $name ?></a>
       </div>
     </div>
 
