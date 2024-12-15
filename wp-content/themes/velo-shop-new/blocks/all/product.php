@@ -10,9 +10,11 @@ $generation = $product->get_attribute('stelspokolenie');
 $trechkolesnik = $product->get_attribute('nazvanie-trehkolesnik');
 
 if ($tip && mb_strpos($tip, 'велосипед') !== false) {
-    $name = $tip . ' ' . $product_term . ($generation ? ' ' . $generation : '');
-} elseif ($trechkolesnik) {
-    $name = $tip . ' ' . $trechkolesnik;
+    if ($trechkolesnik) {
+        $name = $tip . ' ' . $trechkolesnik;
+    } else {
+        $name = $tip . ' ' . $product_term . ($generation ? ' ' . $generation : '');
+    }
 } else {
     $name = $product->get_name();
 }
